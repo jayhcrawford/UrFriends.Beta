@@ -1,30 +1,38 @@
 import React from "react";
-import { useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { setHide } from "../features/modalSlice.js";
 
 const Modal = (props) => {
-  const [isVisible, setIsVisible] = useState(false);
+  const dispatch = useDispatch();
 
-  if (!isVisible) {
+  const handleClose = () => {
+    console.log("close the window");
+    dispatch(setHide())
+  };
+
+  //render
+  if (!props.visible) {
     return null;
   }
-
   return (
-    <div
-      style={{
-        opacity: "10%",
-        backgroundColor: "red",
-        display: "block",
-        position: "fixed",
-        width: "70%",
-        height: "70%",
-        top: "50%",
-        left: "50%",
-        transform: "translate(-50%, -50%)",
-      }}
-    >
-      {props.children}
-    </div>
+    <>
+      <div
+        style={{
+          opacity: "30%",
+          backgroundColor: "red",
+          display: "block",
+          position: "fixed",
+          width: "100%",
+          height: "100%",
+          top: "0%",
+          left: "0%",
+        }}
+      >
+        <button onClick={handleClose}>Close</button>
+        {props.children}
+      </div>
+    </>
   );
 };
 
-export default Modal
+export default Modal;

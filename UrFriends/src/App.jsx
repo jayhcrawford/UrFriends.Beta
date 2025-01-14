@@ -1,12 +1,13 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
+import { useSelector } from "react-redux";
 
-import Header from "./Header";
+import Header from "./components/Header";
 import Phonebook from "./components/Phonebook";
 import Modal from "./components/Modal";
 
-
 function App() {
+  const modalVisible = useSelector((state) => state.modal.visible);
   const [people, setPeople] = useState("");
   const [tiers, setTiers] = useState([]);
 
@@ -42,10 +43,26 @@ function App() {
 
   return (
     <>
+      <Modal visible={modalVisible} />
       <Header />
-      <Modal />
       <p></p>
       <Phonebook people={people} tiers={tiers} />
+      <footer>
+        <div
+          style={{
+            height: "10em",
+            marginTop: "2em",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "end",
+          }}
+          className="footer-contents"
+        >
+          <p style={{ padding: "1em" }}>
+            Jay Crawford - UrFriends - {new Date().getFullYear()}
+          </p>
+        </div>
+      </footer>
     </>
   );
 }

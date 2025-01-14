@@ -4,7 +4,7 @@ function Header() {
   return (
     <>
       <header>
-        <h1 id="header-logo-text">UrFriendsLoveU</h1>
+        <h1 id="header-logo-text">UrFriends</h1>
       </header>
       <button id="random-interact-btn" alt="Random Interaction Button" aria-label="Random Interaction Button">
         <i className="fa-solid fa-dice"></i>

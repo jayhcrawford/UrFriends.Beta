@@ -1,9 +1,12 @@
-import react, { useEffect } from "react";
+import { useSelector, useDispatch } from 'react-redux'
 import { useState } from "react";
 import ContactCard from "./ContactCard.jsx";
+import { setVisible } from '../features/modalSlice.js';
 
 function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
+
+  const dispatch = useDispatch()
 
   const handleExpand = (event) => {
     event.stopPropagation();
@@ -12,6 +15,7 @@ function Tier(props) {
 
   const handleTierSettings = (event) => {
     event.stopPropagation();
+    dispatch(setVisible())
     console.log("open tools");
   };
 
