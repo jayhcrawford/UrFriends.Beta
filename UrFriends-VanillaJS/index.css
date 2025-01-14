@@ -1,0 +1,213 @@
+:root {
+  /*This sets the standard font color*/
+  --base-high-cont-color: rgb(45, 4, 4);
+  --base-high-cont-hover: rgb(72, 11, 11);
+  --light-base-color: bisque;
+  --light-base-hover: rgb(244, 208, 165);
+}
+
+/*-- Standard Elements --*/
+
+body {
+  background-color: white;
+}
+
+/*-- (Close) Standard Elements --*/
+
+
+/*-- Classes --*/
+
+.tier-container {
+  background-color: var(--base-high-cont-color);
+  padding: .2em;
+  margin: 1em;
+  display: flex;
+  color: var(--light-base-color);
+  cursor: pointer;
+}
+
+.tier-container:hover {
+  background-color: var(--base-high-cont-hover);
+}
+
+.tier-settings-btn {
+  border-radius: 50%;
+  color: var(--base-high-cont-color);
+  font-size: 1.2em;
+  height: 2rem;
+  width: 2rem;
+  background-color: var(--light-base-color);
+  border: none;
+  cursor: pointer;
+  margin: 10px;
+}
+
+.tier-settings-btn:hover {
+  background-color: var(--light-base-hover);
+}
+
+.expand-collapse-btn {
+  color: var(--light-base-color);
+  font-size: 1.5em;
+  height: 2em;
+  width: 2em;
+  background-color: var(--base-high-cont-color);
+  border: none;
+  cursor: pointer;
+  margin: 2px;
+}
+
+.expand-collapse-span {
+  width: 5%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+.tier-title-span {
+  font-size: 30px;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 80%;
+}
+
+.tier-settings-span {
+  width: 15%;
+  display: flex;
+  justify-content: right;
+  align-items: center;
+}
+
+.contact-card {
+  background-color: var(--light-base-color);
+  padding: 1.2rem;
+
+}
+
+.contact-card:hover {
+  background-color: var(--light-base-hover);
+  cursor: pointer;
+}
+
+
+
+
+
+/*The following elements pertain to contents of a contact card.*/
+.contact-name, .last-contact, .last-convo-topic, .contact-action-btns {
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+}
+
+.contact-name, .last-contact, .last-convo-topic {
+  align-items: center;
+}
+
+.contact-name {
+  font-size: 1.2em;
+  display: inline-block;
+}
+
+.last-contact, .last-convo-topic {
+  font-size: .8em;
+}
+
+.last-contact {
+  display: inline-block;
+  margin-left: 1em;
+}
+
+
+.schedule-btn, .contact-btn {
+  font-size: 1.2em;
+  background-color: var(--light-base-color);
+  color: var(--base-high-cont-color);
+  border: .15em solid var(--base-high-cont-color);
+  border-radius: .2em;
+  margin: 0 .1em 0 .1em;
+  cursor: pointer;
+}
+
+.schedule-btn:hover, .contact-btn:hover {
+  background-color: var(--light-base-hover);
+}
+
+
+
+/*-- (Close) Classes --*/
+
+
+/*-- ID's --*/
+#header-logo-text {
+  /*This is the header's h1 text*/
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--base-high-cont-color);
+}
+
+#random-interact-btn,#main-menu-btn {
+  /*This is for the two circular buttons in the header*/
+  border-radius: 50%;
+  color: var(--light-base-color);
+  font-size: 2em;
+  height: 2em;
+  width: 2em;
+  background-color: var(--base-high-cont-color);
+  border: none;
+  cursor: pointer;
+  margin: 2px;
+}
+
+#random-interact-btn:hover, #main-menu-btn:hover {
+  background-color: var(--base-high-cont-hover);
+}
+
+#contacts-list {
+  /*This holds is the container for contact-cards-div. Its flex properties hold contact-cards-div center page.*/
+  height: 80vh;
+  display: flex;
+  justify-content: center;
+
+}
+
+#contact-cards-div {
+  /*This holds the tiers and contact cards in a div with overflow enabled*/
+  background-color: white;
+  overflow-y: scroll;
+}
+
+.invisible {
+  display: 'none'
+}
+
+
+/*-- (close )ID's --*/
+
+
+
+@media only screen and (min-width: 601px) {
+
+  #contact-cards-div {
+    width: 70%;
+  }
+
+  .contact-card {
+    margin: .5rem 2rem .5rem 2rem;
+  }
+  
+}
+
+
+@media only screen and (max-width: 600px) {
+
+  #contact-cards-div {
+    width: 100%;
+  }
+
+  .contact-card {
+    margin: .25rem .5rem .25rem .5rem;
+  }
+  
+}
+
+
+
+

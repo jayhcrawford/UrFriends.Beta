@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title></title>
+    
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="index.css">
+  </head>
+      <!--[if lt IE 7]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="#">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <div id="overlay">Overlay</div>
+    <header>
+    <h1 id="header-logo-text">UrFriendsLoveU</h1>
+  </header>
+  <button id="random-interact-btn" alt="Random Interaction Button" aria-label="Random Interaction Button">
+    <i class="fa-solid fa-dice"></i>
+  </button>
+  <button onclick="openOverlay()" id="main-menu-btn">
+    <i class="fa-solid fa-bars"></i>
+  </button>
+  <body>
+  
+    <section id="contacts-list">
+      <div id="contact-cards-div">
+        <article class="tier-and-contacts-container">
+        </article>
+      </div>
+    </section>
+  </body>
+
+
+</html>
+<script>
+  let lister = '';
+  let overlay = document.getElementById('overlay')
+  overlay.style.display = 'none';
+
+  function closeOverlay() {
+    overlay.style.display = 'none';
+  }
+
+  function openOverlay() {
+    if (overlay.style.display === "") {
+      overlay.style = "display: none;"
+    } else {
+      overlay.style = "position: fixed; display: 'block'; background-color: red; width: 80%; height: 100%;"
+      overlay.innerHTML = `<div>This is the modal<button onclick="closeOverlay()">Close</button></div>`
+    }
+  }
+
+  function toggleTier(status) {
+    console.log(status)
+  }
+
+  
+  fetch('http://localhost:3000/phonebook').then((response) => {
+  const jsonResponse = response.json();
+  return jsonResponse
+}).then((response) => {
+    let tiersObj = {};
+
+  response.forEach((contact) => {
+    if (tiersObj.hasOwnProperty(contact.tier)) {
+      tiersObj[contact.tier].push(contact)
+    } else {
+      tiersObj[contact.tier] = [contact];
+    }
+  })
+
+
+
+  class TierBody {
+    constructor(tier, contents) {
+      this.tier = tier;
+      this.contents = contents;
+    }
+
+    htmlConstructor() {
+      return `<p>This is where a contact card will go</p>`
+    }
+  }
+
+
+  
+
+  class TierHeader {
+    constructor({tier, contents, drop='closed'}) {
+      this.tier = tier;
+      this.contents = contents;
+      this.drop = drop;
+      this.stuff = ['bob'];
+    }
+    
+    htmlConstructor() {
+      return `
+          <div onclick="toggleTier(${this.stuff})" class="tier-container" title="Click To Expand Tier[x]">
+            <span  class="expand-collapse-span"><button class="expand-collapse-btn"><i class="fa fa-caret-square-o-down"></i><i class="fa fa-caret-square-o-right"></i></button></span>
+            <span class="tier-title-span"><p>Tier ${this.stuff}</p></span>
+            <span class="tier-settings-span"><button class="tier-settings-btn" title="Change Tier [x] Settings"><i class="fa-solid fa-gear"></i></button></span>
+          ${new TierBody(1, 2).htmlConstructor(1, 2)}
+            </div>
+          `
+    }
+
+  }
+  const check = new TierHeader(1, [1,2,3])
+
+
+  
+  //returns the tiers
+  const numOfTiers = Object.keys(tiersObj)
+
+  for (let i = 1; i <= numOfTiers.length; i++) {
+    lister += `
+    ${check.htmlConstructor(1, 2)}
+          <div class="tier-container" title="Click To Expand Tier[x]">
+            <span class="expand-collapse-span"><button class="expand-collapse-btn"><i class="fa fa-caret-square-o-down"></i><i class="fa fa-caret-square-o-right"></i></button></span>
+            <span class="tier-title-span"><p>Tier ${numOfTiers[i - 1]}</p></span>
+            <span class="tier-settings-span"><button class="tier-settings-btn" title="Change Tier [x] Settings"><i class="fa-solid fa-gear"></i></button></span>
+          </div>
+          `
+    tiersObj[i].forEach((contact) => {
+      lister += `
+            <div class="contact-card" title="Click For [x]'s Details">
+        <div class="contact-name-and-last-cont-div">
+          <span class="contact-name">${contact.name}</span>
+          <span class="last-contact">Last Contact: [x]</span>
+        </div>
+        <span class="last-convo-topic">Topic: ${contact.lastConvo[0].slice(0, 24)}...</span>
+        <span class="contact-action-btns"><button class="schedule-btn" title="Schedule A Conversation With [x]"><i class="fa-regular fa-calendar-days"></i></button><button class="contact-btn" title="Contact [x]"><i class="fa-regular fa-message"></i><i class="fa-solid fa-phone"></i></button></span>
+      </div>
+      `
+    })
+
+
+  }
+  
+
+  document.getElementById('contact-cards-div').innerHTML = lister;
+})
+console.log(document.getElementById('contact-cards-div').innerHTML)
+</script>
+<script src="https://kit.fontawesome.com/02b939d641.js" crossorigin="anonymous"></script>
+
+
+
+
+<!--
+
+
+
+
+
+
+
+
+-->

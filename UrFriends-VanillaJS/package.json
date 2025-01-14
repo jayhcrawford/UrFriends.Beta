@@ -1,0 +1,16 @@
+{
+  "name": "urfriends-vanillajs",
+  "version": "1.0.0",
+  "description": "Front End VanillaJS build of UrFriends",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jay Crawford",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "express": "^4.21.1"
+  }
+}
