@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setHide } from "../features/modalSlice.js";
 
 const Modal = (props) => {
+  const modalVisible = useSelector((state) => state.modal.visible);
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -11,7 +12,7 @@ const Modal = (props) => {
   };
 
   //render
-  if (!props.visible) {
+  if (!modalVisible) {
     return null;
   }
   return (
