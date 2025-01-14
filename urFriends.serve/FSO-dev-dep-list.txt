@@ -1,0 +1,40 @@
+json-server
+(json-server allows you to host a server locally ex. PORT3001)
+--global install--
+json-server --port 3001 --watch db.json
+
+--npx execution--
+npx json-server --port 3001 --watch db.json
+
+package.json script: [
+  "server": "json-server -p3001 --watch db.json"
+]
+
+
+
+nodemon
+(nodemon autosaves and restarts json-server whenever changes are made to the server.js file)
+npm install --save-dev nodemon
+
+package.json script: [
+    "dev": "nodemon server.js"
+]
+
+
+
+mongoose
+(interact with MongoDB)
+npm install mongoose
+
+
+dotenv
+(store and access environment variables)
+ES6 - import 'dotenv/config'
+
+
+
+SERVE THE EASY WAY;;
+npm install vite --save-dev
+npx vite
+npm serve .
+
