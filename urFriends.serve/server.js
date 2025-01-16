@@ -2,7 +2,7 @@ import express from "express";
 import "dotenv/config";
 const uri = process.env.MONGO_URI;
 import axios from "axios";
-import { Entry } from "./models/Contact.js";
+import { Entry } from "./models/contact.js";
 import cors from "cors";
 
 import { requestLogger } from "./utils/logger.js";
@@ -25,7 +25,6 @@ app.get("/", (request, response) =>
 
 app.post('/reset', async (request, response) => {
   await Entry.deleteMany({})
-
   response.status(204).end()
 })
 

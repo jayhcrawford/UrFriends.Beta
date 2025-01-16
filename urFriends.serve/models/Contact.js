@@ -1,13 +1,8 @@
-import "dotenv/config";
-import mongoose, { model } from "mongoose";
+const mongoose = require("mongoose");
 
 const url = process.env.MONGO_URI;
 
-const Contact = new mongoose.Schema({
-  name: String,
-  phoneNumber: String,
-  lastConvo: { type: Array },
-});
+console.log("connecting to MongoDB...");
 
 mongoose.set("strictQuery", false);
 mongoose
@@ -16,9 +11,34 @@ mongoose
     console.log("connected to MongoDB from models/contact.js");
   })
   .catch((error) => {
-    console.log("error connecting to MongoDB:", error.message);
+    console.log(
+      "error connecting to MongoDB in models/contact.js:",
+      error.message
+    );
   });
-Contact.set("toJSON", {
+
+const contactSchema = new mongoose.Schema({
+  name: String,
+  tier: Number,
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User",
+  },
+  phoneNumber: {
+    type: String,
+    default: null,
+  },
+  email: {
+    type: String,
+    default: null,
+  },
+  lastConvo: {
+    type: Array,
+    default: null,
+  },
+});
+
+contactSchema.set("toJSON", {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -26,7 +46,6 @@ Contact.set("toJSON", {
   },
 });
 
-const Entry = mongoose.model("Contact", Contact);
+const Contact = mongoose.model("contact", contactSchema);
 
-export const schema = model.schema;
-export { Entry };
+module.exports = Contact;

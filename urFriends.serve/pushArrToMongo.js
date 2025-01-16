@@ -6,7 +6,6 @@ import db from './db.json' with {type: "json"}
 const arr = db.phonebook[0].contacts;
 
 
-
 /*This async program will take every value in "arr" and push it to MongoDB*/
 async function pushArrToMongo() {
   const client = new MongoClient(uri);

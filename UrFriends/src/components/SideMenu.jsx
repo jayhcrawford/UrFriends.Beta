@@ -1,8 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideSideMenu } from "../features/sideMenuSlice";
+import { logout } from "../features/loginSlice";
 
-const SideMenu = () => {
+const SideMenu = (props) => {
   const isVisible = useSelector((state) => state.sideMenu.visible);
 
   const dispatch = useDispatch();
@@ -16,6 +17,8 @@ const SideMenu = () => {
     event.stopPropagation();
     dispatch(hideSideMenu());
   };
+
+
 
   //render
   if (!isVisible) {
@@ -47,6 +50,7 @@ const SideMenu = () => {
         }}
       >
         <button onClick={(event) => handleClose(event)}>Close</button>
+        <button onClick={props.logout}>Log Out</button>
       </div>
     </>
   );

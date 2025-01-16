@@ -8,6 +8,7 @@ function Header() {
   const handleOpenSideMenu = () => {
     console.log("click")
     dispatch(showSideMenu());
+    
   };
 
   return (

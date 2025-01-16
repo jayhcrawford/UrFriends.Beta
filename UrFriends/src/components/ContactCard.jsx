@@ -15,12 +15,11 @@ function ContactCard(props) {
         <div
 
           className="contact-card-expanded"
-          title="Click For [x]'s Details"
         >
           <div className="contact-expanded-name-phone-email">
             <span className="contact-name">
               {props.person.name} ____Phone Number: {props.person.phoneNumber}{" "}
-              ____Email:{" "}
+              ____Email:{" "}{props.person.email ? props.person.email : null}
             </span>
           </div>
           <br />
@@ -41,7 +40,12 @@ function ContactCard(props) {
               highlight important things?
             </ul>
           </div>
-          <div className="contact-expanded-action-buttons"></div>
+          <div className="contact-expanded-action-buttons">
+            <button>Schedule Conversation with {props.person.name}</button><br/>
+            <button>Convo Starters</button><br/>
+            <button>We Spoke Today</button><br/>
+            <button>Settings for {props.person.name}</button><br/>
+          </div>
           
           <div className="contact-expanded-button-div"><button onClick={(event) => handleExpand(event)}>Collapse</button></div>
         </div>
@@ -56,7 +60,7 @@ function ContactCard(props) {
         <div
           onClick={handleExpand}
           className="contact-card"
-          title="Click For [x]'s Details"
+         
         >
           <div className="contact-name-and-last-cont-div">
             <span className="contact-name">{props.person.name}</span>
