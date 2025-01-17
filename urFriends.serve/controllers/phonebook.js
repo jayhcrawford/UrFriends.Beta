@@ -27,13 +27,16 @@ phonebookRouter.get('/string', async (request, response) => {
 })
 
 phonebookRouter.post('/reset', async (request, response) => {
-  await Contact.deleteMany({})
+  await Contact.deleteMany()
   response.status(204).end()
 })
 
 phonebookRouter.post('/', async (request, response) => {
-  await Contact.insertMany(arr)
-  response.status(204).end()
+  const newContact = new Contact(request.body);
+  const result = await newContact.save();
+
+  console.log(result)
+  response.status(200).json(request.body)
 })
 
 phonebookRouter.post('/updateMany', async (request, response) => {
