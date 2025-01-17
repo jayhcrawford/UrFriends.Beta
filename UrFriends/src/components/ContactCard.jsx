@@ -1,6 +1,15 @@
 import React from "react";
 import { useState } from "react";
 
+function getDateFromDateTime(dateTimeString) {
+  // Create a Date object from the string
+  const date = new Date(dateTimeString);
+  
+  // Use toLocaleDateString to get only the date part
+  return date.toLocaleDateString();
+}
+
+
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -8,6 +17,7 @@ function ContactCard(props) {
     event.stopPropagation();
     setIsExpanded(!isExpanded);
   };
+
 
   if (isExpanded) {
     return (
@@ -27,10 +37,10 @@ function ContactCard(props) {
           <div className="contact-expanded-recent-convos">
             <ul>
               <h4>Recent Conversations</h4>
-              {props.person.lastConvo.map((conversation) => {
+              {props.person.lastConvo[0].date === null ? null : props.person.lastConvo.map((conversation) => {
                 return (
                   <li key={`${conversation.date}+${conversation.topic}`}>
-                    {conversation.topic}
+                    { props.person.lastConvo[0].date === null ? null: getDateFromDateTime(props.person.lastConvo[0].date)} - {conversation.topic}
                   </li>
                 );
               })}
@@ -65,11 +75,11 @@ function ContactCard(props) {
           <div className="contact-name-and-last-cont-div">
             <span className="contact-name">{props.person.name}</span>
             <span className="last-contact">
-              Last Contact: {props.person.lastConvo[0].date}
+              { props.person.lastConvo[0].date === null ? `Have a conversation with ${props.person.name}!` : "Last Contact:" + getDateFromDateTime(props.person.lastConvo[0].date)}
             </span>
           </div>
           <span className="last-convo-topic">
-            Topic: {props.person.lastConvo[0].topic}
+            {props.person.lastConvo[0].date === null ? null : "Topic: " + props.person.lastConvo[0].topic}
           </span>
           <span className="contact-action-btns">
             <button

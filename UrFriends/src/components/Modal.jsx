@@ -8,7 +8,7 @@ const Modal = (props) => {
 
   const handleClose = () => {
     console.log("close the window");
-    dispatch(setHide())
+    dispatch(setHide());
   };
 
   //render
@@ -17,18 +17,7 @@ const Modal = (props) => {
   }
   return (
     <>
-      <div
-        style={{
-          opacity: "30%",
-          backgroundColor: "red",
-          display: "block",
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          top: "0%",
-          left: "0%",
-        }}
-      >
+      <div className="modal-base-transparency">
         <button onClick={handleClose}>Close</button>
         {props.children}
       </div>

@@ -2,18 +2,20 @@ import { useDispatch } from "react-redux";
 import Tier from "./Tier.jsx";
 import { setVisibleNewPersonModal } from "../features/newPersonModalSlice.js";
 
-
 function Phonebook(props) {
   const dispatch = useDispatch();
 
   const addContact = () => {
-    dispatch(setVisibleNewPersonModal())
-  }
+    dispatch(setVisibleNewPersonModal());
+  };
 
   const editTiers = () => {
-    console.log("edit tiers")
-  }
+    console.log("edit tiers");
+  };
 
+  const bulkAdd = () => {
+    console.log("bulk add");
+  };
 
   //render
   if (!props.people) {
@@ -24,6 +26,7 @@ function Phonebook(props) {
       <div>
         <button onClick={addContact}>Add Contact</button>
         <button onClick={editTiers}>Edit Tiers</button>
+        <button onClick={bulkAdd}>Bulk Add People</button>
         {/*contacts-list section is the flex container for contact-cards-div and any content below the header*/}
         <section id="contacts-list">
           {/*contact-cards-div is where the tiers and contact cards will be displayed.*/}

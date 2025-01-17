@@ -6,9 +6,7 @@ function Header() {
   const dispatch = useDispatch();
 
   const handleOpenSideMenu = () => {
-    console.log("click")
     dispatch(showSideMenu());
-    
   };
 
   return (

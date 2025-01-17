@@ -2,8 +2,11 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setHideNewPersonModal } from "../features/newPersonModalSlice.js";
 
+import { postContact } from "../../services/contactService.js";
+
 const newPersonModal = (props) => {
   const modalVisible = useSelector((state) => state.newPersonModal.visible);
+  const loggedIn = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
 
   const handleClose = () => {
@@ -18,19 +21,47 @@ const newPersonModal = (props) => {
       name: event.target.contactName.value,
       phoneNumber: event.target.contactPhone.value,
       email: event.target.contactEmail.value,
-      lastConvo: [{date: null}]
+      lastConvo: [{ date: null }],
+      user: loggedIn.user.id,
     };
+    let newPhonebook = {};
 
-    //copy phonebook in state
-    let newPeople = { ...props.people };
-    //edit the tier that will be changed
-    const newTier = newPeople[event.target.tier.value].concat(newPerson);
-    //assemble the new phonebook and update state passed from ../App.jsx
-    const newPhonebook = {
-      ...props.people,
-      [event.target.tier.value]: newTier
+    if (Object.keys(props.people) != 0) {
+      //copy phonebook in state
+      let newPeople = { ...props.people };
+      //if the tier has already been created by a previous contact creation
+      if (Object.hasOwn(newPeople, event.target.tier.value)) {
+        //edit the tier that will be changed
+        const newTier = newPeople[event.target.tier.value].concat(newPerson);
+        //assemble the new phonebook and update state passed from ../App.jsx
+        newPhonebook = {
+          ...props.people,
+          [event.target.tier.value]: newTier,
+        };
+      } else {
+        //we need to create a new key in the newPhonebook object
+        newPhonebook = {
+          ...props.people,
+          [event.target.tier.value]: [newPerson],
+        };
+      }
+
+      props.setPhonebook(newPhonebook);
+      postContact(newPerson);
+      //if the contact being added is in a tier that doesn't yet exist
+      if (!Object.hasOwn(props.people, event.target.tier.value)) {
+        const newTiers = props.tiers.concat(newPerson.tier);
+        props.setTiers(newTiers);
+      }
+    } else {
+      //The user has no contacts
+      const createPhonebook = {
+        [newPerson.tier]: [newPerson],
+      };
+      props.setTiers([newPerson.tier]);
+      props.setPhonebook(createPhonebook);
+      postContact(newPerson);
     }
-    props.setPhonebook(newPhonebook)
 
     event.target.contactName.value = "";
     event.target.contactPhone.value = "";
@@ -47,28 +78,8 @@ const newPersonModal = (props) => {
   }
   return (
     <>
-      <div
-        style={{
-          backgroundColor: "rgba(200, 0, 0, .2)",
-          display: "flex",
-          position: "fixed",
-          width: "100%",
-          height: "100%",
-          top: "0%",
-          left: "0%",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            border: "1px solid black",
-            display: "inline-block",
-            padding: "2em",
-            backgroundColor: "white",
-            height: "300px",
-            margin: "10em",
-          }}
-        >
+      <div className="modal-base-transparency">
+        <div className="modal-box">
           <form onSubmit={(event) => handleAdd(event)}>
             <button onClick={handleClose}>Close</button>
             <h3>Add A New Person</h3>
@@ -79,13 +90,7 @@ const newPersonModal = (props) => {
             Email: <input name="contactEmail"></input>
             <br />
             Tier:
-            <input
-              type="radio"
-              id="tier1"
-              name="tier"
-              value="1"
-              required
-            />
+            <input type="radio" id="tier1" name="tier" value="1" required />
             <label htmlFor="tier1">1</label>
             <input type="radio" id="tier2" name="tier" value="2" />
             <label htmlFor="tier2">2</label>
