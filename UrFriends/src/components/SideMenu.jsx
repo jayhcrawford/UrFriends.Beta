@@ -27,27 +27,11 @@ const SideMenu = (props) => {
   return (
     <>
       <div
-        style={{
-          position: "fixed",
-          backgroundColor: "rgba(0,0,0,0.3)",
-          top: 0,
-          left: 0,
-          width: "100%",
-          height: "100%",
-        }}
+        className="side-menu-transparency-base"
         onClick={(event) => handleClickAway(event)}
       ></div>
       <div
-        style={{
-          position: "fixed",
-          backgroundColor: "white",
-          boxShadow:
-            "20px 1px 10px rgba(0,0,0,0.3), 20px -5px 10px rgba(0,0,0,0.3)",
-          top: 0,
-          left: 0,
-          width: "50%",
-          height: "100%",
-        }}
+        className="side-menu"
       >
         <button onClick={(event) => handleClose(event)}>Close</button>
         <button onClick={props.logout}>Log Out</button>
@@ -57,3 +41,27 @@ const SideMenu = (props) => {
 };
 
 export default SideMenu;
+
+/* 
+style={{
+  position: "fixed",
+  backgroundColor: "rgba(0,0,0,0.3)",
+  top: 0,
+  left: 0,
+  width: "100%",
+  height: "100%",
+}} */
+
+
+/* 
+
+  style={{
+    position: "fixed",
+    backgroundColor: "white",
+    boxShadow:
+      "20px 1px 10px rgba(0,0,0,0.3), 20px -5px 10px rgba(0,0,0,0.3)",
+    top: 0,
+    left: 0,
+    width: "50%",
+    height: "100%",
+  }} */

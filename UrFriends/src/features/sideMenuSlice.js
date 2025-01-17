@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit'
 export const sideMenuSlice = createSlice({
   name: 'modal',
   initialState: {
-    visible: false
+    visible: true
  },
   reducers: {
     showSideMenu: (state, action) => {
