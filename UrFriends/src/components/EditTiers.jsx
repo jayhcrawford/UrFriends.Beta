@@ -29,6 +29,7 @@ const ListFormTier = (props) => {
 };
 
 const EditTiers = (props) => {
+
   const tiers = Object.keys(props.phonebook);
 
   return (
