@@ -64,10 +64,26 @@ function App() {
        setTiers(tiersArray);
      });
 
+     const dummyObj = {
+      1: "1d",
+      "2": "1w", 
+      "3": "1m",
+      "4": "3m",
+      "5": "6m",
+     }
+
      axios
      .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
      .then((response) => {
-      setUserSettings(response.data.tierTime)
+      console.log(response)
+      if (response.data != null) {
+        setUserSettings(response.data.tierTime)
+      }
+      if (response.data === null) {
+        setUserSettings(dummyObj)
+      }
+
+
      })
    }
   }, [loggedIn]);
