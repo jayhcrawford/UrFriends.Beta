@@ -14,6 +14,7 @@ import { login, logout } from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
+import ReachOutModal from "./components/ReachOutModal";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
@@ -75,7 +76,6 @@ function App() {
      axios
      .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
      .then((response) => {
-      console.log(response)
       if (response.data != null) {
         setUserSettings(response.data.tierTime)
       }
@@ -121,6 +121,7 @@ function App() {
   return (
     <>
       <NewPersonModal people={phonebook} setPhonebook={setPhonebook} setTiers={setTiers} tiers={tiers} />
+      <ReachOutModal />
       <SideMenu logout={handleLogOut} />
       <Modal />
       <Header />

@@ -4,6 +4,7 @@ import sideMenuReducer from '../features/sideMenuSlice'
 import loginReducer from '../features/loginSlice'
 import phonebookReducer from '../features/phonebookSlice'
 import newPersonReducer from '../features/newPersonModalSlice'
+import reachOutReducer from '../features/reachOutModalSlice'
 
 
 export default configureStore({
@@ -12,6 +13,7 @@ export default configureStore({
     sideMenu: sideMenuReducer,
     login: loginReducer,
     phonebook: phonebookReducer,
-    newPersonModal: newPersonReducer
+    newPersonModal: newPersonReducer,
+    reachOutModal: reachOutReducer
   },
 })

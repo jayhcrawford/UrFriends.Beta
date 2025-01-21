@@ -1,5 +1,7 @@
 import React from "react";
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setVisibleReachOutModal } from "../features/reachOutModalSlice";
 
 function getDateFromDateTime(dateTimeString) {
   // Create a Date object from the string
@@ -31,11 +33,17 @@ const ContactStatusIndicator = (props) => {
 
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const dispatch = useDispatch();
 
   const handleExpand = (event) => {
     event.stopPropagation();
     setIsExpanded(!isExpanded);
   };
+
+  const handleClickReachOut = (event) => {
+    event.stopPropagation();
+    dispatch(setVisibleReachOutModal())
+  }
 
   if (isExpanded) {
     return (
@@ -121,7 +129,7 @@ function ContactCard(props) {
             >
               <i className="fa-regular fa-calendar-days"></i>
             </button>
-            <button className="contact-btn" title="Contact [x]">
+            <button onClick={(event) => handleClickReachOut(event)} className="contact-btn" title="Contact [x]">
               <i className="fa-regular fa-message"></i>
               <i className="fa-solid fa-phone"></i>
             </button>
