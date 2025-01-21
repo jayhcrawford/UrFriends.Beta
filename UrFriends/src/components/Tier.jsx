@@ -75,6 +75,7 @@ function Tier(props) {
             Tier {props.tierName} -{" "}
             {interpolateTierTimePeriod(props.settings[props.tierName])}
           </p>
+          <p style={{ fontSize: "12px" }}>Contacted since: {windowOfLastContact}</p>
         </span>
         <span className="tier-settings-span">
           <button
@@ -106,6 +107,7 @@ function Tier(props) {
             Tier {props.tierName} -{" "}
             {interpolateTierTimePeriod(props.settings[props.tierName])}
           </p>
+          <p style={{ fontSize: "12px" }}>Contacted since: {windowOfLastContact}</p>
         </span>
         <span className="tier-settings-span">
           <button

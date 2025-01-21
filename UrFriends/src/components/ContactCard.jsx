@@ -1,14 +1,20 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setPerson, setVisibleReachOutModal } from "../features/reachOutModalSlice";
+import {
+  setPerson,
+  setVisibleReachOutModal,
+} from "../features/reachOutModalSlice";
 
 function getDateFromDateTime(dateTimeString) {
   // Create a Date object from the string
   const date = new Date(dateTimeString);
 
-  // Use toLocaleDateString to get only the date part
-  return date.toLocaleDateString();
+  const month = date.getMonth() + 1;
+  const year = date.getFullYear();
+  const day = date.getDate() + 1;
+
+  return `${month}/${day}/${year}`;
 }
 
 const ContactStatusIndicator = (props) => {
@@ -35,6 +41,21 @@ function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
 
+  //sort the conversations coming from Mongo to guaruntee that they will be in descending order
+  let mostRecentConversation = {};
+  let sortedConversations;
+  if (props.person.lastConvo[0].date === null) {
+    mostRecentConversation = null;
+  } else {
+    sortedConversations = props.person.lastConvo.sort(
+      (a, b) => new Date(b.date) - new Date(a.date)
+    );
+    mostRecentConversation = {
+      date: sortedConversations[0].date,
+      topic: sortedConversations[0].topic,
+    };
+  }
+
   const handleExpand = (event) => {
     event.stopPropagation();
     setIsExpanded(!isExpanded);
@@ -42,9 +63,9 @@ function ContactCard(props) {
 
   const handleClickReachOut = (event) => {
     event.stopPropagation();
-    dispatch(setVisibleReachOutModal())
-    dispatch(setPerson(props.person))
-  }
+    dispatch(setVisibleReachOutModal());
+    dispatch(setPerson(props.person));
+  };
 
   if (isExpanded) {
     return (
@@ -63,16 +84,18 @@ function ContactCard(props) {
               <h4>Recent Conversations</h4>
               {props.person.lastConvo[0].date === null
                 ? null
-                : props.person.lastConvo.map((conversation) => {
-                    return (
-                      <li key={`${conversation.date}+${conversation.topic}`}>
-                        {props.person.lastConvo[0].date === null
-                          ? null
-                          : getDateFromDateTime(conversation.date)}{" "}
-                        - {conversation.topic}
-                      </li>
-                    );
-                  })}
+                : props.person.lastConvo
+                    .sort((a, b) => new Date(b.date) - new Date(a.date))
+                    .map((conversation) => {
+                      return (
+                        <li key={`${conversation.date}+${conversation.topic}`}>
+                          {props.person.lastConvo[0].date === null
+                            ? null
+                            : getDateFromDateTime(conversation.date)}{" "}
+                          - {conversation.topic}
+                        </li>
+                      );
+                    })}
               <br />
               TODO: implement expanding ability. more than 5 conversations, and
               the older ones are hidden. also implement starring convos to
@@ -105,7 +128,7 @@ function ContactCard(props) {
           <div className="recent-contact-status-div">
             <ContactStatusIndicator
               windowOfLastContact={props.windowOfLastContact}
-              lastContact={props.person.lastConvo[0].date}
+              lastContact={mostRecentConversation.date}
               checked={true}
             />
           </div>
@@ -115,13 +138,13 @@ function ContactCard(props) {
               {props.person.lastConvo[0].date === null
                 ? `Have a conversation with ${props.person.name}!`
                 : "Last Contact:" +
-                  getDateFromDateTime(props.person.lastConvo[0].date)}
+                  getDateFromDateTime(mostRecentConversation.date)}
             </span>
           </div>
           <span className="last-convo-topic">
             {props.person.lastConvo[0].date === null
               ? null
-              : "Topic: " + props.person.lastConvo[0].topic}
+              : "Topic: " + mostRecentConversation.topic}
           </span>
           <span className="contact-action-btns">
             <button
@@ -130,7 +153,11 @@ function ContactCard(props) {
             >
               <i className="fa-regular fa-calendar-days"></i>
             </button>
-            <button onClick={(event) => handleClickReachOut(event)} className="contact-btn" title="Contact [x]">
+            <button
+              onClick={(event) => handleClickReachOut(event)}
+              className="contact-btn"
+              title="Contact [x]"
+            >
               <i className="fa-regular fa-message"></i>
               <i className="fa-solid fa-phone"></i>
             </button>
