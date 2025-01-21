@@ -5,6 +5,7 @@ const UserData = require('../models/userData')
 
 
 
+
 //get all users
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({})

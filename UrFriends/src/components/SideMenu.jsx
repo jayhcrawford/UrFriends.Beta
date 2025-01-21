@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { hideSideMenu } from "../features/sideMenuSlice";
-import { logout } from "../features/loginSlice";
+import { logoutDispatch } from "../features/loginSlice";
 
 const SideMenu = (props) => {
   const isVisible = useSelector((state) => state.sideMenu.visible);

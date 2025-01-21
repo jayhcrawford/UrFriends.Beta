@@ -29,6 +29,16 @@ phonebookRouter.get("/string", async (request, response) => {
   response.json(phonebook);
 });
 
+//Get users phonebook and settings
+phonebookRouter.post("/getContent", async (request, response) => {
+  const verified = jwt.verify(request.body.user.token, process.env.SECRET);
+  const id = verified.id;
+
+  const settings = await UserData.findOne({ user: id });
+  const phonebook = await Contact.find({ user: id });
+  response.json({phonebook: phonebook, settings: settings});
+});
+
 //get user's userData
 phonebookRouter.get("/userData/:id", async (request, response) => {
   const phonebook = await UserData.findOne({ user: request.params.id });
@@ -49,7 +59,7 @@ phonebookRouter.post("/updateMany", async (request, response) => {
 });
 
 phonebookRouter.patch("/patchConversation", async (request, response) => {
-  console.log(request.body)
+  console.log(request.body);
   const update = await Contact.findOneAndUpdate(
     { _id: request.body.id },
     { lastConvo: request.body.lastConvo }

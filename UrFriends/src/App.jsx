@@ -10,12 +10,15 @@ import SideMenu from "./components/SideMenu";
 import NewPersonModal from "./components/NewPersonModal";
 import Footer from "./components/Footer";
 
-import { login, logout } from "./features/loginSlice";
+import { loginDispatch, logoutDispatch } from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
 import TierSettingsModal from "./components/SettingsModal";
+
+import { login } from "../services/loginService";
+import { getUsersPhonebook } from "../services/contactService";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
@@ -29,61 +32,29 @@ function App() {
     //TODO: verify that the user's credentials are valid and return the user ID
     if (localStorage.getItem("loggedIn")) {
       const localToken = JSON.parse(localStorage.getItem("loggedIn"));
-      dispatch(login({ user: localToken }));
+      dispatch(loginDispatch({ user: localToken }));
     }
   }
 
   //TODO: remove redux architecture related to previously storing phonebook in state
 
-  //is the user logged in?
-  //TODO: implement loginSlice
   useEffect(() => {
     if (loggedIn) {
-      //get server data
-      axios
-        .get(`http://localhost:3000/api/phonebook/${loggedIn.user.id}`)
-        .then((response) => {
-          //this works if the user data is stored as one long string... don't think it'll work
-          //being fetched from api/phonebook/string
-          //const result = JSON.parse(response.data[0].phonebookData);
-
-          //This works if we fetch all of the phonebook entries from one massive collection. Not ideal. Works for beta.
-          let tieredPhonebook = {};
-          response.data.map((person) => {
-            if (Object.hasOwn(tieredPhonebook, `${person.tier}`)) {
-              tieredPhonebook[person.tier].push(person);
-            } else {
-              tieredPhonebook[person.tier] = [person];
-            }
-          });
-
-          const result = tieredPhonebook;
-          return result;
-        })
-        .then((response) => {
-          setPhonebook(response);
-          let tiersArray = Object.keys(response);
+      //fetch phonebook and settings
+      const fetchUserData = async () => {
+        try {
+          //get user's phonebook and settings
+          const result = await getUsersPhonebook(loggedIn);
+          //set state for phonebook data and tiers data
+          setPhonebook(result.phonebook);
+          let tiersArray = Object.keys(result.phonebook);
           setTiers(tiersArray);
-        });
-
-      const dummyObj = {
-        1: "1d",
-        2: "1w",
-        3: "1m",
-        4: "3m",
-        5: "6m",
+          setUserSettings(result.settings.tierTime);
+        } catch (error) {
+          console.log(error);
+        }
       };
-
-      axios
-        .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
-        .then((response) => {
-          if (response.data != null) {
-            setUserSettings(response.data.tierTime);
-          }
-          if (response.data === null) {
-            setUserSettings(dummyObj);
-          }
-        });
+      fetchUserData();
     }
   }, [loggedIn]);
 
@@ -92,13 +63,24 @@ function App() {
     const password = event.target.password.value;
     const username = event.target.username.value;
 
+    //try to login
     try {
-      const result = await axios.post("http://localhost:3000/api/login", {
+      const result = await login({
         username: username,
         password: password,
       });
-      dispatch(login({ user: result.data }));
-      localStorage.setItem("loggedIn", JSON.stringify(result.data));
+
+      //Store the logged in user in store/localStorage
+      dispatch(loginDispatch({ user: result.data.user }));
+      localStorage.setItem(
+        "loggedIn",
+        JSON.stringify({
+          ...result.data.user,
+        })
+      );
+
+      //set user settings in state
+      setUserSettings(result.data.settings);
     } catch (error) {
       console.log(error);
     }
