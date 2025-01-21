@@ -4,11 +4,30 @@ import { useState } from "react";
 function getDateFromDateTime(dateTimeString) {
   // Create a Date object from the string
   const date = new Date(dateTimeString);
-  
+
   // Use toLocaleDateString to get only the date part
   return date.toLocaleDateString();
 }
 
+const ContactStatusIndicator = (props) => {
+  const date1 = new Date(props.windowOfLastContact);
+  const date2 = new Date(props.lastContact);
+
+  if (date1 > date2) {
+    return (
+      <>
+        <p style={{ color: "red" }}>X</p>
+      </>
+    );
+  }
+  if (date1 < date2) {
+    return (
+      <>
+        <p style={{ color: "green" }}>O</p>
+      </>
+    );
+  }
+};
 
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -18,18 +37,14 @@ function ContactCard(props) {
     setIsExpanded(!isExpanded);
   };
 
-
   if (isExpanded) {
     return (
       <>
-        <div
-
-          className="contact-card-expanded"
-        >
+        <div className="contact-card-expanded">
           <div className="contact-expanded-name-phone-email">
             <span className="contact-name">
               {props.person.name} ____Phone Number: {props.person.phoneNumber}{" "}
-              ____Email:{" "}{props.person.email ? props.person.email : null}
+              ____Email: {props.person.email ? props.person.email : null}
             </span>
           </div>
           <br />
@@ -37,13 +52,18 @@ function ContactCard(props) {
           <div className="contact-expanded-recent-convos">
             <ul>
               <h4>Recent Conversations</h4>
-              {props.person.lastConvo[0].date === null ? null : props.person.lastConvo.map((conversation) => {
-                return (
-                  <li key={`${conversation.date}+${conversation.topic}`}>
-                    { props.person.lastConvo[0].date === null ? null: getDateFromDateTime(props.person.lastConvo[0].date)} - {conversation.topic}
-                  </li>
-                );
-              })}
+              {props.person.lastConvo[0].date === null
+                ? null
+                : props.person.lastConvo.map((conversation) => {
+                    return (
+                      <li key={`${conversation.date}+${conversation.topic}`}>
+                        {props.person.lastConvo[0].date === null
+                          ? null
+                          : getDateFromDateTime(conversation.date)}{" "}
+                        - {conversation.topic}
+                      </li>
+                    );
+                  })}
               <br />
               TODO: implement expanding ability. more than 5 conversations, and
               the older ones are hidden. also implement starring convos to
@@ -51,15 +71,20 @@ function ContactCard(props) {
             </ul>
           </div>
           <div className="contact-expanded-action-buttons">
-            <button>Schedule Conversation with {props.person.name}</button><br/>
-            <button>Convo Starters</button><br/>
-            <button>We Spoke Today</button><br/>
-            <button>Settings for {props.person.name}</button><br/>
+            <button>Schedule Conversation with {props.person.name}</button>
+            <br />
+            <button>Convo Starters</button>
+            <br />
+            <button>We Spoke Today</button>
+            <br />
+            <button>Settings for {props.person.name}</button>
+            <br />
           </div>
-          
-          <div className="contact-expanded-button-div"><button onClick={(event) => handleExpand(event)}>Collapse</button></div>
+
+          <div className="contact-expanded-button-div">
+            <button onClick={(event) => handleExpand(event)}>Collapse</button>
+          </div>
         </div>
-        
       </>
     );
   }
@@ -67,19 +92,27 @@ function ContactCard(props) {
   if (!isExpanded) {
     return (
       <>
-        <div
-          onClick={handleExpand}
-          className="contact-card"
-         
-        >
+        <div onClick={handleExpand} className="contact-card">
+          <div className="recent-contact-status-div">
+            <ContactStatusIndicator
+              windowOfLastContact={props.windowOfLastContact}
+              lastContact={props.person.lastConvo[0].date}
+              checked={true}
+            />
+          </div>
           <div className="contact-name-and-last-cont-div">
             <span className="contact-name">{props.person.name}</span>
             <span className="last-contact">
-              { props.person.lastConvo[0].date === null ? `Have a conversation with ${props.person.name}!` : "Last Contact:" + getDateFromDateTime(props.person.lastConvo[0].date)}
+              {props.person.lastConvo[0].date === null
+                ? `Have a conversation with ${props.person.name}!`
+                : "Last Contact:" +
+                  getDateFromDateTime(props.person.lastConvo[0].date)}
             </span>
           </div>
           <span className="last-convo-topic">
-            {props.person.lastConvo[0].date === null ? null : "Topic: " + props.person.lastConvo[0].topic}
+            {props.person.lastConvo[0].date === null
+              ? null
+              : "Topic: " + props.person.lastConvo[0].topic}
           </span>
           <span className="contact-action-btns">
             <button

@@ -19,10 +19,15 @@ phonebookRouter.get('/:id', async (request, response) => {
   response.json(phonebook)
 })
 
-
 //get all contacts
 phonebookRouter.get('/string', async (request, response) => {
   const phonebook = await UserData.find({})
+  response.json(phonebook)
+})
+
+//get user's userData
+phonebookRouter.get('/userData/:id', async (request, response) => {
+  const phonebook = await UserData.findOne({ user: request.params.id })
   response.json(phonebook)
 })
 

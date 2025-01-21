@@ -43,20 +43,14 @@ body {
   background-color: var(--light-base-hover);
 }
 
-.expand-collapse-btn {
+.expand-collapse-div {
   color: var(--light-base-color);
-  font-size: 1.5em;
   height: 2em;
   width: 2em;
-  background-color: var(--base-high-cont-color);
-  border: none;
-  cursor: pointer;
   margin: 2px;
+  padding: .5em
 }
 
-.expand-collapse-btn:hover {
-  background-color: var(--base-high-cont-hover);
-}
 
 .expand-collapse-span {
   width: 5%;
@@ -86,7 +80,7 @@ body {
   padding: 1.2rem;
   /*CSS Grid settings for contained elements*/
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(6, 1fr);
   grid-template-rows: 1fr;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
@@ -133,7 +127,7 @@ body {
 }
 
 .contact-name-and-last-cont-div {
-  grid-area: 1 / 1 / 2 / 3;
+  grid-area: 1 / 2 / 2 / 4;
   background-color: pink;
 }
 
@@ -167,12 +161,12 @@ body {
 }
 
 .last-convo-topic {
-  grid-area: 1 / 3 / 2 / 4;
+  grid-area: 1 / 4 / 2 / 6;
   background-color: lime;
 }
 
 .contact-action-btns {
-  grid-area: 1 / 4 / 2 / 5;
+  grid-area: 1 / 6 / 2 / 7; 
   justify-content: right;
   width: 80%;
   background-color: blueviolet;
@@ -192,6 +186,11 @@ body {
 .schedule-btn:hover,
 .contact-btn:hover {
   background-color: var(--light-base-hover);
+}
+
+.recent-contact-status-div {
+  background-color: blue;
+  grid-area: 1 / 1 / 2 / 2;
 }
 /* (close) contact card contents */
 
@@ -311,7 +310,7 @@ body {
   /* Classes */
   .tier-container {
     padding: 0em;
-    margin: 0em;
+    margin: 0.1em;
     display: flex;
   }
 
@@ -339,8 +338,8 @@ body {
   .contact-card {
     margin: 0.5rem 1rem 0.5rem 1rem;
     padding: 0.5rem;
-    grid-template-columns: repeat(2, 1fr);
-    grid-template-rows: 2fr;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(2, 1fr);
   }
 
   .contact-card:hover {
@@ -364,7 +363,7 @@ body {
   }
 
   .contact-name-and-last-cont-div {
-    grid-area: 1 / 1 / 2 / 4;
+    grid-area: 1 / 2 / 2 / 5;
   }
 
   .contact-name,
@@ -389,11 +388,11 @@ body {
   }
 
   .last-convo-topic {
-    grid-area: 2 / 3 / 2 / 4;
+    grid-area: 2 / 2 / 3 / 5;
   }
 
   .contact-action-btns {
-    grid-area: 1 / 4 / 3 / 4;
+    grid-area: 1 / 5 / 3 / 6;
     width: 100%;
   }
 
@@ -404,6 +403,11 @@ body {
 
   .schedule-btn:hover,
   .contact-btn:hover {
+  }
+
+  .recent-contact-status-div {
+    background-color: blue;
+    grid-area: 1 / 1 / 3 / 2;
   }
   /* (close) contact card contents */
 

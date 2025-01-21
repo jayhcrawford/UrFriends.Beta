@@ -34,7 +34,7 @@ function Phonebook(props) {
             {props.tiers.map((tier) => {
               return (
                 <article key={tier} className="tier-and-contacts-container">
-                  <Tier tierName={tier} people={props.people} />
+                  <Tier settings={props.settings} tierName={tier} people={props.people} />
                 </article>
               );
             })}

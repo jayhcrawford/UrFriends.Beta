@@ -1,12 +1,52 @@
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from "react-redux";
 import { useState } from "react";
 import ContactCard from "./ContactCard.jsx";
-import { setVisible } from '../features/modalSlice.js';
+import { setVisible } from "../features/modalSlice.js";
 
 function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
+  const [windowOfLastContact, setWindowOfLastContact] = useState(null);
 
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+
+  const returnPastDate = (days) => {
+    var pastDate = new Date(
+      new Date().getTime() - 24 * days * 60 * 60 * 1000
+    ).toLocaleDateString();
+    return pastDate;
+  };
+
+  function interpolateTierTimePeriod(timePeriod) {
+    switch (timePeriod) {
+      case "1d":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(1));
+        }
+        return "1 Day";
+      case "1w":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(7));
+        }
+        return "1 Week";
+      case "1m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(30));
+        }
+        return "1 Month";
+      case "3m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(90));
+        }
+        return "3 Months";
+      case "6m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(180));
+        }
+        return "6 Months";
+      default:
+        return "No Date";
+    }
+  }
 
   const handleExpand = (event) => {
     event.stopPropagation();
@@ -15,7 +55,7 @@ function Tier(props) {
 
   const handleTierSettings = (event) => {
     event.stopPropagation();
-    dispatch(setVisible())
+    dispatch(setVisible());
     console.log("open tools");
   };
 
@@ -27,12 +67,15 @@ function Tier(props) {
         title="Click To Expand Tier[x]"
       >
         <span className="expand-collapse-span">
-          <button className="expand-collapse-btn">
+          <div className="expand-collapse-div">
             <i className="fa fa-caret-square-o-right"></i>
-          </button>
+          </div>
         </span>
         <span className="tier-title-span">
-          <p>Tier {props.tierName}</p>
+          <p>
+            Tier {props.tierName} -{" "}
+            {interpolateTierTimePeriod(props.settings[props.tierName])}
+          </p>
         </span>
         <span className="tier-settings-span">
           <button
@@ -55,12 +98,15 @@ function Tier(props) {
         title="Click To Expand Tier[x]"
       >
         <span className="expand-collapse-span">
-          <button className="expand-collapse-btn">
+          <div className="expand-collapse-div">
             <i className="fa fa-caret-square-o-down"></i>
-          </button>
+          </div>
         </span>
         <span className="tier-title-span">
-          <p>Tier {props.tierName}</p>
+          <p>
+            Tier {props.tierName} -{" "}
+            {interpolateTierTimePeriod(props.settings[props.tierName])}
+          </p>
         </span>
         <span className="tier-settings-span">
           <button
@@ -73,7 +119,13 @@ function Tier(props) {
         </span>
       </div>
       {props.people[props.tierName].map((person) => {
-        return <ContactCard key={person.name} person={person} />;
+        return (
+          <ContactCard
+            windowOfLastContact={windowOfLastContact}
+            key={person.name}
+            person={person}
+          />
+        );
       })}
     </>
   );

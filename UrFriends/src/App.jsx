@@ -19,6 +19,7 @@ function App() {
   const loggedIn = useSelector((state) => state.login.user);
   const [phonebook, setPhonebook] = useState(null);
   const [tiers, setTiers] = useState([]);
+  const [userSettings, setUserSettings] = useState(null)
 
   const dispatch = useDispatch();
 
@@ -62,6 +63,12 @@ function App() {
        let tiersArray = Object.keys(response);
        setTiers(tiersArray);
      });
+
+     axios
+     .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
+     .then((response) => {
+      setUserSettings(response.data.tierTime)
+     })
    }
   }, [loggedIn]);
 
@@ -105,7 +112,7 @@ function App() {
       <Routes>
         <Route
           path=""
-          element={<Phonebook people={phonebook} tiers={tiers} />}
+          element={<Phonebook settings={userSettings} people={phonebook} tiers={tiers} />}
         />
 
         {/* TODO: Implement a route for edit tiers*/}

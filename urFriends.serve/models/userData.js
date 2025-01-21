@@ -5,7 +5,7 @@ const userDataSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User',
   },
-  phonebookData: String,
+  tierTime: Object
 });
 
 userDataSchema.set("toJSON", {
