@@ -63,7 +63,7 @@ function Tier(props) {
       <div
         onClick={(event) => handleExpand(event)}
         className="tier-container"
-        title="Click To Expand Tier[x]"
+        title={`Click to Expand Tier ${props.tierName}`}
       >
         <span className="expand-collapse-span">
           <div className="expand-collapse-div">
@@ -80,7 +80,7 @@ function Tier(props) {
           <button
             onClick={(event) => handleTierSettings(event)}
             className="tier-settings-btn"
-            title="Change Tier [x] Settings"
+            title={`Change Tier ${props.tierName} Settings`}
           >
             <i className="fa-solid fa-gear"></i>
           </button>
@@ -94,7 +94,7 @@ function Tier(props) {
       <div
         onClick={handleExpand}
         className="tier-container"
-        title="Click To Expand Tier[x]"
+        title={`Click to Expand Tier ${props.tierName}`}
       >
         <span className="expand-collapse-span">
           <div className="expand-collapse-div">
@@ -111,7 +111,7 @@ function Tier(props) {
           <button
             onClick={(event) => handleTierSettings(event)}
             className="tier-settings-btn"
-            title="Change Tier [x] Settings"
+            title={`Change Tier ${props.tierName} Settings`}
           >
             <i className="fa-solid fa-gear"></i>
           </button>
