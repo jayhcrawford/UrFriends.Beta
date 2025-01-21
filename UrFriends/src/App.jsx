@@ -1,4 +1,3 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -16,6 +15,7 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
 import TierSettingsModal from "./components/SettingsModal";
+import EditTiers from "./components/EditTiers";
 
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
@@ -35,8 +35,6 @@ function App() {
       dispatch(loginDispatch({ user: localToken }));
     }
   }
-
-  //TODO: remove redux architecture related to previously storing phonebook in state
 
   useEffect(() => {
     if (loggedIn) {
@@ -91,6 +89,7 @@ function App() {
 
   const handleLogOut = () => {
     dispatch(hideSideMenu());
+    dispatch(logout())
     localStorage.removeItem("loggedIn");
     location.reload();
   };
@@ -125,7 +124,7 @@ function App() {
           }
         />
 
-        {/* TODO: Implement a route for edit tiers*/}
+        <Route path="/editTiers" element={<EditTiers phonebook={phonebook} userSettings={userSettings}/>} />
         {/* TODO: Implement a route for buld add people*/}
       </Routes>
       <Footer />

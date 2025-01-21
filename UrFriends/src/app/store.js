@@ -2,7 +2,6 @@ import { configureStore } from '@reduxjs/toolkit'
 import modalReducer from '../features/modalSlice'
 import sideMenuReducer from '../features/sideMenuSlice'
 import loginReducer from '../features/loginSlice'
-import phonebookReducer from '../features/phonebookSlice'
 import newPersonReducer from '../features/newPersonModalSlice'
 import reachOutReducer from '../features/reachOutModalSlice'
 import tierSettingsReducer from '../features/tierSettingsSlice'
@@ -13,7 +12,6 @@ export default configureStore({
     modal: modalReducer,
     sideMenu: sideMenuReducer,
     login: loginReducer,
-    phonebook: phonebookReducer,
     newPersonModal: newPersonReducer,
     reachOutModal: reachOutReducer,
     tierSettingsModal: tierSettingsReducer
