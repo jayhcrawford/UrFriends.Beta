@@ -15,12 +15,13 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
+import TierSettingsModal from "./components/SettingsModal";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
   const [phonebook, setPhonebook] = useState(null);
   const [tiers, setTiers] = useState([]);
-  const [userSettings, setUserSettings] = useState(null)
+  const [userSettings, setUserSettings] = useState(null);
 
   const dispatch = useDispatch();
 
@@ -37,55 +38,53 @@ function App() {
   //is the user logged in?
   //TODO: implement loginSlice
   useEffect(() => {
-   if (loggedIn) {
-     //get server data
-     axios
-     .get(`http://localhost:3000/api/phonebook/${loggedIn.user.id}`)
-     .then((response) => {
-       //this works if the user data is stored as one long string... don't think it'll work
-       //being fetched from api/phonebook/string
-       //const result = JSON.parse(response.data[0].phonebookData);
+    if (loggedIn) {
+      //get server data
+      axios
+        .get(`http://localhost:3000/api/phonebook/${loggedIn.user.id}`)
+        .then((response) => {
+          //this works if the user data is stored as one long string... don't think it'll work
+          //being fetched from api/phonebook/string
+          //const result = JSON.parse(response.data[0].phonebookData);
 
-       //This works if we fetch all of the phonebook entries from one massive collection. Not ideal. Works for beta.
-       let tieredPhonebook = {};
-       response.data.map((person) => {
-         if (Object.hasOwn(tieredPhonebook, `${person.tier}`)) {
-           tieredPhonebook[person.tier].push(person);
-         } else {
-           tieredPhonebook[person.tier] = [person];
-         }
-       });
+          //This works if we fetch all of the phonebook entries from one massive collection. Not ideal. Works for beta.
+          let tieredPhonebook = {};
+          response.data.map((person) => {
+            if (Object.hasOwn(tieredPhonebook, `${person.tier}`)) {
+              tieredPhonebook[person.tier].push(person);
+            } else {
+              tieredPhonebook[person.tier] = [person];
+            }
+          });
 
-       const result = tieredPhonebook;
-       return result;
-     })
-     .then((response) => {
-       setPhonebook(response);
-       let tiersArray = Object.keys(response);
-       setTiers(tiersArray);
-     });
+          const result = tieredPhonebook;
+          return result;
+        })
+        .then((response) => {
+          setPhonebook(response);
+          let tiersArray = Object.keys(response);
+          setTiers(tiersArray);
+        });
 
-     const dummyObj = {
-      1: "1d",
-      "2": "1w", 
-      "3": "1m",
-      "4": "3m",
-      "5": "6m",
-     }
+      const dummyObj = {
+        1: "1d",
+        2: "1w",
+        3: "1m",
+        4: "3m",
+        5: "6m",
+      };
 
-     axios
-     .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
-     .then((response) => {
-      if (response.data != null) {
-        setUserSettings(response.data.tierTime)
-      }
-      if (response.data === null) {
-        setUserSettings(dummyObj)
-      }
-
-
-     })
-   }
+      axios
+        .get(`http://localhost:3000/api/phonebook/userData/${loggedIn.user.id}`)
+        .then((response) => {
+          if (response.data != null) {
+            setUserSettings(response.data.tierTime);
+          }
+          if (response.data === null) {
+            setUserSettings(dummyObj);
+          }
+        });
+    }
   }, [loggedIn]);
 
   const handleLogin = async (event) => {
@@ -110,7 +109,7 @@ function App() {
 
   const handleLogOut = () => {
     dispatch(hideSideMenu());
-    localStorage.removeItem('loggedIn');
+    localStorage.removeItem("loggedIn");
     location.reload();
   };
 
@@ -120,7 +119,13 @@ function App() {
 
   return (
     <>
-      <NewPersonModal people={phonebook} setPhonebook={setPhonebook} setTiers={setTiers} tiers={tiers} />
+      <TierSettingsModal />
+      <NewPersonModal
+        people={phonebook}
+        setPhonebook={setPhonebook}
+        setTiers={setTiers}
+        tiers={tiers}
+      />
       <ReachOutModal />
       <SideMenu logout={handleLogOut} />
       <Modal />
@@ -129,7 +134,13 @@ function App() {
       <Routes>
         <Route
           path=""
-          element={<Phonebook settings={userSettings} people={phonebook} tiers={tiers} />}
+          element={
+            <Phonebook
+              settings={userSettings}
+              people={phonebook}
+              tiers={tiers}
+            />
+          }
         />
 
         {/* TODO: Implement a route for edit tiers*/}

@@ -1,7 +1,7 @@
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import ContactCard from "./ContactCard.jsx";
-import { setVisible } from "../features/modalSlice.js";
+import { setVisibleTierSettingsModal } from "../features/tierSettingsSlice.js";
 
 function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -55,8 +55,7 @@ function Tier(props) {
 
   const handleTierSettings = (event) => {
     event.stopPropagation();
-    dispatch(setVisible());
-    console.log("open tools");
+    dispatch(setVisibleTierSettingsModal());
   };
 
   if (!isExpanded) {
