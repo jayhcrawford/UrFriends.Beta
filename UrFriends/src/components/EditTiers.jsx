@@ -29,26 +29,34 @@ const ListFormTier = (props) => {
 };
 
 const EditTiers = (props) => {
+  let tiers;
+  if (props.phonebook) {
+    tiers = Object.keys(props.phonebook);
+  } else {
+    tiers = null;
+  }
 
-  const tiers = Object.keys(props.phonebook);
-
-  return (
-    <>
-      <Link to="/">
-        <button>Phonebook</button>
-      </Link>
-      <h3>Edit Tiers</h3>
-      <ul>
-        {tiers.map((tier) => {
-          return (
-            <ListFormTier tierContent={props.phonebook[tier]} key={tier}>
-              {tier}
-            </ListFormTier>
-          );
-        })}
-      </ul>
-    </>
-  );
+  if (tiers == null) {
+    return null;
+  } else {
+    return (
+      <>
+        <Link to="/">
+          <button>Phonebook</button>
+        </Link>
+        <h3>Edit Tiers</h3>
+        <ul>
+          {tiers.map((tier) => {
+            return (
+              <ListFormTier tierContent={props.phonebook[tier]} key={tier}>
+                {tier}
+              </ListFormTier>
+            );
+          })}
+        </ul>
+      </>
+    );
+  }
 };
 
 export default EditTiers;

@@ -28,6 +28,21 @@ function App() {
 
   const dispatch = useDispatch();
 
+  //called in useEffect below
+  const fetchUserData = async () => {
+    try {
+      //get user's phonebook and settings
+      const result = await getUsersPhonebook(loggedIn);
+      //set state for phonebook data and tiers data
+      setPhonebook(result.phonebook);
+      let tiersArray = Object.keys(result.phonebook);
+      setTiers(tiersArray);
+      setUserSettings(result.settings.tierTime);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   if (!loggedIn) {
     //TODO: verify that the user's credentials are valid and return the user ID
     if (localStorage.getItem("loggedIn")) {
@@ -36,25 +51,13 @@ function App() {
     }
   }
 
+  //fetch user's data
   useEffect(() => {
     if (loggedIn) {
       //fetch phonebook and settings
-      const fetchUserData = async () => {
-        try {
-          //get user's phonebook and settings
-          const result = await getUsersPhonebook(loggedIn);
-          //set state for phonebook data and tiers data
-          setPhonebook(result.phonebook);
-          let tiersArray = Object.keys(result.phonebook);
-          setTiers(tiersArray);
-          setUserSettings(result.settings.tierTime);
-        } catch (error) {
-          console.log(error);
-        }
-      };
       fetchUserData();
     }
-  }, [loggedIn]);
+  }, []);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -89,7 +92,7 @@ function App() {
 
   const handleLogOut = () => {
     dispatch(hideSideMenu());
-    dispatch(logout())
+    dispatch(logoutDispatch());
     localStorage.removeItem("loggedIn");
     location.reload();
   };
@@ -124,7 +127,12 @@ function App() {
           }
         />
 
-        <Route path="/editTiers" element={<EditTiers phonebook={phonebook} userSettings={userSettings}/>} />
+        <Route
+          path="/editTiers"
+          element={
+            <EditTiers phonebook={phonebook} userSettings={userSettings} />
+          }
+        />
         {/* TODO: Implement a route for buld add people*/}
       </Routes>
       <Footer />

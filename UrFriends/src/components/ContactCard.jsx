@@ -51,7 +51,8 @@ function ContactCard(props) {
   if (props.person.lastConvo[0].date === null) {
     mostRecentConversation = {date: null};
   } else {
-    sortedConversations = props.person.lastConvo.sort(
+    let needsToSort = [...props.person.lastConvo]
+    sortedConversations = needsToSort.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     );
     mostRecentConversation = {
