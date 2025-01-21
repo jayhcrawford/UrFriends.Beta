@@ -40,6 +40,19 @@ usersRouter.post('/', async (request, response) => {
 
       const savedUser = await user.save()
 
+      const defaultSettings = new UserData({
+        user: savedUser._id,
+        tierTime: {
+          "1": "1m",
+          "2": "2m",
+          "3": "3m",
+          "4": "4m",
+          "5": "5m"
+        }
+      })
+
+      const savedSettings = await defaultSettings.save()
+
       response.status(201).json(savedUser)
     } catch (error) {
       response.status(404).json({

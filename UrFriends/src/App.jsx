@@ -26,6 +26,7 @@ function App() {
   const [tiers, setTiers] = useState([]);
   const [userSettings, setUserSettings] = useState(null);
 
+
   const dispatch = useDispatch();
 
   //called in useEffect below
@@ -43,6 +44,7 @@ function App() {
     }
   };
 
+  //if the login is not in the Redux store, check localStorage for token
   if (!loggedIn) {
     //TODO: verify that the user's credentials are valid and return the user ID
     if (localStorage.getItem("loggedIn")) {
@@ -57,7 +59,7 @@ function App() {
       //fetch phonebook and settings
       fetchUserData();
     }
-  }, []);
+  }, [loggedIn]);
 
   const handleLogin = async (event) => {
     event.preventDefault();
@@ -82,6 +84,7 @@ function App() {
 
       //set user settings in state
       setUserSettings(result.data.settings);
+      setPhonebook(result.data.phonebook);
     } catch (error) {
       console.log(error);
     }
