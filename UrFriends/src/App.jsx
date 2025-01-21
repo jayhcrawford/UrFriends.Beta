@@ -16,6 +16,7 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
 import TierSettingsModal from "./components/SettingsModal";
+import EditTiers from "./components/EditTiers";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
@@ -109,6 +110,7 @@ function App() {
 
   const handleLogOut = () => {
     dispatch(hideSideMenu());
+    dispatch(logout())
     localStorage.removeItem("loggedIn");
     location.reload();
   };
@@ -143,7 +145,7 @@ function App() {
           }
         />
 
-        {/* TODO: Implement a route for edit tiers*/}
+        <Route path="/editTiers" element={<EditTiers phonebook={phonebook} userSettings={userSettings}/>} />
         {/* TODO: Implement a route for buld add people*/}
       </Routes>
       <Footer />
