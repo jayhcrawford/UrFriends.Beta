@@ -29,24 +29,27 @@ const ReachOutModal = (props) => {
 
   const submitNewConversation = (event) => {
     event.preventDefault();
-
-    console.log(event.target.date.value);
-    console.log(event.target.conversation.value);
-
     const date = new Date(event.target.date.value);
 
     var calendarDate = new Date(
       new Date(date).getTime() + 60 * 60 * 1000
     ).toUTCString();
 
-    
-
-    console.log(calendarDate, "Calendar date");
     const topic = event.target.conversation.value;
-    const newConversations = person.lastConvo.concat({
-      date: calendarDate,
-      topic: topic,
-    });
+    let newConversations;
+    if (person.lastConvo[0].date === null) {
+      newConversations = [
+        {
+          date: calendarDate,
+          topic: topic,
+        },
+      ];
+    } else {
+      newConversations = person.lastConvo.concat({
+        date: calendarDate,
+        topic: topic,
+      });
+    }
 
     const personToUpdate = {
       ...person,

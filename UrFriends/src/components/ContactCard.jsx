@@ -21,6 +21,10 @@ const ContactStatusIndicator = (props) => {
   const date1 = new Date(props.windowOfLastContact);
   const date2 = new Date(props.lastContact);
 
+  if (props.windowOfLastContact === null || props.lastContact === null) {
+    return null;
+  }
+
   if (date1 > date2) {
     return (
       <>
@@ -42,10 +46,10 @@ function ContactCard(props) {
   const dispatch = useDispatch();
 
   //sort the conversations coming from Mongo to guaruntee that they will be in descending order
-  let mostRecentConversation = {};
+  let mostRecentConversation = {date: null};
   let sortedConversations;
   if (props.person.lastConvo[0].date === null) {
-    mostRecentConversation = null;
+    mostRecentConversation = {date: null};
   } else {
     sortedConversations = props.person.lastConvo.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
