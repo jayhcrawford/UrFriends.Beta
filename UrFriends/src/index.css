@@ -7,6 +7,47 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
+
+/*
+
+//COLOR FOR CONTACT CARD CSS GRID LAYOUT
+.recent-contact-status-div {
+  background-color: blue;
+}
+
+.contact-expanded-action-buttons {
+  background-color: blue;
+}
+
+.contact-expanded-recent-convos {
+  background-color: green;
+}
+
+.contact-expanded-button-div {
+  background-color: yellow;
+}
+
+.contact-expanded-name-phone-email {
+  background-color: red;
+}
+
+.contact-name-and-last-cont-div {
+  background-color: pink;
+}
+
+.last-convo-topic {
+  background-color: lime;
+}
+
+.contact-action-btns {
+  background-color: blueviolet;
+}
+
+.recent-contact-status-div {
+  background-color: blue;
+}
+*/
+
 /* Standard Elements */
 body {
   background-color: white;
@@ -48,9 +89,8 @@ body {
   height: 2em;
   width: 2em;
   margin: 2px;
-  padding: .5em
+  padding: 0.5em;
 }
-
 
 .expand-collapse-span {
   width: 5%;
@@ -106,29 +146,24 @@ body {
 
 .contact-expanded-recent-convos {
   grid-area: 2 / 1 / 2 / 3;
-  background-color: green;
 }
 
 .contact-expanded-action-buttons {
   grid-area: 2 / 3 / 4 / 5;
-  background-color: blue;
 }
 
 .contact-expanded-button-div {
   grid-area: 3 / 1 / 3 / 5;
   display: flex;
   justify-content: center;
-  background-color: yellow;
 }
 
 .contact-expanded-name-phone-email {
   grid-area: 1 / 1 / 1 / 5;
-  background-color: red;
 }
 
 .contact-name-and-last-cont-div {
   grid-area: 1 / 2 / 2 / 4;
-  background-color: pink;
 }
 
 .contact-name,
@@ -162,14 +197,12 @@ body {
 
 .last-convo-topic {
   grid-area: 1 / 4 / 2 / 6;
-  background-color: lime;
 }
 
 .contact-action-btns {
-  grid-area: 1 / 6 / 2 / 7; 
+  grid-area: 1 / 6 / 2 / 7;
   justify-content: right;
   width: 80%;
-  background-color: blueviolet;
 }
 
 .schedule-btn,
@@ -189,9 +222,9 @@ body {
 }
 
 .recent-contact-status-div {
-  background-color: blue;
   grid-area: 1 / 1 / 2 / 2;
 }
+
 /* (close) contact card contents */
 
 .login-container {
@@ -406,7 +439,6 @@ body {
   }
 
   .recent-contact-status-div {
-    background-color: blue;
     grid-area: 1 / 1 / 3 / 2;
   }
   /* (close) contact card contents */
