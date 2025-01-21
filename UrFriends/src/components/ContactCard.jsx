@@ -1,7 +1,7 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setVisibleReachOutModal } from "../features/reachOutModalSlice";
+import { setPerson, setVisibleReachOutModal } from "../features/reachOutModalSlice";
 
 function getDateFromDateTime(dateTimeString) {
   // Create a Date object from the string
@@ -43,6 +43,7 @@ function ContactCard(props) {
   const handleClickReachOut = (event) => {
     event.stopPropagation();
     dispatch(setVisibleReachOutModal())
+    dispatch(setPerson(props.person))
   }
 
   if (isExpanded) {
