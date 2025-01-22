@@ -27,16 +27,22 @@ export const getUsersPhonebook = async (body) => {
 };
 
 export const postContact = async (body) => {
-  console.log("contact body in services: ", body);
   const result = await axios.post("http://localhost:3000/api/phonebook/", body);
-  console.log(result);
 };
 
 export const patchConversation = async (body) => {
-  console.log(body);
   const result = await axios.patch(
     `http://localhost:3000/api/phonebook/patchConversation`,
     body
   );
-  console.log(result);
 };
+
+//change contact(s?) tier(s?)
+export const patchTiers = async (body) => {
+  const result = await axios.patch(
+    `http://localhost:3000/api/phonebook/patchTier`,
+    body
+  );
+};
+
+
