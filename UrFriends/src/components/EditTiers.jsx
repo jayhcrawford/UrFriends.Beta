@@ -3,7 +3,7 @@ import { Link } from "react-router";
 import { patchSettings } from "../../services/settingService";
 import { patchTiers } from "../../services/contactService";
 
-//static
+//static; options for tier timeframes
 const timeFrameOptions = [
   "1d",
   "3d",
@@ -18,7 +18,7 @@ const timeFrameOptions = [
   "6m",
 ];
 
-//static
+//static; renders radio button group, allowing tier adjustment; sets localTiers
 const TierSelector = (props) => {
   if (!props.tiers) {
     return null;
@@ -76,7 +76,7 @@ const TierSelector = (props) => {
   );
 };
 
-//static
+//static; shows collapsed tier with option to expand
 const ListFormTier = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -116,7 +116,8 @@ const ListFormTier = (props) => {
   );
 };
 
-//export
+//export; stores phonebook passed as props into localTiers, radio buttons manipulate localTiers
+//calls PATCH to change tier settings and contact tiers
 const EditTiers = (props) => {
   //localTiers allows us to store the phonebook without triggering an unwelcome re-render;
   //The difference of props.phonebook and localTiers will be PATCH'd when a user wishes to save adjustments
