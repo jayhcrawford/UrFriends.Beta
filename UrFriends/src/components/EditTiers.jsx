@@ -127,7 +127,7 @@ const EditTiers = (props) => {
 
   //if localTiers hasn't been set yet, then the change information won't be saved in state
   if (!localTiers) {
-    return null
+    return null;
   }
 
   //passed as props down to TierSelector.jsx component
@@ -159,12 +159,21 @@ const EditTiers = (props) => {
     setLocalTiers(newLocalState);
   };
 
-  //called when user Saves
-  const handleSaveTiers = () => {};
-
   //TODO: Implement the ability to change a Tier's timeframe
-  const updateSettings = () => {
-    patchSettings({ settings: "body" });
+  const handleSaveTiers = () => {
+
+    let contactsChanged = []
+    //iterate through local phonebook (localTiers) object keys
+    for (let i = 1; i <= tiers.length; i++) {
+      for (let j = 0; j < localTiers[i].length; j++) {
+        if (localTiers[i][j].tier != props.phonebook[i][j].tier) {
+          //if the contact's tier was changed, then add it to the contactsChanged array
+          contactsChanged.push(localTiers[i][j]);
+        }
+      }
+    }
+
+    patchSettings({ settings: "body", phonebook: contactsChanged });
   };
 
   let tiers;
@@ -204,7 +213,7 @@ const EditTiers = (props) => {
               </ListFormTier>
             );
           })}
-          <button onClick={updateSettings}>Save</button>
+          <button onClick={handleSaveTiers}>Save</button>
         </ul>
       </>
     );
