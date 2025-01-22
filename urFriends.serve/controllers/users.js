@@ -3,22 +3,11 @@ const usersRouter = require('express').Router()
 const User = require('../models/user')
 const UserData = require('../models/userData')
 
-
-
-
 //get all users
 usersRouter.get('/', async (request, response) => {
   const users = await User.find({})
   response.json(users)
 })
-
-
-//get user by ID
-usersRouter.get('/:id', async (request, response) => {
-  const user = await User.findById(request.params.id)
-  response.json(user)
-})
-
 
 //create a new user
 usersRouter.post('/', async (request, response) => {
@@ -68,6 +57,7 @@ usersRouter.post('/', async (request, response) => {
 })
 
 //delete a user
+//TODO: Delete their contacts as well
 usersRouter.delete('/:id', async (request, response, next) => {
   try {
     await User.findByIdAndDelete(request.params.id)
