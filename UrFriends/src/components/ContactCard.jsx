@@ -23,17 +23,17 @@ const ContactStatusIndicator = (props) => {
   const date1 = new Date(props.windowOfLastContact);
   const date2 = new Date(props.lastContact);
 
-  if (props.windowOfLastContact === null || props.lastContact === null) {
-    return null;
-  }
-
-  if (date1 > date2) {
+  //if contact has no conversations, or their latest conversation
+  //is outside of the tier's timeframe
+  if (props.windowOfLastContact === null || props.lastContact === null || date1>date2) {
     return (
       <>
         <p style={{ color: "red" }}>X</p>
       </>
     );
   }
+
+  //if latest conversation is within the tier's timeframe
   if (date1 < date2) {
     return (
       <>
