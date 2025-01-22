@@ -6,6 +6,7 @@ import {
   setVisibleReachOutModal,
 } from "../features/reachOutModalSlice";
 
+//static; takes date property from lastConvo objects and returns a simplified date string
 function getDateFromDateTime(dateTimeString) {
   // Create a Date object from the string
   const date = new Date(dateTimeString);
@@ -17,6 +18,7 @@ function getDateFromDateTime(dateTimeString) {
   return `${month}/${day}/${year}`;
 }
 
+//static; shows if user has reached out to contact within Tier's timeframe
 const ContactStatusIndicator = (props) => {
   const date1 = new Date(props.windowOfLastContact);
   const date2 = new Date(props.lastContact);
@@ -41,9 +43,17 @@ const ContactStatusIndicator = (props) => {
   }
 };
 
+//export; displays contact's info, conversations, and action buttons
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const dispatch = useDispatch();
+
+  let conversationArray = [];
+  if (!props.person) {
+    conversationArray = null
+  } else {
+    conversationArray = [...props.person.lastConvo]
+  }
 
   //sort the conversations coming from Mongo to guaruntee that they will be in descending order
   let mostRecentConversation = {date: null};
@@ -89,7 +99,7 @@ function ContactCard(props) {
               <h4>Recent Conversations</h4>
               {props.person.lastConvo[0].date === null
                 ? null
-                : props.person.lastConvo
+                : conversationArray
                     .sort((a, b) => new Date(b.date) - new Date(a.date))
                     .map((conversation) => {
                       return (

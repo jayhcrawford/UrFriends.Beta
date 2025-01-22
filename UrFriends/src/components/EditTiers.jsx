@@ -161,8 +161,7 @@ const EditTiers = (props) => {
 
   //TODO: Implement the ability to change a Tier's timeframe
   const handleSaveTiers = () => {
-
-    let contactsChanged = []
+    let contactsChanged = [];
     //iterate through local phonebook (localTiers) object keys
     for (let i = 1; i <= tiers.length; i++) {
       for (let j = 0; j < localTiers[i].length; j++) {
@@ -172,7 +171,6 @@ const EditTiers = (props) => {
         }
       }
     }
-
     patchSettings({ settings: "body", phonebook: contactsChanged });
   };
 
