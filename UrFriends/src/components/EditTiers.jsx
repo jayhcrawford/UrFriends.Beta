@@ -112,7 +112,6 @@ const EditTiers = (props) => {
   const [localSettings, setLocalSettings] = useState(null);
   const loggedIn = useSelector((state) => state.login.user);
 
-
   if (props.phonebook && localTiers == null) {
     setLocalTiers(props.phonebook);
   }

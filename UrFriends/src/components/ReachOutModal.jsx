@@ -77,11 +77,11 @@ const ReachOutModal = (props) => {
       <div className="modal-base-transparency">
         <div className="modal-box" style={{ width: "800px" }}>
           <button onClick={handleCloseModal}>Close</button>
-          <h3>Reach Out to {person.name}</h3>
+          <h3>Reach Out to {person.name.first}</h3>
 
           {!spokeFormVisible && (
             <button onClick={handleWeSpoke}>
-              I had a conversation with {person.name}
+              I had a conversation with {person.name.first}
             </button>
           )}
           {spokeFormVisible && (

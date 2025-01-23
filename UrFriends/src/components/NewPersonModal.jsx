@@ -18,7 +18,10 @@ const newPersonModal = (props) => {
 
     const newPerson = {
       tier: event.target.tier.value,
-      name: event.target.contactName.value,
+      name: {
+        first: event.target.contactFirstName.value,
+        last: event.target.contactLastName.value
+      },
       phoneNumber: event.target.contactPhone.value,
       email: event.target.contactEmail.value,
       lastConvo: [{ date: null }],
@@ -63,7 +66,8 @@ const newPersonModal = (props) => {
       postContact(newPerson);
     }
 
-    event.target.contactName.value = "";
+    event.target.contactFirstName.value = "";
+    event.target.contactLastName.value = "";
     event.target.contactPhone.value = "";
     event.target.contactEmail.value = "";
     event.target.tier.value = "";
@@ -83,7 +87,8 @@ const newPersonModal = (props) => {
           <form onSubmit={(event) => handleAdd(event)}>
             <button onClick={handleClose}>Close</button>
             <h3>Add A New Person</h3>
-            Name: <input name="contactName"></input>
+            First Name: <input name="contactFirstName"></input>
+            Last Name: <input name="contactLastName"></input>
             <br />
             Phone: <input name="contactPhone"></input>
             <br />

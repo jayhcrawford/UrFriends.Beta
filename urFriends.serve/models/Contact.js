@@ -18,7 +18,14 @@ mongoose
   });
 
 const contactSchema = new mongoose.Schema({
-  name: String,
+  name: {
+    first: {
+      type: String
+    },
+    last: {
+      type: String
+    }
+  },
   tier: Number,
   user: {
     type: mongoose.Schema.Types.ObjectId,

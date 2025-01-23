@@ -159,7 +159,7 @@ function Tier(props) {
         return (
           <ContactCard
             windowOfLastContact={windowOfLastContact}
-            key={person.name}
+            key={`${person.name.first}-${person.name.last}`}
             person={person}
           />
         );

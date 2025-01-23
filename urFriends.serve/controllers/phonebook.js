@@ -11,7 +11,7 @@ phonebookRouter.post("/getContent", async (request, response) => {
 
   const settings = await UserData.findOne({ user: id });
   const phonebook = await Contact.find({ user: id });
-  response.json({phonebook: phonebook, settings: settings});
+  response.json({ phonebook: phonebook, settings: settings });
 });
 
 //add a new contact
@@ -33,10 +33,27 @@ phonebookRouter.patch("/patchConversation", async (request, response) => {
   response.status(200).json(update);
 });
 
-/* 
 phonebookRouter.post("/updateMany", async (request, response) => {
-  //put edits here using .updateMany
+  const everyoneToChange = await Contact.find({});
+  let listOfIDs = [];
+  everyoneToChange.forEach((person) => {
+    listOfIDs.push(person._id.toString());
+  });
+
+  for (let i = 0; i < listOfIDs.length; i++) {
+    const personToChange = await Contact.findOne({ _id: listOfIDs[i] });
+
+    const change = {
+      name: {
+        first: personToChange.name,
+        last: "Jones",
+      },
+    };
+
+    const changeItNow = await Contact.findByIdAndUpdate({ _id: listOfIDs[i] }, change);
+  }
+
   response.status(204).end();
-}); */
+});
 
 module.exports = phonebookRouter;

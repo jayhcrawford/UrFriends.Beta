@@ -100,7 +100,7 @@ function ContactCard(props) {
         <div className="contact-card-expanded">
           <div className="contact-expanded-name-phone-email">
             <span className="contact-name">
-              {props.person.name} ____Phone Number: {props.person.phoneNumber}{" "}
+              {props.person.name.first + " " + props.person.name.last} ____Phone Number: {props.person.phoneNumber}{" "}
               ____Email: {props.person.email ? props.person.email : null}
             </span>
           </div>
@@ -147,13 +147,13 @@ function ContactCard(props) {
             </ul>
           </div>
           <div className="contact-expanded-action-buttons">
-            <button>Schedule Conversation with {props.person.name}</button>
+            <button>Schedule Conversation with {props.person.name.first + " " + props.person.name.last}</button>
             <br />
             <button>Convo Starters</button>
             <br />
             <button>We Spoke Today</button>
             <br />
-            <button>Settings for {props.person.name}</button>
+            <button>Settings for {props.person.name.first + " " + props.person.name.last}</button>
             <br />
           </div>
 
@@ -177,10 +177,10 @@ function ContactCard(props) {
             />
           </div>
           <div className="contact-name-and-last-cont-div">
-            <span className="contact-name">{props.person.name}</span>
+            <span className="contact-name">{props.person.name.first + " " + props.person.name.last}</span>
             <span className="last-contact">
               {props.person.lastConvo[0].date === null
-                ? `Have a conversation with ${props.person.name}!`
+                ? `Have a conversation with ${props.person.name.first + " " + props.person.name.last}!`
                 : "Last Contact:" +
                   getDateFromDateTime(mostRecentConversation.date)}
             </span>
