@@ -2,21 +2,8 @@ import React, { useState } from "react";
 import { Link } from "react-router";
 import { patchSettings } from "../../services/settingService";
 import { patchTiers } from "../../services/contactService";
-
-//static; options for tier timeframes
-const timeFrameOptions = [
-  "1d",
-  "3d",
-  "1w",
-  "2w",
-  "3w",
-  "1m",
-  "2m",
-  "3m",
-  "4m",
-  "5m",
-  "6m",
-];
+import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
+import { useSelector } from "react-redux";
 
 //static; renders radio button group, allowing tier adjustment; sets localTiers
 const TierSelector = (props) => {
@@ -122,8 +109,16 @@ const EditTiers = (props) => {
   //localTiers allows us to store the phonebook without triggering an unwelcome re-render;
   //The difference of props.phonebook and localTiers will be PATCH'd when a user wishes to save adjustments
   const [localTiers, setLocalTiers] = useState(null);
+  const [localSettings, setLocalSettings] = useState(null);
+  const loggedIn = useSelector((state) => state.login.user);
+
+
   if (props.phonebook && localTiers == null) {
     setLocalTiers(props.phonebook);
+  }
+
+  if (props.userSettings && localSettings == null) {
+    setLocalSettings(props.userSettings);
   }
 
   //if localTiers hasn't been set yet, then the change information won't be saved in state
@@ -160,8 +155,20 @@ const EditTiers = (props) => {
     setLocalTiers(newLocalState);
   };
 
-  //TODO: Implement the ability to change a Tier's timeframe
-  const handleSaveTiers = () => {
+  //updates tier settings stored in localSettings
+  //Does not PATCH changes
+  const updateTierTimeFrameState = (event, tier) => {
+    const updatedSettings = {
+      ...localSettings,
+      [tier]: event.target.value,
+    };
+
+    setLocalSettings(updatedSettings);
+  };
+
+  //PATCH anything that was changed, settings or contacts
+  const handlePatchChanges = () => {
+    //Find any contacts that need to be PATCH'd
     let contactsChanged = [];
     //iterate through local phonebook (localTiers) object keys
     for (let i = 1; i <= tiers.length; i++) {
@@ -172,7 +179,30 @@ const EditTiers = (props) => {
         }
       }
     }
-    patchSettings({ settings: "body", phonebook: contactsChanged });
+
+    //Determine if settings have changed, otherwise the patchSettings Object will send null for the settings key
+    const tiersToAssess = Object.keys(localTiers);
+    let changeSettings = false;
+    let sendChangedSettings = null;
+    for (let i = 0; i < tiersToAssess.length; i++) {
+      if (
+        localSettings[tiersToAssess[i]] != props.userSettings[tiersToAssess[i]]
+      ) {
+        changeSettings = true;
+      }
+    }
+    if (changeSettings) {
+      sendChangedSettings = localSettings;
+    }
+
+    //if there are any changes to contacts or settings, PATCH them
+    if (sendChangedSettings != null && contactsChanged != null) {
+      patchSettings({
+        token: loggedIn.user.token,
+        settings: sendChangedSettings,
+        phonebook: contactsChanged,
+      });
+    }
   };
 
   let tiers;
@@ -204,15 +234,23 @@ const EditTiers = (props) => {
               >
                 Tier {tier} <br />
                 Timeframe:
-                <select defaultValue={props.userSettings[tier]}>
+                <select
+                  name="selectedTimeFrame"
+                  onChange={(event) => updateTierTimeFrameState(event, tier)}
+                  defaultValue={localSettings[tier]}
+                >
                   {timeFrameOptions.map((option) => {
-                    return <option key={option}>{option}</option>;
+                    return (
+                      <option value={option} key={option}>
+                        {option}
+                      </option>
+                    );
                   })}
                 </select>
               </ListFormTier>
             );
           })}
-          <button onClick={handleSaveTiers}>Save</button>
+          <button onClick={handlePatchChanges}>Save</button>
         </ul>
       </>
     );

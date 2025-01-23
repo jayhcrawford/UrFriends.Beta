@@ -10,18 +10,29 @@ settingsRouter.get("/userData/:id", async (request, response) => {
   response.json(phonebook);
 });
 
-//TODO: Convert to patch settings
+//PATCH contact tier/settings updates
 settingsRouter.patch("/", async (request, response) => {
-  console.log(request.body);
+  const verify = jwt.verify(request.body.token, process.env.SECRET);
 
-  //TODO: updates to settings
+  //If settings need to be changed, change them
+  if (request.body.settings != null) {
+    console.log(request.body.settings);
 
-  //updates to contacts
-  for (let i = 0; i < request.body.phonebook.length; i++) {
-    const udpatedContact = await Contact.findOneAndUpdate(
-      { _id: request.body.phonebook[i].id },
-      { ...request.body.phonebook[i] }
+    const udpateSettings = await UserData.findOneAndUpdate(
+      { user: verify.id },
+      { tierTime: request.body.settings }
     );
+  }
+
+  //if there are any contact's tiers to change
+  if (request.body.phonebook.length != 0) {
+    //update them
+    for (let i = 0; i < request.body.phonebook.length; i++) {
+      const udpatedContact = await Contact.findOneAndUpdate(
+        { _id: request.body.phonebook[i].id },
+        { ...request.body.phonebook[i] }
+      );
+    }
   }
 
   response.status(200).json({ success: "success" });

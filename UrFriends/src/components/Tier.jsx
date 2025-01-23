@@ -23,21 +23,51 @@ function Tier(props) {
           setWindowOfLastContact(returnPastDate(1));
         }
         return "1 Day";
+      case "3d":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(3));
+        }
+        return "3 Days";
       case "1w":
         if (windowOfLastContact === null) {
           setWindowOfLastContact(returnPastDate(7));
         }
         return "1 Week";
+      case "2w":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(14));
+        }
+        return "2 Weeks";
+      case "3w":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(21));
+        }
+        return "3 Weeks";
       case "1m":
         if (windowOfLastContact === null) {
           setWindowOfLastContact(returnPastDate(30));
         }
         return "1 Month";
+      case "2m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(61));
+        }
+        return "2 Months";
       case "3m":
         if (windowOfLastContact === null) {
           setWindowOfLastContact(returnPastDate(90));
         }
         return "3 Months";
+      case "4m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(120));
+        }
+        return "4 Months";
+      case "5m":
+        if (windowOfLastContact === null) {
+          setWindowOfLastContact(returnPastDate(153));
+        }
+        return "5 Months";
       case "6m":
         if (windowOfLastContact === null) {
           setWindowOfLastContact(returnPastDate(180));
