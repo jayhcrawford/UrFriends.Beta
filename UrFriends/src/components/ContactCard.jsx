@@ -25,7 +25,11 @@ const ContactStatusIndicator = (props) => {
 
   //if contact has no conversations, or their latest conversation
   //is outside of the tier's timeframe
-  if (props.windowOfLastContact === null || props.lastContact === null || date1>date2) {
+  if (
+    props.windowOfLastContact === null ||
+    props.lastContact === null ||
+    date1 > date2
+  ) {
     return (
       <>
         <p style={{ color: "red" }}>X</p>
@@ -43,6 +47,14 @@ const ContactStatusIndicator = (props) => {
   }
 };
 
+//static; shortens conversation and adds "..." if it is longer than a character count
+const shortenConversation = (topic, count) => {
+  if (topic.length > count) {
+    return topic.slice(0, count) + "...";
+  }
+  return topic;
+};
+
 //export; displays contact's info, conversations, and action buttons
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -50,18 +62,18 @@ function ContactCard(props) {
 
   let conversationArray = [];
   if (!props.person) {
-    conversationArray = null
+    conversationArray = null;
   } else {
-    conversationArray = [...props.person.lastConvo]
+    conversationArray = [...props.person.lastConvo];
   }
 
   //sort the conversations coming from Mongo to guaruntee that they will be in descending order
-  let mostRecentConversation = {date: null};
+  let mostRecentConversation = { date: null };
   let sortedConversations;
   if (props.person.lastConvo[0].date === null) {
-    mostRecentConversation = {date: null};
+    mostRecentConversation = { date: null };
   } else {
-    let needsToSort = [...props.person.lastConvo]
+    let needsToSort = [...props.person.lastConvo];
     sortedConversations = needsToSort.sort(
       (a, b) => new Date(b.date) - new Date(a.date)
     );
@@ -104,10 +116,27 @@ function ContactCard(props) {
                     .map((conversation) => {
                       return (
                         <li key={`${conversation.date}+${conversation.topic}`}>
-                          {props.person.lastConvo[0].date === null
-                            ? null
-                            : getDateFromDateTime(conversation.date)}{" "}
-                          - {conversation.topic}
+                          <div
+                            style={{
+                              outline: "1px solid black",
+                              padding: ".2em",
+                              margin: ".2em",
+                              height: "3em",
+                            }}
+                          >
+                            <button style={{ width: "80%", height: "100%" }}>
+                              <span style={{backgroundColor: "red"}}>
+                                {props.person.lastConvo[0].date === null
+                                  ? null
+                                  : getDateFromDateTime(conversation.date)}
+                              </span>
+                              <span style={{backgroundColor: "green"}}>
+                                - {shortenConversation(conversation.topic, 60)}
+                              </span>
+                            </button>
+
+                            <button>edit</button>
+                          </div>
                         </li>
                       );
                     })}

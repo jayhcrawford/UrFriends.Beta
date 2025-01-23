@@ -16,7 +16,6 @@ settingsRouter.patch("/", async (request, response) => {
 
   //If settings need to be changed, change them
   if (request.body.settings != null) {
-    console.log(request.body.settings);
 
     const udpateSettings = await UserData.findOneAndUpdate(
       { user: verify.id },
