@@ -75,9 +75,11 @@ const RecentConversations = (props) => {
                 />
               );
             })}
-          <button onClick={() => handleOpenExpandedContactModal("Expand")}>
-            expand
-          </button>
+          <div className="more-conv-btn">
+            <button onClick={() => handleOpenExpandedContactModal("Expand")}>
+              more conversations
+            </button>
+          </div>
         </ConversationList>
       </>
     );

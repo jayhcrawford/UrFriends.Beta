@@ -50,7 +50,10 @@ phonebookRouter.post("/updateMany", async (request, response) => {
       },
     };
 
-    const changeItNow = await Contact.findByIdAndUpdate({ _id: listOfIDs[i] }, change);
+    const changeItNow = await Contact.findByIdAndUpdate(
+      { _id: listOfIDs[i] },
+      change
+    );
   }
 
   response.status(204).end();

@@ -159,7 +159,7 @@ function ContactCard(props) {
           </div>
 
           <div className="contact-expanded-button-div">
-            <button onClick={(event) => handleExpand(event)}>Collapse</button>
+            <button className="collapse-ct-card" onClick={(event) => handleExpand(event)}>Collapse</button>
           </div>
         </div>
       </>

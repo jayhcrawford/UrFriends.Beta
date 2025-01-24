@@ -20,11 +20,11 @@ mongoose
 const contactSchema = new mongoose.Schema({
   name: {
     first: {
-      type: String
+      type: String,
     },
     last: {
-      type: String
-    }
+      type: String,
+    },
   },
   tier: Number,
   user: {
