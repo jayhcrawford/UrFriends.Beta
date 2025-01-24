@@ -9,10 +9,11 @@ import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
 import { setVisibleExpandedContactModal } from "../features/expandedContactModal";
 
+//static
 const ActionButton = (props) => {
   return (
     <>
-      <button className="action-button">
+      <button onClick={() => props.handleExpandedContactModal(props.message)} className="action-button">
         <div className="action-button-graphic"></div>
         <span className="action-button-text">{props.children}</span>
       </button>
@@ -120,11 +121,8 @@ function ContactCard(props) {
           <div className="contact-expanded-action-buttons">
             <div className="act-btn-1">
               <ActionButton
-                onClick={() =>
-                  handleExpandedContactModal(
-                    `Schedule a Conversation with ${props.person.name.first}`
-                  )
-                }
+                handleExpandedContactModal={handleExpandedContactModal}
+                message={"We Spoke"}
               >
                 We Spoke
               </ActionButton>
@@ -132,10 +130,8 @@ function ContactCard(props) {
             <br />
             <div className="act-btn-2">
               <ActionButton
-                lassName="act-btn-2"
-                onClick={() =>
-                  handleExpandedContactModal("Conversation Starters")
-                }
+                handleExpandedContactModal={handleExpandedContactModal}
+                message={"Conversation Starters"}
               >
                 Convo Starters
               </ActionButton>
@@ -143,23 +139,19 @@ function ContactCard(props) {
             <br />
             <div className="act-btn-3">
               <ActionButton
-                lassName="act-btn-3"
-                onClick={() => handleExpandedContactModal("We Spoke Today")}
+                handleExpandedContactModal={handleExpandedContactModal}
+                message={`Schedule a Conversation with ${props.person.name.first}`}
               >
-                Schedule Conversation
+                Schedule Convo
               </ActionButton>
             </div>
             <br />
             <div className="act-btn-4">
               <ActionButton
-                lassName="act-btn-4"
-                onClick={() =>
-                  handleExpandedContactModal(
-                    `Settings for ${props.person.name.first}`
-                  )
-                }
+                handleExpandedContactModal={handleExpandedContactModal}
+                message={`${props.person.name.first}'s Settings`}
               >
-                Settings for {props.person.name.first}
+                {props.person.name.first}'s Settings
               </ActionButton>
             </div>
 

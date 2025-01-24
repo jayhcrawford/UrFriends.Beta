@@ -220,11 +220,16 @@ body {
 
 .action-button {
   font-size: 100%;
-  width: 100%;
+
   height: 20%;
   border-radius: 5em;
   margin: 0.2em;
-  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
 }
 
 .action-button-graphic {
@@ -232,12 +237,12 @@ body {
   width: 60px;
   background-color: red;
   border-radius: 100%;
+  grid-area: 1 / 1 / 4 / 2;
+  margin: .2em;
 }
 
 .action-button-text {
-  position: absolute;
-  top: 25px;
-  left: 10%;
+  grid-area: 2 / 2 / 3 / 4; 
 }
 
 .act-btn-1 {
@@ -257,9 +262,10 @@ body {
 .act-btn-2,
 .act-btn-3,
 .act-btn-4 {
+  display: flex;
+ justify-content: center;
   padding: 0;
   margin: 0;
-  display: inline-block;
   width: 100%;
   margin: 0;
 }
@@ -398,7 +404,7 @@ body {
 /* (close)ID's */
 
 /* MOBILE VIEW */
-@media (min-width: 0px) and (max-width: 650px) {
+@media (min-width: 0px) and (max-width: 745px) {
   /* Classes */
   .tier-container {
     padding: 0em;
@@ -458,10 +464,10 @@ body {
   }
 
   .act-btn-1 {
-    grid-area: 1 / 1 / 2 / 2; 
+    grid-area: 1 / 1 / 2 / 2;
   }
   .act-btn-2 {
-    grid-area: 1 / 2 / 2 / 3; 
+    grid-area: 1 / 2 / 2 / 3;
   }
   .act-btn-3 {
     grid-area: 1 / 3 / 2 / 4;
@@ -529,6 +535,9 @@ body {
     border-radius: 30%;
     margin: 0;
     position: static;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
   }
 
   .action-button-graphic {
