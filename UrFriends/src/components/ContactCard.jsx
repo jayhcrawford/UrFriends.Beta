@@ -9,6 +9,17 @@ import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
 import { setVisibleExpandedContactModal } from "../features/expandedContactModal";
 
+const ActionButton = (props) => {
+  return (
+    <>
+      <button className="action-button">
+        <div className="action-button-graphic"></div>
+        <span className="action-button-text">{props.children}</span>
+      </button>
+    </>
+  );
+};
+
 //static; shows if user has reached out to contact within Tier's timeframe
 const ContactStatusIndicator = (props) => {
   const date1 = new Date(props.windowOfLastContact);
@@ -99,7 +110,7 @@ function ContactCard(props) {
             </div>
           </div>
           <br />
-          
+
           <div className="contact-expanded-recent-convos">
             <RecentConversations
               person={props.person}
@@ -107,41 +118,51 @@ function ContactCard(props) {
             />
           </div>
           <div className="contact-expanded-action-buttons">
-            <button
-              onClick={() =>
-                handleExpandedContactModal(
-                  `Schedule a Conversation with ${props.person.name.first}`
-                )
-              }
-            >
-              Schedule Conversation with{" "}
-              {props.person.name.first + " " + props.person.name.last}
-            </button>
+            <div className="act-btn-1">
+              <ActionButton
+                onClick={() =>
+                  handleExpandedContactModal(
+                    `Schedule a Conversation with ${props.person.name.first}`
+                  )
+                }
+              >
+                We Spoke
+              </ActionButton>
+            </div>
             <br />
-            <button
-              onClick={() =>
-                handleExpandedContactModal("Conversation Starters")
-              }
-            >
-              Convo Starters
-            </button>
+            <div className="act-btn-2">
+              <ActionButton
+                lassName="act-btn-2"
+                onClick={() =>
+                  handleExpandedContactModal("Conversation Starters")
+                }
+              >
+                Convo Starters
+              </ActionButton>
+            </div>
             <br />
-            <button
-              onClick={() => handleExpandedContactModal("We Spoke Today")}
-            >
-              We Spoke Today
-            </button>
+            <div className="act-btn-3">
+              <ActionButton
+                lassName="act-btn-3"
+                onClick={() => handleExpandedContactModal("We Spoke Today")}
+              >
+                Schedule Conversation
+              </ActionButton>
+            </div>
             <br />
-            <button
-              onClick={() =>
-                handleExpandedContactModal(
-                  `Settings for ${props.person.name.first}`
-                )
-              }
-            >
-              Settings for{" "}
-              {props.person.name.first + " " + props.person.name.last}
-            </button>
+            <div className="act-btn-4">
+              <ActionButton
+                lassName="act-btn-4"
+                onClick={() =>
+                  handleExpandedContactModal(
+                    `Settings for ${props.person.name.first}`
+                  )
+                }
+              >
+                Settings for {props.person.name.first}
+              </ActionButton>
+            </div>
+
             <br />
           </div>
 
