@@ -13,7 +13,10 @@ import { setVisibleExpandedContactModal } from "../features/expandedContactModal
 const ActionButton = (props) => {
   return (
     <>
-      <button onClick={() => props.handleExpandedContactModal(props.message)} className="action-button">
+      <button
+        onClick={() => props.handleExpandedContactModal(props.message)}
+        className="action-button"
+      >
         <div className="action-button-graphic"></div>
         <span className="action-button-text">{props.children}</span>
       </button>
@@ -53,6 +56,7 @@ const ContactStatusIndicator = (props) => {
 //export; displays contact's info, conversations, and action buttons
 function ContactCard(props) {
   const [isExpanded, setIsExpanded] = useState(false);
+
   const dispatch = useDispatch();
 
   let conversationArray = [];
@@ -159,7 +163,12 @@ function ContactCard(props) {
           </div>
 
           <div className="contact-expanded-button-div">
-            <button className="collapse-ct-card" onClick={(event) => handleExpand(event)}>Collapse</button>
+            <button
+              className="collapse-ct-card"
+              onClick={(event) => handleExpand(event)}
+            >
+              Collapse
+            </button>
           </div>
         </div>
       </>
