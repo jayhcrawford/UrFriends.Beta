@@ -15,7 +15,7 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
-import TierSettingsModal from "./components/SettingsModal";
+
 import ExpandedContactModal from "./components/ExpandedContactModal";
 
 import { login } from "../services/loginService";
@@ -109,7 +109,7 @@ function App() {
 
   return (
     <>
-      <TierSettingsModal />
+
       <NewPersonModal
         people={phonebook}
         setPhonebook={setPhonebook}

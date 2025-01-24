@@ -2,6 +2,7 @@ import { useDispatch } from "react-redux";
 import { useState } from "react";
 import ContactCard from "./ContactCard.jsx";
 import { setVisibleTierSettingsModal } from "../features/tierSettingsSlice.js";
+import { setVisibleExpandedContactModal } from "../features/expandedContactModal.js";
 
 function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -85,7 +86,7 @@ function Tier(props) {
 
   const handleTierSettings = (event) => {
     event.stopPropagation();
-    dispatch(setVisibleTierSettingsModal());
+    dispatch(setVisibleExpandedContactModal({ modalContentType: "Settings" }));
   };
 
   if (!isExpanded) {
