@@ -5,18 +5,8 @@ import {
   setPerson,
   setVisibleReachOutModal,
 } from "../features/reachOutModalSlice";
-
-//static; takes date property from lastConvo objects and returns a simplified date string
-function getDateFromDateTime(dateTimeString) {
-  // Create a Date object from the string
-  const date = new Date(dateTimeString);
-
-  const month = date.getMonth() + 1;
-  const year = date.getFullYear();
-  const day = date.getDate() + 1;
-
-  return `${month}/${day}/${year}`;
-}
+import { getDateFromDateTime } from "../functions/getDateFromDateTime";
+import RecentConversations from "./RecentConversations";
 
 //static; shows if user has reached out to contact within Tier's timeframe
 const ContactStatusIndicator = (props) => {
@@ -45,14 +35,6 @@ const ContactStatusIndicator = (props) => {
       </>
     );
   }
-};
-
-//static; shortens conversation and adds "..." if it is longer than a character count
-const shortenConversation = (topic, count) => {
-  if (topic.length > count) {
-    return topic.slice(0, count) + "...";
-  }
-  return topic;
 };
 
 //export; displays contact's info, conversations, and action buttons
@@ -109,37 +91,7 @@ function ContactCard(props) {
           <div className="contact-expanded-recent-convos">
             <ul>
               <h4>Recent Conversations</h4>
-              {props.person.lastConvo[0].date === null
-                ? null
-                : conversationArray
-                    .sort((a, b) => new Date(b.date) - new Date(a.date))
-                    .map((conversation) => {
-                      return (
-                        <li key={`${conversation.date}+${conversation.topic}`}>
-                          <div
-                            style={{
-                              outline: "1px solid black",
-                              padding: ".2em",
-                              margin: ".2em",
-                              height: "3em",
-                            }}
-                          >
-                            <button style={{ width: "80%", height: "100%" }}>
-                              <span style={{backgroundColor: "red"}}>
-                                {props.person.lastConvo[0].date === null
-                                  ? null
-                                  : getDateFromDateTime(conversation.date)}
-                              </span>
-                              <span style={{backgroundColor: "green"}}>
-                                - {shortenConversation(conversation.topic, 60)}
-                              </span>
-                            </button>
-
-                            <button>edit</button>
-                          </div>
-                        </li>
-                      );
-                    })}
+              <RecentConversations person={props.person} conversationArray={conversationArray}/>
               <br />
               TODO: implement expanding ability. more than 5 conversations, and
               the older ones are hidden. also implement starring convos to
