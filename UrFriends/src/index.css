@@ -9,7 +9,7 @@
 
 /*
 //COLOR FOR CONTACT CARD CSS GRID LAYOUT
-
+*/
 .action-button-graphic {
   background-color: red;
 }
@@ -537,8 +537,9 @@ body {
   .act-btn-4 {
     padding: 0;
     margin: 0;
-    display: inline-block;
-    width: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
     margin: auto;
   }
 
@@ -679,7 +680,7 @@ body {
 }
 
 /*MOBILE EXTRA SMALL*/
-@media (min-width: 0px) and (max-width: 320px) {
+@media (min-width: 0px) and (max-width: 350px) {
   .contact-expanded-action-buttons {
     grid-area: 2 / 1 / 3 / 2;
     display: grid;
