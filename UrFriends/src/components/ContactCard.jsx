@@ -7,6 +7,7 @@ import {
 } from "../features/reachOutModalSlice";
 import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
+import { setVisibleExpandedContactModal } from "../features/expandedContactModal";
 
 //static; shows if user has reached out to contact within Tier's timeframe
 const ContactStatusIndicator = (props) => {
@@ -65,6 +66,7 @@ function ContactCard(props) {
     };
   }
 
+  //expands ContactCard.jsx
   const handleExpand = (event) => {
     event.stopPropagation();
     setIsExpanded(!isExpanded);
@@ -76,14 +78,20 @@ function ContactCard(props) {
     dispatch(setPerson(props.person));
   };
 
+  //opens modal for the various components within expanded ContactCard.jsx
+  const handleExpandedContactModal = (modalContentType) => {
+    dispatch(setVisibleExpandedContactModal({ modalContentType }));
+  };
+
   if (isExpanded) {
     return (
       <>
         <div className="contact-card-expanded">
           <div className="contact-expanded-name-phone-email">
             <span className="contact-name">
-              {props.person.name.first + " " + props.person.name.last} ____Phone Number: {props.person.phoneNumber}{" "}
-              ____Email: {props.person.email ? props.person.email : null}
+              {props.person.name.first + " " + props.person.name.last} ____Phone
+              Number: {props.person.phoneNumber} ____Email:{" "}
+              {props.person.email ? props.person.email : null}
             </span>
           </div>
           <br />
@@ -91,17 +99,26 @@ function ContactCard(props) {
           <div className="contact-expanded-recent-convos">
             <ul>
               <h4>Recent Conversations</h4>
-              <RecentConversations person={props.person} conversationArray={conversationArray}/>
+              <RecentConversations
+                person={props.person}
+                conversationArray={conversationArray}
+              />
             </ul>
           </div>
           <div className="contact-expanded-action-buttons">
-            <button>Schedule Conversation with {props.person.name.first + " " + props.person.name.last}</button>
+            <button onClick={() => handleExpandedContactModal(`Schedule a Conversation with ${props.person.name.first}`)}>
+              Schedule Conversation with{" "}
+              {props.person.name.first + " " + props.person.name.last}
+            </button>
             <br />
-            <button>Convo Starters</button>
+            <button onClick={() => handleExpandedContactModal("Conversation Starters")}>Convo Starters</button>
             <br />
-            <button>We Spoke Today</button>
+            <button onClick={() => handleExpandedContactModal("We Spoke Today")}>We Spoke Today</button>
             <br />
-            <button>Settings for {props.person.name.first + " " + props.person.name.last}</button>
+            <button onClick={() => handleExpandedContactModal(`Settings for ${props.person.name.first}`)}>
+              Settings for{" "}
+              {props.person.name.first + " " + props.person.name.last}
+            </button>
             <br />
           </div>
 
@@ -125,10 +142,14 @@ function ContactCard(props) {
             />
           </div>
           <div className="contact-name-and-last-cont-div">
-            <span className="contact-name">{props.person.name.first + " " + props.person.name.last}</span>
+            <span className="contact-name">
+              {props.person.name.first + " " + props.person.name.last}
+            </span>
             <span className="last-contact">
               {props.person.lastConvo[0].date === null
-                ? `Have a conversation with ${props.person.name.first + " " + props.person.name.last}!`
+                ? `Have a conversation with ${
+                    props.person.name.first + " " + props.person.name.last
+                  }!`
                 : "Last Contact:" +
                   getDateFromDateTime(mostRecentConversation.date)}
             </span>

@@ -5,6 +5,7 @@ import loginReducer from '../features/loginSlice'
 import newPersonReducer from '../features/newPersonModalSlice'
 import reachOutReducer from '../features/reachOutModalSlice'
 import tierSettingsReducer from '../features/tierSettingsSlice'
+import expandedContactModalReducer from '../features/expandedContactModal'
 
 
 export default configureStore({
@@ -14,7 +15,8 @@ export default configureStore({
     login: loginReducer,
     newPersonModal: newPersonReducer,
     reachOutModal: reachOutReducer,
-    tierSettingsModal: tierSettingsReducer
+    tierSettingsModal: tierSettingsReducer,
+    expandContactModal: expandedContactModalReducer
 
   },
 })

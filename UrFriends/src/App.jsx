@@ -8,6 +8,7 @@ import Login from "./components/Login";
 import SideMenu from "./components/SideMenu";
 import NewPersonModal from "./components/NewPersonModal";
 import Footer from "./components/Footer";
+import EditTiers from "./components/EditTiers";
 
 import { loginDispatch, logoutDispatch } from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
@@ -15,7 +16,7 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 import { Route, Routes } from "react-router";
 import ReachOutModal from "./components/ReachOutModal";
 import TierSettingsModal from "./components/SettingsModal";
-import EditTiers from "./components/EditTiers";
+import ExpandedContactModal from "./components/ExpandedContactModal";
 
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
@@ -116,6 +117,7 @@ function App() {
         tiers={tiers}
       />
       <ReachOutModal />
+      <ExpandedContactModal />
       <SideMenu logout={handleLogOut} />
       <Modal />
       <Header />
