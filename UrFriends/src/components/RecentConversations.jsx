@@ -21,7 +21,7 @@ const ConversationList = (props) => {
 //Essentially a fancy li component
 const ConversationButton = (props) => {
   return (
-    <li key={`${props.conversation.date}+${props.conversation.topic}`}>
+    <li>
       <div
         style={{
           outline: "1px solid black",
@@ -71,15 +71,14 @@ const RecentConversations = (props) => {
             .slice(0, 5)
             .map((conversation) => {
               return (
-                <>
-                  <ConversationButton
-                    conversation={conversation}
-                    person={props.person}
-                    handleOpenExpandedContactModal={
-                      handleOpenExpandedContactModal
-                    }
-                  />
-                </>
+                <ConversationButton
+                  key={`${conversation.date}+${conversation.topic}`}
+                  conversation={conversation}
+                  person={props.person}
+                  handleOpenExpandedContactModal={
+                    handleOpenExpandedContactModal
+                  }
+                />
               );
             })}
           <button onClick={() => handleOpenExpandedContactModal("Expand")}>
@@ -93,20 +92,18 @@ const RecentConversations = (props) => {
     return (
       <>
         <ConversationList>
-          {" "}
           {props.conversationArray
             .sort((a, b) => new Date(b.date) - new Date(a.date))
             .map((conversation) => {
               return (
-                <>
-                  <ConversationButton
-                    conversation={conversation}
-                    person={props.person}
-                    handleOpenExpandedContactModal={
-                      handleOpenExpandedContactModal
-                    }
-                  />
-                </>
+                <ConversationButton
+                  key={`${conversation.date}+${conversation.topic}`}
+                  conversation={conversation}
+                  person={props.person}
+                  handleOpenExpandedContactModal={
+                    handleOpenExpandedContactModal
+                  }
+                />
               );
             })}
         </ConversationList>

@@ -88,34 +88,57 @@ function ContactCard(props) {
       <>
         <div className="contact-card-expanded">
           <div className="contact-expanded-name-phone-email">
-            <span className="contact-name">
-              {props.person.name.first + " " + props.person.name.last} ____Phone
-              Number: {props.person.phoneNumber} ____Email:{" "}
-              {props.person.email ? props.person.email : null}
-            </span>
+            <div className="ce-name">
+              {props.person.name.first + " " + props.person.name.last}
+            </div>
+            <div className="ce-number">
+              Phone Number: {props.person.phoneNumber}
+            </div>
+            <div className="ce-email">
+              Email: {props.person.email ? props.person.email : null}
+            </div>
           </div>
           <br />
-
+          
           <div className="contact-expanded-recent-convos">
-            
-              
-              <RecentConversations
-                person={props.person}
-                conversationArray={conversationArray}
-              />
-
+            <RecentConversations
+              person={props.person}
+              conversationArray={conversationArray}
+            />
           </div>
           <div className="contact-expanded-action-buttons">
-            <button onClick={() => handleExpandedContactModal(`Schedule a Conversation with ${props.person.name.first}`)}>
+            <button
+              onClick={() =>
+                handleExpandedContactModal(
+                  `Schedule a Conversation with ${props.person.name.first}`
+                )
+              }
+            >
               Schedule Conversation with{" "}
               {props.person.name.first + " " + props.person.name.last}
             </button>
             <br />
-            <button onClick={() => handleExpandedContactModal("Conversation Starters")}>Convo Starters</button>
+            <button
+              onClick={() =>
+                handleExpandedContactModal("Conversation Starters")
+              }
+            >
+              Convo Starters
+            </button>
             <br />
-            <button onClick={() => handleExpandedContactModal("We Spoke Today")}>We Spoke Today</button>
+            <button
+              onClick={() => handleExpandedContactModal("We Spoke Today")}
+            >
+              We Spoke Today
+            </button>
             <br />
-            <button onClick={() => handleExpandedContactModal(`Settings for ${props.person.name.first}`)}>
+            <button
+              onClick={() =>
+                handleExpandedContactModal(
+                  `Settings for ${props.person.name.first}`
+                )
+              }
+            >
               Settings for{" "}
               {props.person.name.first + " " + props.person.name.last}
             </button>

@@ -12,7 +12,7 @@ const TierSelector = (props) => {
   }
 
   const handleChange = (newTier, oldTier) => {
-    props.handleChangeTier(props.name, newTier, oldTier);
+    props.handleChangeTier(props.name.first, newTier, oldTier);
   };
 
   return (
@@ -86,8 +86,8 @@ const ListFormTier = (props) => {
       <ul>
         {props.tierContent.map((person) => {
           return (
-            <li key={person.name}>
-              {person.name}
+            <li key={`${person.name.first}-${person.name.last}`}>
+              {person.name.first + " " + person.name.last}
               <TierSelector
                 localTiers={props.localTiers}
                 handleChangeTier={props.handleChangeTier}
@@ -135,7 +135,8 @@ const EditTiers = (props) => {
     let updatedTier = [];
     tierToUpdate.forEach((contact) => {
       let personToReturn;
-      if (contact.name == person) {
+
+      if (contact.name.first == person) {
         personToReturn = {
           ...contact,
           tier: Number(newTier),
@@ -194,14 +195,13 @@ const EditTiers = (props) => {
       sendChangedSettings = localSettings;
     }
 
-    //if there are any changes to contacts or settings, PATCH them
-    if (sendChangedSettings != null && contactsChanged != null) {
-      patchSettings({
-        token: loggedIn.user.token,
-        settings: sendChangedSettings,
-        phonebook: contactsChanged,
-      });
-    }
+    //TODO: layout a condition where patchSettings is only used for settings and 
+    //phonebook changes call the service patchTiers from contactService
+    patchSettings({
+      token: loggedIn.user.token,
+      settings: sendChangedSettings,
+      phonebook: contactsChanged,
+    });
   };
 
   let tiers;

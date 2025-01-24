@@ -14,6 +14,8 @@ settingsRouter.get("/userData/:id", async (request, response) => {
 settingsRouter.patch("/", async (request, response) => {
   const verify = jwt.verify(request.body.token, process.env.SECRET);
 
+  console.log(request.body)
+
   //If settings need to be changed, change them
   if (request.body.settings != null) {
 
