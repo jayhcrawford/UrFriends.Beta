@@ -8,8 +8,8 @@ import { setVisibleExpandedContactModal } from "../features/expandedContactModal
 const ConversationList = (props) => {
   return (
     <>
-      <div style={{ backgroundColor: "lightblue" }}>
-        <h4>Recent Conversations</h4>
+      <div className="conversation-list">
+        <h4 style={{ textAlign: "center" }}>Recent Conversations</h4>
         <ul style={{ listStyleType: "none", paddingLeft: "0" }}>
           {props.children}
         </ul>
@@ -22,24 +22,18 @@ const ConversationList = (props) => {
 const ConversationButton = (props) => {
   return (
     <li>
-      <div
-        style={{
-          outline: "1px solid black",
-          padding: ".2em",
-          margin: ".2em",
-          height: "3em",
-        }}
-      >
+      <div className="conv-btn-container">
         <button
-          style={{ width: "100%", height: "100%" }}
+          className="conv-btn"
+          style={{}}
           onClick={() => props.handleOpenExpandedContactModal("Conversation")}
         >
-          <span style={{ backgroundColor: "red" }}>
+          <span className="conv-btn-date-span">
             {props.person.lastConvo[0].date === null
               ? null
               : getDateFromDateTime(props.conversation.date)}
           </span>
-          <span style={{ backgroundColor: "green" }}>
+          <span className="conv-btn-conv-span">
             - {shortenConversation(props.conversation.topic, 60)}
           </span>
         </button>

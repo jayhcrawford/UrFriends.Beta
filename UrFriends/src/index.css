@@ -7,7 +7,25 @@
   font-family: Arial, Helvetica, sans-serif;
 }
 
-/*//COLOR FOR CONTACT CARD CSS GRID LAYOUT*/
+/*
+//COLOR FOR CONTACT CARD CSS GRID LAYOUT
+
+.action-button-graphic {
+  background-color: red;
+}
+
+.conversation-list {
+  background-color: lightblue;
+}
+
+.conv-btn-date-span {
+  background-color: red;
+}
+.conv-btn-conv-span {
+  background-color: green;
+}
+
+
 .recent-contact-status-div {
   background-color: blue;
 }
@@ -42,6 +60,20 @@
 .recent-contact-status-div {
   background-color: blue;
 }
+
+.act-btn-1 {
+  background-color: green;
+}
+.act-btn-2 {
+  background-color: pink;
+}
+.act-btn-3 {
+  background-color: yellow;
+}
+.act-btn-4 {
+  background-color: orange;
+}
+*/
 
 /* Standard Elements */
 body {
@@ -220,42 +252,28 @@ body {
 
 .action-button {
   font-size: 100%;
-
   height: 20%;
   border-radius: 5em;
-  margin: 0.2em;
-
+  margin: 0em;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: repeat(3, 1fr);
   grid-column-gap: 0px;
   grid-row-gap: 0px;
+  cursor: pointer;
 }
 
 .action-button-graphic {
   height: 60px;
   width: 60px;
-  background-color: red;
+  background-color: lightgray;
   border-radius: 100%;
   grid-area: 1 / 1 / 4 / 2;
-  margin: .2em;
+  margin: 0.2em;
 }
 
 .action-button-text {
-  grid-area: 2 / 2 / 3 / 4; 
-}
-
-.act-btn-1 {
-  background-color: green;
-}
-.act-btn-2 {
-  background-color: pink;
-}
-.act-btn-3 {
-  background-color: yellow;
-}
-.act-btn-4 {
-  background-color: orange;
+  grid-area: 2 / 2 / 3 / 4;
 }
 
 .act-btn-1,
@@ -263,7 +281,7 @@ body {
 .act-btn-3,
 .act-btn-4 {
   display: flex;
- justify-content: center;
+  justify-content: center;
   padding: 0;
   margin: 0;
   width: 100%;
@@ -288,6 +306,27 @@ body {
 
 .recent-contact-status-div {
   grid-area: 1 / 1 / 2 / 2;
+}
+
+.conv-btn-container {
+  padding: 0.2em;
+  margin: 0.2em;
+  height: 3em;
+}
+
+.conv-btn {
+  border-radius: 0.5em;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  text-align: left;
+}
+
+.conv-btn-date-span {
+
+}
+.conv-btn-conv-span {
+
 }
 
 /* (close) contact card contents */
@@ -543,7 +582,6 @@ body {
   .action-button-graphic {
     height: 60px;
     width: 60px;
-    background-color: red;
     border-radius: 100%;
   }
 

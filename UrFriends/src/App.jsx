@@ -140,7 +140,7 @@ function App() {
             <EditTiers phonebook={phonebook} userSettings={userSettings} />
           }
         />
-        {/* TODO: Implement a route for buld add people*/}
+        {/* TODO: Implement a route for bulk add people*/}
       </Routes>
       <Footer />
     </>
