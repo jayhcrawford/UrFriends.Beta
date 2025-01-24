@@ -97,13 +97,13 @@ function ContactCard(props) {
           <br />
 
           <div className="contact-expanded-recent-convos">
-            <ul>
-              <h4>Recent Conversations</h4>
+            
+              
               <RecentConversations
                 person={props.person}
                 conversationArray={conversationArray}
               />
-            </ul>
+
           </div>
           <div className="contact-expanded-action-buttons">
             <button onClick={() => handleExpandedContactModal(`Schedule a Conversation with ${props.person.name.first}`)}>
