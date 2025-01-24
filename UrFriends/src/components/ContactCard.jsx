@@ -38,7 +38,7 @@ const ContactStatusIndicator = (props) => {
   ) {
     return (
       <>
-        <p style={{ color: "red" }}>X</p>
+        <p style={{ color: "red" }}><i className="fa-solid fa-xmark"></i></p>
       </>
     );
   }
@@ -47,7 +47,7 @@ const ContactStatusIndicator = (props) => {
   if (date1 < date2) {
     return (
       <>
-        <p style={{ color: "green" }}>O</p>
+        <p style={{ color: "green" }}><i className="fa-solid fa-circle-check"></i></p>
       </>
     );
   }
@@ -204,7 +204,7 @@ function ContactCard(props) {
               ? null
               : "Topic: " + mostRecentConversation.topic}
           </span>
-          <span className="contact-action-btns">
+          <div className="contact-action-btns">
             <button
               className="schedule-btn"
               title="Schedule A Conversation With [x]"
@@ -219,7 +219,7 @@ function ContactCard(props) {
               <i className="fa-regular fa-message"></i>
               <i className="fa-solid fa-phone"></i>
             </button>
-          </span>
+          </div>
         </div>
       </>
     );
