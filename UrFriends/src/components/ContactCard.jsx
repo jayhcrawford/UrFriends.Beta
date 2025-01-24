@@ -92,10 +92,6 @@ function ContactCard(props) {
             <ul>
               <h4>Recent Conversations</h4>
               <RecentConversations person={props.person} conversationArray={conversationArray}/>
-              <br />
-              TODO: implement expanding ability. more than 5 conversations, and
-              the older ones are hidden. also implement starring convos to
-              highlight important things?
             </ul>
           </div>
           <div className="contact-expanded-action-buttons">
