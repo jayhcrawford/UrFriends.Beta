@@ -34,7 +34,7 @@ const ConversationButton = (props) => {
               : getDateFromDateTime(props.conversation.date)}
           </span>
           <span className="conv-btn-conv-span">
-            - {shortenConversation(props.conversation.topic, 60)}
+            - {shortenConversation(props.conversation.topic, 40)}
           </span>
         </button>
       </div>
