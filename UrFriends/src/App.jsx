@@ -14,7 +14,7 @@ import { loginDispatch, logoutDispatch } from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
-import ReachOutModal from "./components/ReachOutModal";
+
 
 import ExpandedContactModal from "./components/ExpandedContactModal";
 
@@ -116,7 +116,7 @@ function App() {
         setTiers={setTiers}
         tiers={tiers}
       />
-      <ReachOutModal />
+
       <ExpandedContactModal />
       <SideMenu logout={handleLogOut} />
       <Modal />

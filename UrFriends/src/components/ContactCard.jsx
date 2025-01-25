@@ -14,7 +14,12 @@ const ActionButton = (props) => {
   return (
     <>
       <button
-        onClick={() => props.handleExpandedContactModal(props.message)}
+        onClick={(event) =>
+          props.handleExpandedContactModal(event, {
+            modalContentType: props.message,
+            person: props.person,
+          })
+        }
         className="action-button"
       >
         <div className="action-button-graphic"></div>
@@ -38,7 +43,9 @@ const ContactStatusIndicator = (props) => {
   ) {
     return (
       <>
-        <p style={{ color: "red" }}><i className="fa-solid fa-xmark"></i></p>
+        <p style={{ color: "red" }}>
+          <i className="fa-solid fa-xmark"></i>
+        </p>
       </>
     );
   }
@@ -47,7 +54,9 @@ const ContactStatusIndicator = (props) => {
   if (date1 < date2) {
     return (
       <>
-        <p style={{ color: "green" }}><i className="fa-solid fa-circle-check"></i></p>
+        <p style={{ color: "green" }}>
+          <i className="fa-solid fa-circle-check"></i>
+        </p>
       </>
     );
   }
@@ -88,15 +97,11 @@ function ContactCard(props) {
     setIsExpanded(!isExpanded);
   };
 
-  const handleClickReachOut = (event) => {
-    event.stopPropagation();
-    dispatch(setVisibleReachOutModal());
-    dispatch(setPerson(props.person));
-  };
-
   //opens modal for the various components within expanded ContactCard.jsx
-  const handleExpandedContactModal = (modalContentType) => {
-    dispatch(setVisibleExpandedContactModal({ modalContentType }));
+  const handleExpandedContactModal = (event, payload) => {
+    console.log(payload, "In contact card");
+    event.stopPropagation();
+    dispatch(setVisibleExpandedContactModal(payload));
   };
 
   if (isExpanded) {
@@ -127,6 +132,7 @@ function ContactCard(props) {
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
                 message={"We Spoke"}
+                person={props.person}
               >
                 We Spoke
               </ActionButton>
@@ -136,6 +142,7 @@ function ContactCard(props) {
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
                 message={"Conversation Starters"}
+                person={props.person}
               >
                 Convo Starters
               </ActionButton>
@@ -145,6 +152,7 @@ function ContactCard(props) {
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
                 message={`Schedule a Conversation with ${props.person.name.first}`}
+                person={props.person}
               >
                 Schedule Convo
               </ActionButton>
@@ -154,6 +162,7 @@ function ContactCard(props) {
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
                 message={`${props.person.name.first}'s Settings`}
+                person={props.person}
               >
                 {props.person.name.first}'s Settings
               </ActionButton>
@@ -206,13 +215,24 @@ function ContactCard(props) {
           </span>
           <div className="contact-action-btns">
             <button
+              onClick={(event) =>
+                handleExpandedContactModal(event, {
+                  modalContentType: "Schedule",
+                  person: props.person,
+                })
+              }
               className="schedule-btn"
               title="Schedule A Conversation With [x]"
             >
               <i className="fa-regular fa-calendar-days"></i>
             </button>
             <button
-              onClick={(event) => handleClickReachOut(event)}
+              onClick={(event) =>
+                handleExpandedContactModal(event, {
+                  modalContentType: "Reach Out",
+                  person: props.person,
+                })
+              }
               className="contact-btn"
               title="Contact [x]"
             >
