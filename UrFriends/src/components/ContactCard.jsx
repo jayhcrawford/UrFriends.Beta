@@ -108,9 +108,13 @@ function ContactCard(props) {
     {
       /*TODO: Implement various views for the different render degrees:
 
-      0 conversations
-      1 - 3 conversations
-      4 - 5 conversations
+      0 is basically ready; it needs to be optimized for extra small mobile
+      and the range in between 1100 and 750
+
+      1-5 all look good for mobile version
+
+      THIS MEANS;
+      I need to build display for 1-4 conversations
       
       */
     }
@@ -208,13 +212,6 @@ function ContactCard(props) {
               <div className="ce-email">
                 Email: {props.person.email ? props.person.email : null}
               </div>
-            </div>
-            <br />
-            <div className="contact-expanded-recent-convos-zeroConv">
-              <RecentConversations
-                person={props.person}
-                conversationArray={conversationArray}
-              />
             </div>
             <div className="contact-expanded-action-buttons-zeroConv">
               <div className="act-btn-1-zeroConv">
