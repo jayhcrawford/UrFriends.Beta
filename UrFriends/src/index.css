@@ -72,7 +72,102 @@
 .act-btn-4 {
   background-color: orange;
 }
-*/
+
+.contact-expanded-action-buttons-zeroConv {
+  background-color: turquoise;
+}
+
+/* Everything pertaining to zero conversation ContactCard */
+.act-btn-1-zeroConv,
+.act-btn-2-zeroConv,
+.act-btn-3-zeroConv,
+.act-btn-4-zeroConv {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  margin: auto;
+}
+
+.act-btn-1-zeroConv {
+  grid-area: 1 / 1 / 2 / 2;
+}
+.act-btn-2-zeroConv {
+  grid-area: 1 / 2 / 2 / 3;
+}
+.act-btn-3-zeroConv {
+  grid-area: 1 / 3 / 2 / 4;
+}
+.act-btn-4-zeroConv {
+  grid-area: 1 / 4 / 2 / 5;
+}
+
+.contact-expanded-action-buttons-zeroConv {
+  margin-top: 0;
+  grid-area: 2 / 1 / 3 / 2;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr;
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+  margin-bottom: 0;
+}
+
+.contact-card-expanded-zeroConv {
+  align-items: start;
+  box-shadow: 3px 3px 3px rgba(0, 0, 0, 0.2), -2px 3px 3px rgba(0, 0, 0, 0.2);
+  background-color: var(--light-base-color);
+  margin: 0.5rem 2rem 0.5rem 2rem;
+  padding: 1.2rem;
+  /*CSS Grid settings for contained elements*/
+  display: grid;
+  grid-template-columns: repeat(1, 1fr);
+  grid-template-rows: repeat(3, auto);
+  grid-column-gap: 0px;
+  grid-row-gap: 0px;
+}
+/* (close) Everything pertaining to zero conversation ContactCard */
+
+/* MOBILE EXTRA SMALL view styles */
+@media (min-width: 0px) and (max-width: 350px) {
+  .contact-expanded-action-buttons {
+    grid-area: 2 / 1 / 3 / 2;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    grid-column-gap: 0px;
+    grid-row-gap: 0px;
+  }
+
+  .act-btn-1,
+  .act-btn-2,
+  .act-btn-3,
+  .act-btn-4 {
+    display: flex;
+    justify-content: center;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    margin: 0;
+  }
+
+  .act-btn-1 {
+    grid-area: 2 / 1 / 3 / 2;
+  }
+  .act-btn-2 {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+  .act-btn-3 {
+    grid-area: 1 / 2 / 2 / 3;
+  }
+  .act-btn-4 {
+    grid-area: 1 / 1 / 2 / 2;
+  }
+}
+/* (close) MOBILE EXTRA SMALL view styles */
+
+/* MONITOR view styles */
 
 /* Standard Elements */
 body {
@@ -116,7 +211,6 @@ body {
   width: 2em;
   margin: 2px;
   padding: 0.5em;
-
 }
 
 .expand-collapse-span {
@@ -178,7 +272,6 @@ body {
 }
 
 .contact-expanded-button-div {
-
   grid-area: 3 / 1 / 3 / 5;
   display: flex;
   justify-content: center;
@@ -335,7 +428,6 @@ body {
 }
 
 .conversation-list {
-
   background-color: var(--light-base-color);
   border: 2px solid var(--base-high-cont-color);
   border-radius: 1em;
@@ -498,8 +590,9 @@ body {
 }
 
 /* (close)ID's */
+/* (close )MONITOR view styles */
 
-/* MOBILE VIEW */
+/* MOBILE view styles */
 @media (min-width: 0px) and (max-width: 745px) {
   /* Classes */
   .tier-container {
@@ -540,6 +633,12 @@ body {
   }
 
   .contact-card-expanded {
+    margin: 0.5rem 1rem 0.5rem 1rem;
+    padding: 0.5rem;
+    grid-template-columns: 1fr;
+    grid-template-rows: repeat(4, auto);
+  }
+  .contact-card-expanded-zeroConv {
     margin: 0.5rem 1rem 0.5rem 1rem;
     padding: 0.5rem;
     grid-template-columns: 1fr;
@@ -667,7 +766,7 @@ body {
     margin: 0;
     padding: 0;
   }
-  
+
   /* (close) contact card contents */
 
   .login-container {
@@ -727,8 +826,9 @@ body {
   }
   /* (close)ID's */
 }
+/* (close) MOBILE view styles */
 
-/*MOBILE EXTRA SMALL*/
+/* MOBILE EXTRA SMALL view styles */
 @media (min-width: 0px) and (max-width: 350px) {
   .contact-expanded-action-buttons {
     grid-area: 2 / 1 / 3 / 2;
@@ -764,3 +864,4 @@ body {
     grid-area: 1 / 1 / 2 / 2;
   }
 }
+/* (close) MOBILE EXTRA SMALL view styles */

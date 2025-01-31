@@ -105,83 +105,173 @@ function ContactCard(props) {
   };
 
   if (isExpanded) {
-    return (
-      <>
-        <div className="contact-card-expanded">
-          <div className="contact-expanded-name-phone-email">
-            <div className="ce-name">
-              {props.person.name.first + " " + props.person.name.last}
-            </div>
-            <div className="ce-number">
-              Phone Number: {props.person.phoneNumber}
-            </div>
-            <div className="ce-email">
-              Email: {props.person.email ? props.person.email : null}
-            </div>
-          </div>
-          <br />
+    {
+      /*TODO: Implement various views for the different render degrees:
 
-          <div className="contact-expanded-recent-convos">
-            <RecentConversations
-              person={props.person}
-              conversationArray={conversationArray}
-            />
-          </div>
-          <div className="contact-expanded-action-buttons">
-            <div className="act-btn-1">
-              <ActionButton
-                handleExpandedContactModal={handleExpandedContactModal}
-                message={"We Spoke"}
-                person={props.person}
-              >
-                We Spoke
-              </ActionButton>
+      0 conversations
+      1 - 3 conversations
+      4 - 5 conversations
+      
+      */
+    }
+
+    {/*If there are conversations*/}
+    if (conversationArray && props.person.lastConvo[0].date != null) {
+      return (
+        <>
+          <div className="contact-card-expanded">
+            <div className="contact-expanded-name-phone-email">
+              <div className="ce-name">
+                {props.person.name.first + " " + props.person.name.last}
+              </div>
+              <div className="ce-number">
+                Phone Number: {props.person.phoneNumber}
+              </div>
+              <div className="ce-email">
+                Email: {props.person.email ? props.person.email : null}
+              </div>
             </div>
             <br />
-            <div className="act-btn-2">
-              <ActionButton
-                handleExpandedContactModal={handleExpandedContactModal}
-                message={"Conversation Starters"}
+            <div className="contact-expanded-recent-convos">
+              <RecentConversations
                 person={props.person}
-              >
-                Convo Starters
-              </ActionButton>
+                conversationArray={conversationArray}
+              />
             </div>
-            <br />
-            <div className="act-btn-3">
-              <ActionButton
-                handleExpandedContactModal={handleExpandedContactModal}
-                message={`Schedule a Conversation with ${props.person.name.first}`}
-                person={props.person}
-              >
-                Schedule Convo
-              </ActionButton>
-            </div>
-            <br />
-            <div className="act-btn-4">
-              <ActionButton
-                handleExpandedContactModal={handleExpandedContactModal}
-                message={`${props.person.name.first}'s Settings`}
-                person={props.person}
-              >
-                {props.person.name.first}'s Settings
-              </ActionButton>
+            <div className="contact-expanded-action-buttons">
+              <div className="act-btn-1">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={"We Spoke"}
+                  person={props.person}
+                >
+                  We Spoke
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-2">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={"Conversation Starters"}
+                  person={props.person}
+                >
+                  Convo Starters
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-3">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={`Schedule a Conversation with ${props.person.name.first}`}
+                  person={props.person}
+                >
+                  Schedule Convo
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-4">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={`${props.person.name.first}'s Settings`}
+                  person={props.person}
+                >
+                  {props.person.name.first}'s Settings
+                </ActionButton>
+              </div>
+
+              <br />
             </div>
 
+            <div className="contact-expanded-button-div">
+              <button
+                className="collapse-ct-card"
+                onClick={(event) => handleExpand(event)}
+              >
+                Collapse
+              </button>
+            </div>
+          </div>
+        </>
+      );
+    {/*If there are no conversations*/}
+    } else if (conversationArray && props.person.lastConvo[0].date === null) {
+      return (
+        <>
+          <div className="contact-card-expanded-zeroConv">
+            <div className="contact-expanded-name-phone-email">
+              <div className="ce-name">
+                {props.person.name.first + " " + props.person.name.last}
+              </div>
+              <div className="ce-number">
+                Phone Number: {props.person.phoneNumber}
+              </div>
+              <div className="ce-email">
+                Email: {props.person.email ? props.person.email : null}
+              </div>
+            </div>
             <br />
-          </div>
+            <div className="contact-expanded-recent-convos-zeroConv">
+              <RecentConversations
+                person={props.person}
+                conversationArray={conversationArray}
+              />
+            </div>
+            <div className="contact-expanded-action-buttons-zeroConv">
+              <div className="act-btn-1-zeroConv">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={"We Spoke"}
+                  person={props.person}
+                >
+                  We Spoke
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-2-zeroConv">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={"Conversation Starters"}
+                  person={props.person}
+                >
+                  Convo Starters
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-3-zeroConv">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={`Schedule a Conversation with ${props.person.name.first}`}
+                  person={props.person}
+                >
+                  Schedule Convo
+                </ActionButton>
+              </div>
+              <br />
+              <div className="act-btn-4-zeroConv">
+                <ActionButton
+                  handleExpandedContactModal={handleExpandedContactModal}
+                  message={`${props.person.name.first}'s Settings`}
+                  person={props.person}
+                >
+                  {props.person.name.first}'s Settings
+                </ActionButton>
+              </div>
 
-          <div className="contact-expanded-button-div">
-            <button
-              className="collapse-ct-card"
-              onClick={(event) => handleExpand(event)}
-            >
-              Collapse
-            </button>
+              <br />
+            </div>
+
+            <div className="contact-expanded-button-div">
+              <button
+                className="collapse-ct-card"
+                onClick={(event) => handleExpand(event)}
+              >
+                Collapse
+              </button>
+            </div>
           </div>
-        </div>
-      </>
-    );
+        </>
+      );
+    }
   }
 
   if (!isExpanded) {
