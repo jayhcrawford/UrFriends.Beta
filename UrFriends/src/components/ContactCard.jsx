@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 
 import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
-import { setVisibleExpandedContactModal } from "../features/modalSlice";
+import { setVisibleModal } from "../features/modalSlice";
 
 //static
 const ActionButton = (props) => {
@@ -97,7 +97,7 @@ function ContactCard(props) {
   //opens modal for the various components within expanded ContactCard.jsx
   const handleExpandedContactModal = (event, payload) => {
     event.stopPropagation();
-    dispatch(setVisibleExpandedContactModal(payload));
+    dispatch(setVisibleModal(payload));
   };
 
   if (isExpanded) {

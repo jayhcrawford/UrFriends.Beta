@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { patchConversation } from "../../../services/contactService";
+import {
+  hideNotification,
+  setNotification,
+} from "../../features/notificationSlice";
 
 const ReachOut = (props) => {
   const person = useSelector((state) => state.expandContactModal.person);
@@ -22,7 +26,11 @@ const ReachOut = (props) => {
     const date = new Date(event.target.date.value);
 
     if (isNaN(date)) {
-      return null
+      dispatch(setNotification());
+      setTimeout(() => {
+        dispatch(hideNotification());
+      }, 5000);
+      return null;
     }
 
     var calendarDate = new Date(

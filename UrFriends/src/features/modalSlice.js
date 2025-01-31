@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const expandedContactModalSlice = createSlice({
+export const modalSlice = createSlice({
   name: "expandedContactModal",
   initialState: {
     visible: false,
@@ -9,7 +9,7 @@ export const expandedContactModalSlice = createSlice({
     topic: null
   },
   reducers: {
-    setVisibleExpandedContactModal: (state, action) => {
+    setVisibleModal: (state, action) => {
       if (Object.hasOwn(action.payload, "person")) {
         state.person = action.payload.person
       }
@@ -19,7 +19,7 @@ export const expandedContactModalSlice = createSlice({
       state.type = action.payload.modalContentType
       state.visible = true;
     },
-    setHideExpandedContactModal: (state, action) => {
+    hideModal: (state, action) => {
       state.visible = false;
       state.type = "no content"
       state.person = null;
@@ -29,6 +29,6 @@ export const expandedContactModalSlice = createSlice({
 });
 
 // Action creators are generated for each case reducer function
-export const { setVisibleExpandedContactModal, setHideExpandedContactModal } = expandedContactModalSlice.actions;
+export const { setVisibleModal, hideModal } = modalSlice.actions;
 
-export default expandedContactModalSlice.reducer;
+export default modalSlice.reducer;

@@ -2,7 +2,7 @@ import React from "react";
 import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import { shortenConversation } from "../functions/shortenConversation";
 import { useDispatch } from "react-redux";
-import { setVisibleExpandedContactModal } from "../features/modalSlice";
+import { setVisibleModal } from "../features/modalSlice";
 
 //Essentially a fancy ul component
 const ConversationList = (props) => {
@@ -47,7 +47,7 @@ const ConversationButton = (props) => {
 const RecentConversations = (props) => {
   const dispatch = useDispatch();
   const handleOpenExpandedContactModal = (modalContentType, topic) => {
-    dispatch(setVisibleExpandedContactModal({ modalContentType, topic: topic }));
+    dispatch(setVisibleModal({ modalContentType, topic: topic }));
   };
 
   //If !props.conversationArray, then data is still being fetched, or there is no data.

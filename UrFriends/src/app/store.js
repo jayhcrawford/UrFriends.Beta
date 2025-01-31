@@ -1,15 +1,17 @@
 import { configureStore } from "@reduxjs/toolkit";
 
+import modalReducer from "../features/modalSlice";
 import sideMenuReducer from "../features/sideMenuSlice";
 import loginReducer from "../features/loginSlice";
 import tierSettingsReducer from "../features/tierSettingsSlice";
-import expandedContactModalReducer from "../features/modalSlice";
+import notificationReducer from "../features/notificationSlice";
 
 export default configureStore({
   reducer: {
     sideMenu: sideMenuReducer,
     login: loginReducer,
     tierSettingsModal: tierSettingsReducer,
-    expandContactModal: expandedContactModalReducer,
+    expandContactModal: modalReducer,
+    notification: notificationReducer,
   },
 });

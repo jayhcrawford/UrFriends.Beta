@@ -1,14 +1,14 @@
 import { useDispatch } from "react-redux";
 import Tier from "./Tier.jsx";
 import { Link } from "react-router";
-import { setVisibleExpandedContactModal } from "../features/modalSlice.js";
+import { setVisibleModal } from "../features/modalSlice.js";
 
 function Phonebook(props) {
   const dispatch = useDispatch();
 
   const addContact = () => {
     dispatch(
-      setVisibleExpandedContactModal({ modalContentType: "add-contact" })
+      setVisibleModal({ modalContentType: "add-contact" })
     );
   };
 

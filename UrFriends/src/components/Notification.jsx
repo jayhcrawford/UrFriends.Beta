@@ -1,0 +1,47 @@
+import React from "react";
+import { useSelector } from "react-redux";
+
+const NotificationBase = (props) => {
+  const notificationVisible = useSelector(
+    (state) => state.notification.visible
+  );
+
+  if (!notificationVisible) {
+    return null;
+  }
+
+  return (
+    <div
+      style={{
+        backgroundColor: props.color,
+        position: "fixed",
+        top: "10px",
+        right: "10px",
+        left: "10px",
+        height: "4em",
+        border: "5px solid rgba(255, 255, 255, .4)",
+        borderRadius: ".5em",
+      }}
+    >
+      <p
+        style={{ marginLeft: "1em", color: props.fontColor, fontSize: "1.2em" }}
+      >
+        {props.message}
+      </p>
+    </div>
+  );
+};
+
+const Notification = () => {
+  return (
+    <>
+      <NotificationBase
+        color="limegreen"
+        fontColor="white"
+        message={"Message"}
+      />
+    </>
+  );
+};
+
+export default Notification;
