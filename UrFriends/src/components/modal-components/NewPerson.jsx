@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setHideNewPersonModal } from "../../features/newPersonModalSlice.js";
+
 
 import { postContact } from "../../../services/contactService.js";
 
@@ -67,8 +67,8 @@ const NewPersonModal = (props) => {
     event.target.contactEmail.value = "";
     event.target.tier.value = "";
 
-    //TODO: add user feedback for success
-    dispatch(setHideNewPersonModal());
+    //TODO: add feedback for success
+
   };
 
   //render

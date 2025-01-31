@@ -5,7 +5,6 @@ import Header from "./components/Header";
 import Phonebook from "./components/Phonebook";
 import Login from "./components/Login";
 import SideMenu from "./components/SideMenu";
-import NewPersonModal from "./components/modal-components/NewPerson";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
 

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setHideExpandedContactModal } from "../features/expandedContactModal";
+import { setHideExpandedContactModal } from "../features/modalSlice";
 import ReachOut from "./modal-components/ReachOut";
 import ConvoStarters from "./modal-components/ConvoStarters";
 import ScheduleConvo from "./modal-components/ScheduleConvo";

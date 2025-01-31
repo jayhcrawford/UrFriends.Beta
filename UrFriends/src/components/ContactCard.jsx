@@ -1,13 +1,10 @@
 import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import {
-  setPerson,
-  setVisibleReachOutModal,
-} from "../features/reachOutModalSlice";
+
 import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
-import { setVisibleExpandedContactModal } from "../features/expandedContactModal";
+import { setVisibleExpandedContactModal } from "../features/modalSlice";
 
 //static
 const ActionButton = (props) => {

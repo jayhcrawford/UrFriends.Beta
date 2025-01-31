@@ -2,7 +2,7 @@ import React from "react";
 import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import { shortenConversation } from "../functions/shortenConversation";
 import { useDispatch } from "react-redux";
-import { setVisibleExpandedContactModal } from "../features/expandedContactModal";
+import { setVisibleExpandedContactModal } from "../features/modalSlice";
 
 //Essentially a fancy ul component
 const ConversationList = (props) => {

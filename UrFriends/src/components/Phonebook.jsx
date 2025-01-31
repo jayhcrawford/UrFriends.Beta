@@ -1,8 +1,7 @@
 import { useDispatch } from "react-redux";
 import Tier from "./Tier.jsx";
-import { setVisibleNewPersonModal } from "../features/newPersonModalSlice.js";
 import { Link } from "react-router";
-import { setVisibleExpandedContactModal } from "../features/expandedContactModal.js";
+import { setVisibleExpandedContactModal } from "../features/modalSlice.js";
 
 function Phonebook(props) {
   const dispatch = useDispatch();
