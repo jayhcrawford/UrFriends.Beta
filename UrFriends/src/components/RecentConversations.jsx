@@ -26,7 +26,7 @@ const ConversationButton = (props) => {
         <button
           className="conv-btn"
           style={{}}
-          onClick={() => props.handleOpenExpandedContactModal("Conversation")}
+          onClick={() => props.handleOpenExpandedContactModal("conversation", props.conversation.topic)}
         >
           <span className="conv-btn-date-span">
             {props.person.lastConvo[0].date === null
@@ -46,8 +46,8 @@ const ConversationButton = (props) => {
 //abbreviated list and an expand button are rendered.
 const RecentConversations = (props) => {
   const dispatch = useDispatch();
-  const handleOpenExpandedContactModal = (modalContentType) => {
-    dispatch(setVisibleExpandedContactModal({ modalContentType }));
+  const handleOpenExpandedContactModal = (modalContentType, topic) => {
+    dispatch(setVisibleExpandedContactModal({ modalContentType, topic: topic }));
   };
 
   //If !props.conversationArray, then data is still being fetched, or there is no data.

@@ -86,7 +86,7 @@ function Tier(props) {
 
   const handleTierSettings = (event) => {
     event.stopPropagation();
-    dispatch(setVisibleExpandedContactModal({ modalContentType: "Settings" }));
+    dispatch(setVisibleExpandedContactModal({ modalContentType: "tier-settings" }));
   };
 
   if (!isExpanded) {

@@ -3,10 +3,9 @@ import { useDispatch, useSelector } from "react-redux";
 
 import Header from "./components/Header";
 import Phonebook from "./components/Phonebook";
-import Modal from "./components/Modal";
 import Login from "./components/Login";
 import SideMenu from "./components/SideMenu";
-import NewPersonModal from "./components/NewPersonModal";
+import NewPersonModal from "./components/modal-components/NewPerson";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
 
@@ -16,7 +15,7 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 import { Route, Routes } from "react-router";
 
 
-import ExpandedContactModal from "./components/ExpandedContactModal";
+import Modal from "./components/Modal";
 
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
@@ -110,16 +109,18 @@ function App() {
   return (
     <>
 
-      <NewPersonModal
+{/*       <NewPersonModal
         people={phonebook}
         setPhonebook={setPhonebook}
         setTiers={setTiers}
         tiers={tiers}
-      />
 
-      <ExpandedContactModal />
-      <SideMenu logout={handleLogOut} />
+      /> */}
+
+
+
       <Modal />
+      <SideMenu logout={handleLogOut} />
       <Header />
       <p></p>
       <Routes>

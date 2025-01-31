@@ -5,12 +5,16 @@ export const expandedContactModalSlice = createSlice({
   initialState: {
     visible: false,
     type: "no content",
-    person: null  
+    person: null,
+    topic: null
   },
   reducers: {
     setVisibleExpandedContactModal: (state, action) => {
       if (Object.hasOwn(action.payload, "person")) {
         state.person = action.payload.person
+      }
+      if (Object.hasOwn(action.payload, "topic")) {
+        state.topic = action.payload.topic
       }
       state.type = action.payload.modalContentType
       state.visible = true;
@@ -18,6 +22,8 @@ export const expandedContactModalSlice = createSlice({
     setHideExpandedContactModal: (state, action) => {
       state.visible = false;
       state.type = "no content"
+      state.person = null;
+      state.topic = null;
     },
   },
 });

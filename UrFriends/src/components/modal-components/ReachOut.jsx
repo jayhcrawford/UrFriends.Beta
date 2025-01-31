@@ -1,11 +1,7 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import {
-  resetPerson,
-  setHideReachOutModal,
-} from "../features/reachOutModalSlice";
 
-import { patchConversation } from "../../services/contactService";
+import { patchConversation } from "../../../services/contactService";
 
 const ReachOut = (props) => {
   const person = useSelector((state) => state.expandContactModal.person);

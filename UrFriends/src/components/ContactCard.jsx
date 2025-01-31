@@ -99,7 +99,6 @@ function ContactCard(props) {
 
   //opens modal for the various components within expanded ContactCard.jsx
   const handleExpandedContactModal = (event, payload) => {
-    console.log(payload, "In contact card");
     event.stopPropagation();
     dispatch(setVisibleExpandedContactModal(payload));
   };
@@ -131,7 +130,7 @@ function ContactCard(props) {
             <div className="act-btn-1">
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
-                message={"We Spoke"}
+                message={"we-spoke"}
                 person={props.person}
               >
                 We Spoke
@@ -141,7 +140,7 @@ function ContactCard(props) {
             <div className="act-btn-2">
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
-                message={"Conversation Starters"}
+                message={"convo-starters"}
                 person={props.person}
               >
                 Convo Starters
@@ -151,7 +150,7 @@ function ContactCard(props) {
             <div className="act-btn-3">
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
-                message={`Schedule a Conversation with ${props.person.name.first}`}
+                message={`schedule-conv-w-${props.person.name.first}`}
                 person={props.person}
               >
                 Schedule Convo
@@ -161,7 +160,7 @@ function ContactCard(props) {
             <div className="act-btn-4">
               <ActionButton
                 handleExpandedContactModal={handleExpandedContactModal}
-                message={`${props.person.name.first}'s Settings`}
+                message={`settings-${props.person.name.first}`}
                 person={props.person}
               >
                 {props.person.name.first}'s Settings

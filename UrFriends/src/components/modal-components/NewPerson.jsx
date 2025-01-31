@@ -1,17 +1,12 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setHideNewPersonModal } from "../features/newPersonModalSlice.js";
+import { setHideNewPersonModal } from "../../features/newPersonModalSlice.js";
 
-import { postContact } from "../../services/contactService.js";
+import { postContact } from "../../../services/contactService.js";
 
-const newPersonModal = (props) => {
-  const modalVisible = useSelector((state) => state.newPersonModal.visible);
+const NewPersonModal = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
-
-  const handleClose = () => {
-    dispatch(setHideNewPersonModal());
-  };
 
   const handleAdd = (event) => {
     event.preventDefault();
@@ -20,7 +15,7 @@ const newPersonModal = (props) => {
       tier: event.target.tier.value,
       name: {
         first: event.target.contactFirstName.value,
-        last: event.target.contactLastName.value
+        last: event.target.contactLastName.value,
       },
       phoneNumber: event.target.contactPhone.value,
       email: event.target.contactEmail.value,
@@ -77,40 +72,32 @@ const newPersonModal = (props) => {
   };
 
   //render
-  if (!modalVisible) {
-    return null;
-  }
   return (
     <>
-      <div className="modal-base-transparency">
-        <div className="modal-box">
-          <form onSubmit={(event) => handleAdd(event)}>
-            <button onClick={handleClose}>Close</button>
-            <h3>Add A New Person</h3>
-            First Name: <input name="contactFirstName"></input>
-            Last Name: <input name="contactLastName"></input>
-            <br />
-            Phone: <input name="contactPhone"></input>
-            <br />
-            Email: <input name="contactEmail"></input>
-            <br />
-            Tier:
-            <input type="radio" id="tier1" name="tier" value="1" required />
-            <label htmlFor="tier1">1</label>
-            <input type="radio" id="tier2" name="tier" value="2" />
-            <label htmlFor="tier2">2</label>
-            <input type="radio" id="tier3" name="tier" value="3" />
-            <label htmlFor="tier3">3</label>
-            <input type="radio" id="tier4" name="tier" value="4" />
-            <label htmlFor="tier4">4</label>
-            <input type="radio" id="tier5" name="tier" value="5" />
-            <label htmlFor="tier5">5</label>
-            <button type="submit">Add Person</button>
-          </form>
-        </div>
-      </div>
+      <form onSubmit={(event) => handleAdd(event)}>
+        <h3>Add A New Person</h3>
+        First Name: <input name="contactFirstName"></input>
+        Last Name: <input name="contactLastName"></input>
+        <br />
+        Phone: <input name="contactPhone"></input>
+        <br />
+        Email: <input name="contactEmail"></input>
+        <br />
+        Tier:
+        <input type="radio" id="tier1" name="tier" value="1" required />
+        <label htmlFor="tier1">1</label>
+        <input type="radio" id="tier2" name="tier" value="2" />
+        <label htmlFor="tier2">2</label>
+        <input type="radio" id="tier3" name="tier" value="3" />
+        <label htmlFor="tier3">3</label>
+        <input type="radio" id="tier4" name="tier" value="4" />
+        <label htmlFor="tier4">4</label>
+        <input type="radio" id="tier5" name="tier" value="5" />
+        <label htmlFor="tier5">5</label>
+        <button type="submit">Add Person</button>
+      </form>
     </>
   );
 };
 
-export default newPersonModal;
+export default NewPersonModal;

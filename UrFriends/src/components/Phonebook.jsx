@@ -2,12 +2,15 @@ import { useDispatch } from "react-redux";
 import Tier from "./Tier.jsx";
 import { setVisibleNewPersonModal } from "../features/newPersonModalSlice.js";
 import { Link } from "react-router";
+import { setVisibleExpandedContactModal } from "../features/expandedContactModal.js";
 
 function Phonebook(props) {
   const dispatch = useDispatch();
 
   const addContact = () => {
-    dispatch(setVisibleNewPersonModal());
+    dispatch(
+      setVisibleExpandedContactModal({ modalContentType: "add-contact" })
+    );
   };
 
   const bulkAdd = () => {
@@ -22,7 +25,9 @@ function Phonebook(props) {
     <>
       <div>
         <button onClick={addContact}>Add Contact</button>
-        <Link to="/editTiers"><button>Edit Tiers</button></Link>
+        <Link to="/editTiers">
+          <button>Edit Tiers</button>
+        </Link>
         <button onClick={bulkAdd}>Bulk Add People</button>
         {/*contacts-list section is the flex container for contact-cards-div and any content below the header*/}
         <section id="contacts-list">
@@ -31,7 +36,11 @@ function Phonebook(props) {
             {props.tiers.map((tier) => {
               return (
                 <article key={tier} className="tier-and-contacts-container">
-                  <Tier settings={props.settings} tierName={tier} people={props.people} />
+                  <Tier
+                    settings={props.settings}
+                    tierName={tier}
+                    people={props.people}
+                  />
                 </article>
               );
             })}

@@ -1,14 +1,26 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setHide } from "../features/modalSlice.js";
+import { setHideExpandedContactModal } from "../features/expandedContactModal";
+import ReachOut from "./modal-components/ReachOut";
+import WeSpoke from "./modal-components/WeSpoke"
+import ConvoStarters from "./modal-components/ConvoStarters"
+import ScheduleConvo from "./modal-components/ScheduleConvo"
+import ContactSettings from "./modal-components/ContactSettings"
+import TierSettings from "./modal-components/TierSettings"
+import ConversationDetails from "./modal-components/ConversationDetails"
+import NewPersonModal from "./modal-components/NewPerson";
+
+
 
 const Modal = (props) => {
-  const modalVisible = useSelector((state) => state.modal.visible);
+  const modalVisible = useSelector((state) => state.expandContactModal.visible);
+  const modalType = useSelector((state) => state.expandContactModal.type);
+  const conversationTopic = useSelector((state) => state.expandContactModal.topic)
   const dispatch = useDispatch();
 
+
   const handleClose = () => {
-    console.log("close the window");
-    dispatch(setHide());
+    dispatch(setHideExpandedContactModal());
   };
 
   //render
@@ -18,8 +30,17 @@ const Modal = (props) => {
   return (
     <>
       <div className="modal-base-transparency">
-        <button onClick={handleClose}>Close</button>
-        {props.children}
+        <div className="modal-box">
+          {modalType == "add-contact" && <NewPersonModal/>}
+          {modalType == "Reach Out" && <ReachOut/>}
+          {modalType == "we-spoke" && <WeSpoke/>}
+          {modalType == "convo-starters" && <ConvoStarters/>}
+          {modalType.slice(0, 13) == "schedule-conv" && <ScheduleConvo/>}
+          {modalType.slice(0,8) == "settings" && <ContactSettings/>}
+          {modalType == "tier-settings" && <TierSettings/>}
+          {modalType == "conversation" && <ConversationDetails topic={conversationTopic}/>}
+          <button onClick={handleClose}>Close</button>
+        </div>
       </div>
     </>
   );
