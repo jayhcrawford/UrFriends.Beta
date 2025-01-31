@@ -18,6 +18,7 @@ import Modal from "./components/Modal";
 
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
+import Notification from "./components/Notification";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
@@ -104,6 +105,7 @@ function App() {
 
   return (
     <>
+      <Notification/>
       <Modal
         people={phonebook}
         setPhonebook={setPhonebook}
