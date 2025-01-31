@@ -216,7 +216,7 @@ function ContactCard(props) {
             <button
               onClick={(event) =>
                 handleExpandedContactModal(event, {
-                  modalContentType: "Schedule",
+                  modalContentType: "schedule-conv",
                   person: props.person,
                 })
               }
@@ -228,7 +228,7 @@ function ContactCard(props) {
             <button
               onClick={(event) =>
                 handleExpandedContactModal(event, {
-                  modalContentType: "Reach Out",
+                  modalContentType: "we-spoke",
                   person: props.person,
                 })
               }

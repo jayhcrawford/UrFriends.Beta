@@ -14,7 +14,6 @@ import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
 
-
 import Modal from "./components/Modal";
 
 import { login } from "../services/loginService";
@@ -25,9 +24,6 @@ function App() {
   const [phonebook, setPhonebook] = useState(null);
   const [tiers, setTiers] = useState([]);
   const [userSettings, setUserSettings] = useState(null);
-
-
-
 
   const dispatch = useDispatch();
 
@@ -108,18 +104,12 @@ function App() {
 
   return (
     <>
-
-{/*       <NewPersonModal
+      <Modal
         people={phonebook}
         setPhonebook={setPhonebook}
         setTiers={setTiers}
         tiers={tiers}
-
-      /> */}
-
-
-
-      <Modal />
+      />
       <SideMenu logout={handleLogOut} />
       <Header />
       <p></p>

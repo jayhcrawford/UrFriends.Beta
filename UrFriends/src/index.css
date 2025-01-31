@@ -9,7 +9,7 @@
 
 /*
 //COLOR FOR CONTACT CARD CSS GRID LAYOUT
-*/
+
 .action-button-graphic {
   background-color: red;
 }
@@ -72,6 +72,11 @@
 .act-btn-4 {
   background-color: orange;
 }
+
+.modal-top-bar {
+  background-color: red;
+}
+
 */
 
 /* Standard Elements */
@@ -424,6 +429,11 @@ body {
   height: 50%;
   width: 100%;
   margin: 10em;
+}
+
+.modal-top-bar {
+  display: flex;
+  justify-content: right;
 }
 
 /* the following pertains to side-menu DESKTOP view */

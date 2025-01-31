@@ -18,7 +18,12 @@ const ReachOut = (props) => {
 
   const submitNewConversation = (event) => {
     event.preventDefault();
+
     const date = new Date(event.target.date.value);
+
+    if (isNaN(date)) {
+      return null
+    }
 
     var calendarDate = new Date(
       new Date(date).getTime() + 60 * 60 * 1000
@@ -62,9 +67,7 @@ const ReachOut = (props) => {
   return (
     <>
       {!spokeFormVisible && (
-        <button onClick={handleWeSpoke}>
-          I had a conversation with 
-        </button>
+        <button onClick={handleWeSpoke}>I had a conversation with</button>
       )}
       {spokeFormVisible && (
         <>
@@ -76,7 +79,12 @@ const ReachOut = (props) => {
               type="date"
               name="date"
             ></input>
-            <input name="conversation"></input>
+            <br />
+            <textarea
+              rows="15"
+              style={{ width: "100%", resize: "none", whiteSpace: "pre" }}
+              name="conversation"
+            ></textarea>
             <button type="submit">Submit</button>
           </form>
           <button onClick={handleNevermind}>Nevermind</button>
