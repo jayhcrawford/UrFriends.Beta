@@ -1,15 +1,14 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Tier from "./Tier.jsx";
 import { Link } from "react-router";
 import { setVisibleModal } from "../features/modalSlice.js";
 
 function Phonebook(props) {
   const dispatch = useDispatch();
+  const tiers = useSelector((state) => state.phonebook.tiers);
 
   const addContact = () => {
-    dispatch(
-      setVisibleModal({ modalContentType: "add-contact" })
-    );
+    dispatch(setVisibleModal({ modalContentType: "add-contact" }));
   };
 
   const bulkAdd = () => {
@@ -17,7 +16,7 @@ function Phonebook(props) {
   };
 
   //render
-  if (!props.people) {
+  if (!tiers || !props.people) {
     return null;
   }
   return (
@@ -32,7 +31,7 @@ function Phonebook(props) {
         <section id="contacts-list">
           {/*contact-cards-div is where the tiers and contact cards will be displayed.*/}
           <div id="contact-cards-div">
-            {props.tiers.map((tier) => {
+            {tiers.map((tier) => {
               return (
                 <article key={tier} className="tier-and-contacts-container">
                   <Tier

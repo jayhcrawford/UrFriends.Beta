@@ -18,16 +18,18 @@ import Modal from "./components/Modal";
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
-import { populatePhonebook } from "./features/phonebookSlice";
+import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
-  const [tiers, setTiers] = useState([]);
+
   const [userSettings, setUserSettings] = useState(null);
 
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
- 
-  console.log(phonebookStore, "is the phonebook store")
+  const tiersStore = useSelector((state) => state.phonebook.tiers);
+
+  console.log(phonebookStore, "is the phonebook store");
+  console.log(tiersStore, "is the tiers in phonebook store");
 
   const dispatch = useDispatch();
 
@@ -41,7 +43,9 @@ function App() {
       dispatch(populatePhonebook(result.phonebook));
 
       let tiersArray = Object.keys(result.phonebook);
-      setTiers(tiersArray);
+
+      dispatch(populateTiers(tiersArray));
+
       setUserSettings(result.settings.tierTime);
     } catch (error) {
       console.log(error);
@@ -89,7 +93,6 @@ function App() {
       //set user settings in state
       setUserSettings(result.data.settings);
 
-
       dispatch(populatePhonebook(result.data.phonebook));
     } catch (error) {
       console.log(error);
@@ -112,12 +115,8 @@ function App() {
 
   return (
     <>
-      <Notification/>
-      <Modal
-        people={phonebookStore}
-        setTiers={setTiers}
-        tiers={tiers}
-      />
+      <Notification />
+      <Modal />
       <SideMenu logout={handleLogOut} />
       <Header />
       <p></p>
@@ -128,7 +127,7 @@ function App() {
             <Phonebook
               settings={userSettings}
               people={phonebookStore}
-              tiers={tiers}
+              tiers={tiersStore}
             />
           }
         />

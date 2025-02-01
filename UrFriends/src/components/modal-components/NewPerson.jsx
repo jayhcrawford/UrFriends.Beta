@@ -1,12 +1,17 @@
 import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
-
 import { postContact } from "../../../services/contactService.js";
-import { populatePhonebook } from "../../features/phonebookSlice.js";
+import {
+  populatePhonebook,
+  populateTiers,
+} from "../../features/phonebookSlice.js";
 
 const NewPerson = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
+  const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+  const tiersStore = useSelector((state) => state.phonebook.tiers);
+
   const dispatch = useDispatch();
 
   const handleAdd = (event) => {
@@ -25,44 +30,41 @@ const NewPerson = (props) => {
     };
     let newPhonebook = {};
 
-    if (Object.keys(props.people) != 0) {
+    if (Object.keys(phonebookStore) != 0) {
       //copy phonebook in state
-      let newPeople = { ...props.people };
+      let newPeople = { ...phonebookStore };
       //if the tier has already been created by a previous contact creation
       if (Object.hasOwn(newPeople, event.target.tier.value)) {
         //edit the tier that will be changed
         const newTier = newPeople[event.target.tier.value].concat(newPerson);
         //assemble the new phonebook and update state passed from ../App.jsx
         newPhonebook = {
-          ...props.people,
+          ...phonebookStore,
           [event.target.tier.value]: newTier,
         };
       } else {
         //we need to create a new key in the newPhonebook object
         newPhonebook = {
-          ...props.people,
+          ...phonebookStore,
           [event.target.tier.value]: [newPerson],
         };
       }
 
-
       dispatch(populatePhonebook(newPhonebook));
-
 
       postContact(newPerson);
       //if the contact being added is in a tier that doesn't yet exist
-      if (!Object.hasOwn(props.people, event.target.tier.value)) {
-        const newTiers = props.tiers.concat(newPerson.tier);
-        props.setTiers(newTiers);
+      if (!Object.hasOwn(phonebookStore, event.target.tier.value)) {
+        const newTiers = tiersStore.concat(newPerson.tier);
+        dispatch(populateTiers(newTiers));
       }
     } else {
       //The user has no contacts
       const createPhonebook = {
         [newPerson.tier]: [newPerson],
       };
-      props.setTiers([newPerson.tier]);
 
-
+      dispatch(populateTiers([newPerson.tier]));
       dispatch(populatePhonebook(createPhonebook));
 
       postContact(newPerson);
@@ -75,7 +77,6 @@ const NewPerson = (props) => {
     event.target.tier.value = "";
 
     //TODO: add feedback for success
-
   };
 
   //render

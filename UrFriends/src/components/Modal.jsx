@@ -12,15 +12,12 @@ import NewPerson from "./modal-components/NewPerson";
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
   const modalType = useSelector((state) => state.modal.type);
-  const conversationTopic = useSelector(
-    (state) => state.modal.topic
-  );
+  const conversationTopic = useSelector((state) => state.modal.topic);
   const dispatch = useDispatch();
 
   const handleClose = () => {
     dispatch(hideModal());
   };
-
 
   /*
 
@@ -44,17 +41,10 @@ const Modal = (props) => {
     <>
       <div className="modal-base-transparency">
         <div className="modal-box">
-        <div className="modal-top-bar">
-        <button onClick={handleClose}>Close</button>
-        </div>
-          {modalType == "add-contact" && (
-            <NewPerson
-              people={props.people}
-              setPhonebook={props.setPhonebook}
-              setTiers={props.setTiers}
-              tiers={props.tiers}
-            />
-          )}
+          <div className="modal-top-bar">
+            <button onClick={handleClose}>Close</button>
+          </div>
+          {modalType == "add-contact" && <NewPerson />}
           {modalType == "we-spoke" && <ReachOut />}
           {modalType == "convo-starters" && <ConvoStarters />}
           {modalType.slice(0, 13) == "schedule-conv" && <ScheduleConvo />}
@@ -63,7 +53,6 @@ const Modal = (props) => {
           {modalType == "conversation" && (
             <ConversationDetails topic={conversationTopic} />
           )}
-
         </div>
       </div>
     </>
