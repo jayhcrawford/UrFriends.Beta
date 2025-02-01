@@ -107,17 +107,20 @@ const ListFormTier = (props) => {
 //calls PATCH to change tier settings and contact tiers
 const EditTiers = (props) => {
   //localTiers allows us to store the phonebook without triggering an unwelcome re-render;
-  //The difference of props.phonebook and localTiers will be PATCH'd when a user wishes to save adjustments
+  //The difference of phonebookStore and localTiers will be PATCH'd when a user wishes to save adjustments
   const [localTiers, setLocalTiers] = useState(null);
   const [localSettings, setLocalSettings] = useState(null);
-  const loggedIn = useSelector((state) => state.login.user);
 
-  if (props.phonebook && localTiers == null) {
-    setLocalTiers(props.phonebook);
+  const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+  const loggedIn = useSelector((state) => state.login.user);
+  const settingsStore = useSelector((state) => state.login.settings);
+
+  if (phonebookStore && localTiers == null) {
+    setLocalTiers(phonebookStore);
   }
 
-  if (props.userSettings && localSettings == null) {
-    setLocalSettings(props.userSettings);
+  if (settingsStore && localSettings == null) {
+    setLocalSettings(settingsStore);
   }
 
   //if localTiers hasn't been set yet, then the change information won't be saved in state
@@ -173,7 +176,7 @@ const EditTiers = (props) => {
     //iterate through local phonebook (localTiers) object keys
     for (let i = 1; i <= tiers.length; i++) {
       for (let j = 0; j < localTiers[i].length; j++) {
-        if (localTiers[i][j].tier != props.phonebook[i][j].tier) {
+        if (localTiers[i][j].tier != phonebookStore[i][j].tier) {
           //if the contact's tier was changed, then add it to the contactsChanged array
           contactsChanged.push(localTiers[i][j]);
         }
@@ -186,7 +189,7 @@ const EditTiers = (props) => {
     let sendChangedSettings = null;
     for (let i = 0; i < tiersToAssess.length; i++) {
       if (
-        localSettings[tiersToAssess[i]] != props.userSettings[tiersToAssess[i]]
+        localSettings[tiersToAssess[i]] != settingsStore[tiersToAssess[i]]
       ) {
         changeSettings = true;
       }
@@ -205,8 +208,8 @@ const EditTiers = (props) => {
   };
 
   let tiers;
-  if (props.phonebook) {
-    tiers = Object.keys(props.phonebook);
+  if (phonebookStore) {
+    tiers = Object.keys(phonebookStore);
   } else {
     tiers = null;
   }
@@ -228,7 +231,7 @@ const EditTiers = (props) => {
                 handleChangeTier={handleChangeTier}
                 tierContent={localTiers[tier]}
                 key={tier}
-                settings={props.userSettings}
+                settings={settingsStore}
                 tiers={tiers}
               >
                 Tier {tier} <br />

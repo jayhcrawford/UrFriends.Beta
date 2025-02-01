@@ -4,6 +4,7 @@ export const loginSlice = createSlice({
   name: "login",
   initialState: {
     user: null,
+    settings: null
   },
   reducers: {
     loginDispatch: (state, action) => {
@@ -12,10 +13,13 @@ export const loginSlice = createSlice({
     logoutDispatch: (state, action) => {
       state.user = null;
     },
+    setSettings: (state, action) => {
+      state.settings = action.payload;
+    },
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { logoutDispatch, loginDispatch } = loginSlice.actions;
+export const { logoutDispatch, loginDispatch, setSettings } = loginSlice.actions;
 
 export default loginSlice.reducer;

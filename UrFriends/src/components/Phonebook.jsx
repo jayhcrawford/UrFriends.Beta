@@ -3,9 +3,11 @@ import Tier from "./Tier.jsx";
 import { Link } from "react-router";
 import { setVisibleModal } from "../features/modalSlice.js";
 
-function Phonebook(props) {
+function Phonebook() {
   const dispatch = useDispatch();
-  const tiers = useSelector((state) => state.phonebook.tiers);
+  const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+  const tiersStore = useSelector((state) => state.phonebook.tiers);
+  const settingsStore = useSelector((state) => state.login.settings);
 
   const addContact = () => {
     dispatch(setVisibleModal({ modalContentType: "add-contact" }));
@@ -16,7 +18,7 @@ function Phonebook(props) {
   };
 
   //render
-  if (!tiers || !props.people) {
+  if (!tiersStore || !phonebookStore) {
     return null;
   }
   return (
@@ -31,13 +33,13 @@ function Phonebook(props) {
         <section id="contacts-list">
           {/*contact-cards-div is where the tiers and contact cards will be displayed.*/}
           <div id="contact-cards-div">
-            {tiers.map((tier) => {
+            {tiersStore.map((tier) => {
               return (
                 <article key={tier} className="tier-and-contacts-container">
                   <Tier
-                    settings={props.settings}
+                    settings={settingsStore}
                     tierName={tier}
-                    people={props.people}
+                    people={phonebookStore}
                   />
                 </article>
               );

@@ -1,12 +1,13 @@
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import ContactCard from "./ContactCard.jsx";
-import { setVisibleTierSettingsModal } from "../features/tierSettingsSlice.js";
 import { setVisibleModal } from "../features/modalSlice.js";
 
 function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [windowOfLastContact, setWindowOfLastContact] = useState(null);
+  const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+
 
   const dispatch = useDispatch();
 
@@ -156,7 +157,7 @@ function Tier(props) {
           </button>
         </span>
       </div>
-      {props.people[props.tierName].map((person) => {
+      {phonebookStore[props.tierName].map((person) => {
         return (
           <ContactCard
             windowOfLastContact={windowOfLastContact}

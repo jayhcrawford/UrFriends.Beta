@@ -8,7 +8,11 @@ import SideMenu from "./components/SideMenu";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
 
-import { loginDispatch, logoutDispatch } from "./features/loginSlice";
+import {
+  loginDispatch,
+  logoutDispatch,
+  setSettings,
+} from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
 
 import { Route, Routes } from "react-router";
@@ -21,12 +25,12 @@ import Notification from "./components/Notification";
 import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
 
 function App() {
-  const loggedIn = useSelector((state) => state.login.user);
-
-  const [userSettings, setUserSettings] = useState(null);
-
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
+  const loggedIn = useSelector((state) => state.login.user);
+  const settingsStore = useSelector((state) => state.login.settings);
+
+  const [userSettings, setUserSettings] = useState(null);
 
   console.log(phonebookStore, "is the phonebook store");
   console.log(tiersStore, "is the tiers in phonebook store");
@@ -46,7 +50,7 @@ function App() {
 
       dispatch(populateTiers(tiersArray));
 
-      setUserSettings(result.settings.tierTime);
+      dispatch(setSettings(result.settings.tierTime));
     } catch (error) {
       console.log(error);
     }
@@ -90,9 +94,8 @@ function App() {
         })
       );
 
-      //set user settings in state
-      setUserSettings(result.data.settings);
-
+      //dispatch phonebook and settings data to store
+      dispatch(setSettings(result.data.settings));
       dispatch(populatePhonebook(result.data.phonebook));
     } catch (error) {
       console.log(error);
@@ -121,23 +124,9 @@ function App() {
       <Header />
       <p></p>
       <Routes>
-        <Route
-          path=""
-          element={
-            <Phonebook
-              settings={userSettings}
-              people={phonebookStore}
-              tiers={tiersStore}
-            />
-          }
-        />
+        <Route path="" element={<Phonebook />} />
 
-        <Route
-          path="/editTiers"
-          element={
-            <EditTiers phonebook={phonebookStore} userSettings={userSettings} />
-          }
-        />
+        <Route path="/editTiers" element={<EditTiers />} />
         {/* TODO: Implement a route for bulk add people*/}
       </Routes>
       <Footer />
