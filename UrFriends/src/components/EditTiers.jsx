@@ -7,7 +7,8 @@ import { useSelector } from "react-redux";
 
 //static; renders radio button group, allowing tier adjustment; sets localTiers
 const TierSelector = (props) => {
-  if (!props.tiers) {
+  const tiersStore = useSelector((state) => state.phonebook.tiers);
+  if (!tiersStore) {
     return null;
   }
 
@@ -26,7 +27,7 @@ const TierSelector = (props) => {
             display: "flex",
           }}
         >
-          {props.tiers.map((tier) => {
+          {tiersStore.map((tier) => {
             const inputKey = `${tier}-${props.name}`;
             //If the tier is the person's tier, set it to be checked by default
             if (props.tier == tier) {
@@ -66,6 +67,8 @@ const TierSelector = (props) => {
 //static; shows collapsed tier with option to expand
 const ListFormTier = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
+  const tiersStore = useSelector((state) => state.phonebook.tiers);
+
 
   if (!isExpanded) {
     return (
@@ -93,7 +96,6 @@ const ListFormTier = (props) => {
                 handleChangeTier={props.handleChangeTier}
                 name={person.name}
                 tier={person.tier}
-                tiers={props.tiers}
               />
             </li>
           );

@@ -32,9 +32,6 @@ function App() {
 
   const [userSettings, setUserSettings] = useState(null);
 
-  console.log(phonebookStore, "is the phonebook store");
-  console.log(tiersStore, "is the tiers in phonebook store");
-
   const dispatch = useDispatch();
 
   //called in useEffect below

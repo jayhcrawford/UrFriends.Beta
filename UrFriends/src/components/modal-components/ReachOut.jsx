@@ -8,7 +8,7 @@ import {
 } from "../../features/notificationSlice";
 
 const ReachOut = (props) => {
-  const person = useSelector((state) => state.expandContactModal.person);
+  const person = useSelector((state) => state.phonebook.phonebook);
   const loggedIn = useSelector((state) => state.login.user);
   const [spokeFormVisible, setSpokeFormVisible] = useState(false);
 
