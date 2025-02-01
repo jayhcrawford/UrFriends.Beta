@@ -23,6 +23,16 @@ phonebookRouter.post("/", async (request, response) => {
   response.status(200).json(request.body);
 });
 
+//delete a contact
+phonebookRouter.delete('/:id', async (request, response, next) => {
+  try {
+    await Contact.findByIdAndDelete(request.params.id)
+    response.status(204).end()
+  } catch (exception) {
+    next(exception)
+  }
+})
+
 //add a conversation
 phonebookRouter.patch("/patchConversation", async (request, response) => {
   console.log(request.body);
@@ -58,5 +68,7 @@ phonebookRouter.post("/updateMany", async (request, response) => {
 
   response.status(204).end();
 });
+
+
 
 module.exports = phonebookRouter;

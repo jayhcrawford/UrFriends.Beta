@@ -1,11 +1,12 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { deleteContact } from "../../../services/contactService";
 
 const ContactSettings = () => {
   const person = useSelector((state) => state.modal.person);
 
   const handleDelete = () => {
-    console.log(person.id);
+    deleteContact(person.id);
   };
 
   return (

@@ -31,7 +31,7 @@ export const postContact = async (body) => {
 };
 
 export const deleteContact = async (body) => {
-  console.log(body)
+  const result = await axios.delete(`http://localhost:3000/api/phonebook/${body}`);
 }
 
 export const patchConversation = async (body) => {
