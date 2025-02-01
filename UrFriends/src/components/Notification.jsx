@@ -33,13 +33,27 @@ const NotificationBase = (props) => {
 };
 
 const Notification = () => {
+  const notificationMessage = useSelector(
+    (state) => state.notification.message
+  );
+  const notificationType = useSelector((state) => state.notification.type);
+
   return (
     <>
-      <NotificationBase
-        color="limegreen"
-        fontColor="white"
-        message={"Message"}
-      />
+      {notificationType == "green" && (
+        <NotificationBase
+          color="limegreen"
+          fontColor="white"
+          message={notificationMessage}
+        />
+      )}
+      {notificationType == "red" && (
+        <NotificationBase
+          color="red"
+          fontColor="black"
+          message={notificationMessage}
+        />
+      )}
     </>
   );
 };

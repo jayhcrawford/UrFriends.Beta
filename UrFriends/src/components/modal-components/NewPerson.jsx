@@ -6,6 +6,10 @@ import {
   populatePhonebook,
   populateTiers,
 } from "../../features/phonebookSlice.js";
+import {
+  hideNotification,
+  setNotification,
+} from "../../features/notificationSlice.js";
 
 const NewPerson = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
@@ -14,8 +18,30 @@ const NewPerson = (props) => {
 
   const dispatch = useDispatch();
 
-  const handleAdd = (event) => {
+  const createNotification = (message, type) => {
+    dispatch(setNotification({ message, type }));
+    setTimeout(() => {
+      dispatch(hideNotification());
+    }, 5000);
+  };
+
+  const handleAdd = async (event) => {
     event.preventDefault();
+
+    //the result of a call to the service postContact in contactServices.js is passed to this function to display notifications
+    const checkResult = (response) => {
+      if (response.status != 200 || !Object.hasOwn(response, "status")) {
+        createNotification(
+          `There was an error saving ${event.target.contactFirstName.value} ${event.target.contactLastName.value} to the server`,
+          "red"
+        );
+      } else {
+        createNotification(
+          `${response.data.name.first} ${response.data.name.last} was saved`,
+          "green"
+        );
+      }
+    };
 
     const newPerson = {
       tier: event.target.tier.value,
@@ -52,7 +78,10 @@ const NewPerson = (props) => {
 
       dispatch(populatePhonebook(newPhonebook));
 
-      postContact(newPerson);
+      const result = await postContact(newPerson);
+      //checkResult to determine if a good/bad notification
+      checkResult(result);
+
       //if the contact being added is in a tier that doesn't yet exist
       if (!Object.hasOwn(phonebookStore, event.target.tier.value)) {
         const newTiers = tiersStore.concat(newPerson.tier);
@@ -67,7 +96,9 @@ const NewPerson = (props) => {
       dispatch(populateTiers([newPerson.tier]));
       dispatch(populatePhonebook(createPhonebook));
 
-      postContact(newPerson);
+      const result = await postContact(newPerson);
+      //checkResult to determine if a good/bad notification
+      checkResult(result);
     }
 
     event.target.contactFirstName.value = "";
@@ -75,8 +106,6 @@ const NewPerson = (props) => {
     event.target.contactPhone.value = "";
     event.target.contactEmail.value = "";
     event.target.tier.value = "";
-
-    //TODO: add feedback for success
   };
 
   //render
