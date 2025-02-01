@@ -30,11 +30,6 @@ function App() {
   const loggedIn = useSelector((state) => state.login.user);
   const settingsStore = useSelector((state) => state.login.settings);
 
-  const [userSettings, setUserSettings] = useState(null);
-
-  console.log(phonebookStore, "is the phonebook store");
-  console.log(tiersStore, "is the tiers in phonebook store");
-
   const dispatch = useDispatch();
 
   //called in useEffect below
@@ -47,7 +42,6 @@ function App() {
       dispatch(populatePhonebook(result.phonebook));
 
       let tiersArray = Object.keys(result.phonebook);
-
       dispatch(populateTiers(tiersArray));
 
       dispatch(setSettings(result.settings.tierTime));

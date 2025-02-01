@@ -8,7 +8,7 @@ import {
 } from "../../features/notificationSlice";
 
 const ReachOut = (props) => {
-  const person = useSelector((state) => state.expandContactModal.person);
+  const person = useSelector((state) => state.modal.person);
   const loggedIn = useSelector((state) => state.login.user);
   const [spokeFormVisible, setSpokeFormVisible] = useState(false);
 
@@ -39,6 +39,9 @@ const ReachOut = (props) => {
 
     const topic = event.target.conversation.value;
     let newConversations;
+
+    console.log(person, "is the person in the submit function")
+
     if (person.lastConvo[0].date === null) {
       newConversations = [
         {

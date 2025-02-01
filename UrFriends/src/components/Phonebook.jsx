@@ -36,11 +36,7 @@ function Phonebook() {
             {tiersStore.map((tier) => {
               return (
                 <article key={tier} className="tier-and-contacts-container">
-                  <Tier
-                    settings={settingsStore}
-                    tierName={tier}
-                    people={phonebookStore}
-                  />
+                  <Tier tierName={tier} />
                 </article>
               );
             })}

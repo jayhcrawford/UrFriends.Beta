@@ -7,6 +7,8 @@ function Tier(props) {
   const [isExpanded, setIsExpanded] = useState(false);
   const [windowOfLastContact, setWindowOfLastContact] = useState(null);
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+  const settingsStore = useSelector((state) => state.login.settings);
+
 
 
   const dispatch = useDispatch();
@@ -105,8 +107,8 @@ function Tier(props) {
         <span className="tier-title-span">
           <p>
             Tier {props.tierName} -{" "}
-            {props.settings
-              ? interpolateTierTimePeriod(props.settings[props.tierName])
+            {settingsStore
+              ? interpolateTierTimePeriod(settingsStore[props.tierName])
               : null}
           </p>
           <p style={{ fontSize: "12px" }}>
@@ -141,7 +143,7 @@ function Tier(props) {
         <span className="tier-title-span">
           <p>
             Tier {props.tierName} -{" "}
-            {interpolateTierTimePeriod(props.settings[props.tierName])}
+            {interpolateTierTimePeriod(settingsStore[props.tierName])}
           </p>
           <p style={{ fontSize: "12px" }}>
             Contacted since: {windowOfLastContact}
