@@ -18,12 +18,16 @@ import Modal from "./components/Modal";
 import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
+import { populatePhonebook } from "./features/phonebookSlice";
 
 function App() {
   const loggedIn = useSelector((state) => state.login.user);
-  const [phonebook, setPhonebook] = useState(null);
   const [tiers, setTiers] = useState([]);
   const [userSettings, setUserSettings] = useState(null);
+
+  const phonebookStore = useSelector((state) => state.phonebook.phonebook);
+ 
+  console.log(phonebookStore, "is the phonebook store")
 
   const dispatch = useDispatch();
 
@@ -33,7 +37,9 @@ function App() {
       //get user's phonebook and settings
       const result = await getUsersPhonebook(loggedIn);
       //set state for phonebook data and tiers data
-      setPhonebook(result.phonebook);
+
+      dispatch(populatePhonebook(result.phonebook));
+
       let tiersArray = Object.keys(result.phonebook);
       setTiers(tiersArray);
       setUserSettings(result.settings.tierTime);
@@ -82,7 +88,9 @@ function App() {
 
       //set user settings in state
       setUserSettings(result.data.settings);
-      setPhonebook(result.data.phonebook);
+
+
+      dispatch(populatePhonebook(result.data.phonebook));
     } catch (error) {
       console.log(error);
     }
@@ -106,8 +114,7 @@ function App() {
     <>
       <Notification/>
       <Modal
-        people={phonebook}
-        setPhonebook={setPhonebook}
+        people={phonebookStore}
         setTiers={setTiers}
         tiers={tiers}
       />
@@ -120,7 +127,7 @@ function App() {
           element={
             <Phonebook
               settings={userSettings}
-              people={phonebook}
+              people={phonebookStore}
               tiers={tiers}
             />
           }
@@ -129,7 +136,7 @@ function App() {
         <Route
           path="/editTiers"
           element={
-            <EditTiers phonebook={phonebook} userSettings={userSettings} />
+            <EditTiers phonebook={phonebookStore} userSettings={userSettings} />
           }
         />
         {/* TODO: Implement a route for bulk add people*/}

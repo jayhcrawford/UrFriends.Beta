@@ -3,8 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 
 
 import { postContact } from "../../../services/contactService.js";
+import { populatePhonebook } from "../../features/phonebookSlice.js";
 
-const NewPersonModal = (props) => {
+const NewPerson = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
   const dispatch = useDispatch();
 
@@ -44,7 +45,10 @@ const NewPersonModal = (props) => {
         };
       }
 
-      props.setPhonebook(newPhonebook);
+
+      dispatch(populatePhonebook(newPhonebook));
+
+
       postContact(newPerson);
       //if the contact being added is in a tier that doesn't yet exist
       if (!Object.hasOwn(props.people, event.target.tier.value)) {
@@ -57,7 +61,10 @@ const NewPersonModal = (props) => {
         [newPerson.tier]: [newPerson],
       };
       props.setTiers([newPerson.tier]);
-      props.setPhonebook(createPhonebook);
+
+
+      dispatch(populatePhonebook(createPhonebook));
+
       postContact(newPerson);
     }
 
@@ -100,4 +107,4 @@ const NewPersonModal = (props) => {
   );
 };
 
-export default NewPersonModal;
+export default NewPerson;

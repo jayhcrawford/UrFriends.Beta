@@ -7,7 +7,7 @@ import ScheduleConvo from "./modal-components/ScheduleConvo";
 import ContactSettings from "./modal-components/ContactSettings";
 import TierSettings from "./modal-components/TierSettings";
 import ConversationDetails from "./modal-components/ConversationDetails";
-import NewPersonModal from "./modal-components/NewPerson";
+import NewPerson from "./modal-components/NewPerson";
 
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
@@ -48,7 +48,7 @@ const Modal = (props) => {
         <button onClick={handleClose}>Close</button>
         </div>
           {modalType == "add-contact" && (
-            <NewPersonModal
+            <NewPerson
               people={props.people}
               setPhonebook={props.setPhonebook}
               setTiers={props.setTiers}
