@@ -10,10 +10,10 @@ import ConversationDetails from "./modal-components/ConversationDetails";
 import NewPersonModal from "./modal-components/NewPerson";
 
 const Modal = (props) => {
-  const modalVisible = useSelector((state) => state.expandContactModal.visible);
-  const modalType = useSelector((state) => state.expandContactModal.type);
+  const modalVisible = useSelector((state) => state.modal.visible);
+  const modalType = useSelector((state) => state.modal.type);
   const conversationTopic = useSelector(
-    (state) => state.expandContactModal.topic
+    (state) => state.modal.topic
   );
   const dispatch = useDispatch();
 

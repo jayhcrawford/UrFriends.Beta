@@ -30,12 +30,17 @@ export const postContact = async (body) => {
   const result = await axios.post("http://localhost:3000/api/phonebook/", body);
 };
 
+export const deleteContact = async (body) => {
+  console.log(body)
+}
+
 export const patchConversation = async (body) => {
   const result = await axios.patch(
     `http://localhost:3000/api/phonebook/patchConversation`,
     body
   );
 };
+
 
 //change contact(s?) tier(s?)
 export const patchTiers = async (body) => {

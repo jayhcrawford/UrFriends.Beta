@@ -1,11 +1,24 @@
-import React from "react"
+import React from "react";
+import { useSelector } from "react-redux";
 
 const ContactSettings = () => {
-    return (
-        <div>
-            Contact Settings Component
-        </div>
-    )
-}
+  const person = useSelector((state) => state.modal.person);
 
-export default ContactSettings
+  const handleDelete = () => {
+    console.log(person.id);
+  };
+
+  return (
+    <div>
+      <h2>Settings for {person.name.first}</h2>
+      <button
+        style={{ color: "black", backgroundColor: "red" }}
+        onClick={handleDelete}
+      >
+        delete this contact
+      </button>
+    </div>
+  );
+};
+
+export default ContactSettings;

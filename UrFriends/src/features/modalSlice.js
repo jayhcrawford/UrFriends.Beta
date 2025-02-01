@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const modalSlice = createSlice({
-  name: "expandedContactModal",
+  name: "modal",
   initialState: {
     visible: false,
     type: "no content",

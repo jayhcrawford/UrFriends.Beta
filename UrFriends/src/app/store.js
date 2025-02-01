@@ -11,7 +11,7 @@ export default configureStore({
     sideMenu: sideMenuReducer,
     login: loginReducer,
     tierSettingsModal: tierSettingsReducer,
-    expandContactModal: modalReducer,
+    modal: modalReducer,
     notification: notificationReducer,
   },
 });
