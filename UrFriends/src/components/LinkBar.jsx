@@ -57,35 +57,37 @@ const LinkBar = (props) => {
 
   return (
     <>
-      <Link to="/">
-        <HeroButton
-          text="Phonebook"
-          current={props.page == "phonebook" ? true : false}
-          icon={<PhonebookButtonIcon />}
-        />
-      </Link>
-      <Link to="/editTiers">
-        <HeroButton
-          clickHandler={null}
-          icon={<EditTiersIcon />}
-          text="Edit Tiers"
-          current={props.page == "edit-tiers" ? true : false}
-        />
-      </Link>
+      <div className="link-bar-container">
+        <Link to="/">
+          <HeroButton
+            text="Phonebook"
+            current={props.page == "phonebook" ? true : false}
+            icon={<PhonebookButtonIcon />}
+          />
+        </Link>
+        <Link to="/editTiers">
+          <HeroButton
+            clickHandler={null}
+            icon={<EditTiersIcon />}
+            text="Edit Tiers"
+            current={props.page == "edit-tiers" ? true : false}
+          />
+        </Link>
 
-      <HeroButton
-        clickHandler={addContact}
-        icon={<AddUserIcon />}
-        text="Add Contact"
-      />
-
-      <Link to="/bulkAdd">
         <HeroButton
-          icon={<BulkAddIcon />}
-          text="Bulk Add"
-          current={props.page == "bulk-add" ? true : false}
+          clickHandler={addContact}
+          icon={<AddUserIcon />}
+          text="Add Contact"
         />
-      </Link>
+
+        <Link to="/bulkAdd">
+          <HeroButton
+            icon={<BulkAddIcon />}
+            text="Bulk Add"
+            current={props.page == "bulk-add" ? true : false}
+          />
+        </Link>
+      </div>
     </>
   );
 };
