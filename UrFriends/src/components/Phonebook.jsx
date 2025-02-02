@@ -3,6 +3,31 @@ import Tier from "./Tier.jsx";
 import { Link } from "react-router";
 import { setVisibleModal } from "../features/modalSlice.js";
 
+//static; passed to HeroButton as props
+const AddUserIcon = () => {
+  return <i className="fa-solid fa-user-plus fa-3x"></i>;
+};
+//static; passed to HeroButton as props
+const BulkAddIcon = () => {
+  return <i className="fa-regular fa-address-book fa-3x"></i>;
+};
+//static; passed to HeroButton as props
+const EditTiersIcon = () => {
+  return <i className="fa-solid fa-users-gear fa-3x"></i>;
+};
+//static
+export const HeroButton = (props) => {
+  return (
+    <button className="hero-btn" onClick={props.clickHandler}>
+      <div className="hero-btn-content">
+        <div className="action-button-graphic">{props.icon}</div>
+        {props.text}
+      </div>
+    </button>
+  );
+};
+
+//export
 function Phonebook() {
   const dispatch = useDispatch();
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
@@ -13,10 +38,6 @@ function Phonebook() {
     dispatch(setVisibleModal({ modalContentType: "add-contact" }));
   };
 
-  const bulkAdd = () => {
-    console.log("bulk add");
-  };
-
   //render
   if (!tiersStore || !phonebookStore) {
     return null;
@@ -24,11 +45,19 @@ function Phonebook() {
   return (
     <>
       <div>
-        <button onClick={addContact}>Add Contact</button>
+        <HeroButton
+          clickHandler={addContact}
+          icon={<AddUserIcon />}
+          text="Add Contact"
+        />
         <Link to="/editTiers">
-          <button>Edit Tiers</button>
+          <HeroButton
+            clickHandler={null}
+            icon={<EditTiersIcon />}
+            text="Edit Tiers"
+          />
         </Link>
-        <button onClick={bulkAdd}>Bulk Add People</button>
+        <HeroButton icon={<BulkAddIcon />} text="Buld Add" />
         {/*contacts-list section is the flex container for contact-cards-div and any content below the header*/}
         <section id="contacts-list">
           {/*contact-cards-div is where the tiers and contact cards will be displayed.*/}

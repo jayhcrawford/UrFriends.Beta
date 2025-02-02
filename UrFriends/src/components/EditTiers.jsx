@@ -4,6 +4,14 @@ import { patchSettings } from "../../services/settingService";
 import { patchTiers } from "../../services/contactService";
 import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
 import { useSelector } from "react-redux";
+import { HeroButton } from "./Phonebook";
+
+//static; passed to HeroButton as props
+const PhonebookButtonIcon = () => {
+  return (
+    <i className="fa-regular fa-face-smile fa-3x"></i>
+  )
+}
 
 //static; renders radio button group, allowing tier adjustment; sets localTiers
 const TierSelector = (props) => {
@@ -222,7 +230,7 @@ const EditTiers = (props) => {
     return (
       <>
         <Link to="/">
-          <button>Phonebook</button>
+          <HeroButton text="Phonebook" icon={<PhonebookButtonIcon/>}/>
         </Link>
         <h3>Edit Tiers</h3>
         <ul>
