@@ -2,9 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 const NotificationBase = (props) => {
-  const notificationVisible = useSelector(
-    (state) => state.notification.visible
-  );
+  const notificationVisible = useSelector((state) => state.notification.visible);
 
   if (!notificationVisible) {
     return null;
@@ -15,6 +13,7 @@ const NotificationBase = (props) => {
       style={{
         backgroundColor: props.color,
         position: "fixed",
+        zIndex: "100",
         top: "10px",
         right: "10px",
         left: "10px",

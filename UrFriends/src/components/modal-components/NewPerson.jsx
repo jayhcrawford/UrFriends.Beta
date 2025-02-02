@@ -10,6 +10,7 @@ import {
   hideNotification,
   setNotification,
 } from "../../features/notificationSlice.js";
+import { hideModal } from "../../features/modalSlice.js";
 
 const NewPerson = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
@@ -107,6 +108,7 @@ const NewPerson = (props) => {
       if (completed) {
         //udpate the store
         updateThePhonebook(result.data);
+        dispatch(hideModal())
       }
 
       //if the contact being added is in a tier that doesn't yet exist
@@ -130,6 +132,7 @@ const NewPerson = (props) => {
       if (completed) {
         //udpate the store
         updateThePhonebook(result.data);
+        dispatch(hideModal())
       }
     }
 
@@ -176,7 +179,7 @@ const NewPerson = (props) => {
             <input type="radio" id="tier5" name="tier" value="5" />
             <label htmlFor="tier5">5</label>
           </span>
-          <button type="submit">Add Person</button>
+          <button type="submit" style={{height: "4em"}}>Add Person</button>
         </form>
       </div>
     </>
