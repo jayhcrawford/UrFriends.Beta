@@ -6,6 +6,34 @@ import { getDateFromDateTime } from "../functions/getDateFromDateTime";
 import RecentConversations from "./RecentConversations";
 import { setVisibleModal } from "../features/modalSlice";
 
+//static; icon passed to ActionButton as props
+const ContactSettingsIcon = () => {
+  return (
+    <>
+      <i className="fa-solid fa-gear fa-2x"></i>
+      <i className="fa-regular fa-user fa-lg"></i>
+    </>
+  );
+};
+//static; icon passed to ActionButton as props
+const ConversationStartersIcon = () => {
+  return <i className="fa-regular fa-comment-dots fa-2x"></i>;
+};
+//static; icon passed to ActionButton as props
+const ReachOutIcon = () => {
+  return (
+    <>
+      {" "}
+      <i className="fa-regular fa-message fa-2x"></i>
+      <i className="fa-solid fa-phone fa-lg"></i>
+    </>
+  );
+};
+//static; icon passed to ActionButton as props
+const ScheduleIcon = () => {
+  return <i className="fa-regular fa-calendar-days fa-2x"></i>;
+};
+
 //static
 const ActionButton = (props) => {
   return (
@@ -19,7 +47,7 @@ const ActionButton = (props) => {
         }
         className="action-button"
       >
-        <div className="action-button-graphic"></div>
+        <div className="action-button-graphic">{props.icon}</div>
         <span className="action-button-text">{props.children}</span>
       </button>
     </>
@@ -126,6 +154,7 @@ function ContactCard(props) {
           <div className="contact-expanded-action-buttons">
             <div className="act-btn-1">
               <ActionButton
+                icon={<ReachOutIcon />}
                 handleModalOpen={handleModalOpen}
                 message={"we-spoke"}
                 person={props.person}
@@ -136,6 +165,7 @@ function ContactCard(props) {
             <br />
             <div className="act-btn-2">
               <ActionButton
+                icon={<ConversationStartersIcon />}
                 handleModalOpen={handleModalOpen}
                 message={"convo-starters"}
                 person={props.person}
@@ -146,6 +176,7 @@ function ContactCard(props) {
             <br />
             <div className="act-btn-3">
               <ActionButton
+                icon={<ScheduleIcon />}
                 handleModalOpen={handleModalOpen}
                 message={`schedule-conv-w-${props.person.name.first}`}
                 person={props.person}
@@ -156,6 +187,7 @@ function ContactCard(props) {
             <br />
             <div className="act-btn-4">
               <ActionButton
+                icon={<ContactSettingsIcon />}
                 handleModalOpen={handleModalOpen}
                 message={`settings-${props.person.name.first}`}
                 person={props.person}
