@@ -576,7 +576,6 @@ body {
 .side-menu-grid-elem1 {
   grid-area: 1 / 1 / 2 / 2;
   position: relative;
-  
 }
 
 .side-menu-grid-elem1 .side-menu-close-btn {
@@ -587,7 +586,6 @@ body {
   height: 4em;
   width: 4em;
 }
-
 
 .side-menu-grid-elem2 {
   grid-area: 3 / 1 / 4 / 2;
@@ -606,10 +604,8 @@ body {
 }
 
 .side-menu-grid-elem6 {
- grid-area: 7 / 1 / 8 / 2;
+  grid-area: 7 / 1 / 8 / 2;
 }
-
-
 
 /* (close) side-menu */
 
@@ -646,6 +642,42 @@ body {
 #random-interact-btn:hover,
 #main-menu-btn:hover {
   background-color: var(--base-high-cont-hover);
+}
+
+#random-interact-shuffle {
+  /*This is for the two circular buttons in the header*/
+  border-radius: 50%;
+  color: var(--light-base-color);
+  font-size: 2em;
+  height: 3.5em;
+  width: 3.5em;
+  background-color: var(--base-high-cont-color);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+}
+
+#random-interact-shuffle {
+  /*In RandomComponentModal*/
+  border-radius: 50%;
+  color: var(--light-base-color);
+  font-size: 2em;
+  height: 3.5em;
+  width: 3.5em;
+  background-color: var(--base-high-cont-color);
+  border: none;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 2px;
+}
+
+#random-interact-shuffle:hover {
+  background-color: var(--base-high-cont-color-hover-xtra);
 }
 
 #contacts-list {

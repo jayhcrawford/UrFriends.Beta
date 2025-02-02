@@ -54,6 +54,7 @@ const LinkBar = (props) => {
   const addContact = () => {
     dispatch(setVisibleModal({ modalContentType: "add-contact" }));
   };
+
   return (
     <>
       <Link to="/">
