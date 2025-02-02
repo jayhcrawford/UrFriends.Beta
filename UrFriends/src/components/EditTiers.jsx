@@ -6,12 +6,58 @@ import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
 import { useSelector } from "react-redux";
 import { HeroButton } from "./Phonebook";
 
+export const MiniButton = (props) => {
+  return (
+    <button
+      style={{
+        backgroundColor: "brown",
+        color: "white",
+        padding: ".9em",
+        cursor: "pointer",
+        borderRadius: "2em",
+        marginLeft: "1em",
+        marginTop: ".7em",
+      }}
+    >
+      {props.text}
+    </button>
+  );
+};
+
+//static; used in the Select element for Tier Timeframe selection
+const interpretOptionValue = (option) => {
+  switch (option) {
+    case "1d":
+      return "1 Day";
+    case "3d":
+      return "3 Days";
+    case "1w":
+      return "1 Week";
+    case "2w":
+      return "2 Weeks";
+    case "3w":
+      return "3 Weeks";
+    case "1m":
+      return "1 Month";
+    case "2m":
+      return "2 Months";
+    case "3m":
+      return "3 Months";
+    case "4m":
+      return "4 Months";
+    case "5m":
+      return "5 Months";
+    case "6m":
+      return "6 Months";
+    default:
+      return "No Date";
+  }
+}
+
 //passed to HeroButton as props
 export const PhonebookButtonIcon = () => {
-  return (
-    <i className="fa-regular fa-face-smile fa-3x"></i>
-  )
-}
+  return <i className="fa-regular fa-face-smile fa-3x"></i>;
+};
 
 //static; renders radio button group, allowing tier adjustment; sets localTiers
 const TierSelector = (props) => {
@@ -77,13 +123,12 @@ const ListFormTier = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
 
-
   if (!isExpanded) {
     return (
       <>
         <p>
           {props.children}
-          <button onClick={() => setIsExpanded(!isExpanded)}>Expand</button>
+          <button onClick={() => setIsExpanded(!isExpanded)}>Show Contacts</button>
         </p>
       </>
     );
@@ -92,7 +137,7 @@ const ListFormTier = (props) => {
     <>
       <p>
         {props.children}{" "}
-        <button onClick={() => setIsExpanded(!isExpanded)}>Collapse</button>
+        <button onClick={() => setIsExpanded(!isExpanded)}>Hide Contacts</button>
       </p>
       <ul>
         {props.tierContent.map((person) => {
@@ -198,9 +243,7 @@ const EditTiers = (props) => {
     let changeSettings = false;
     let sendChangedSettings = null;
     for (let i = 0; i < tiersToAssess.length; i++) {
-      if (
-        localSettings[tiersToAssess[i]] != settingsStore[tiersToAssess[i]]
-      ) {
+      if (localSettings[tiersToAssess[i]] != settingsStore[tiersToAssess[i]]) {
         changeSettings = true;
       }
     }
@@ -208,7 +251,7 @@ const EditTiers = (props) => {
       sendChangedSettings = localSettings;
     }
 
-    //TODO: layout a condition where patchSettings is only used for settings and 
+    //TODO: layout a condition where patchSettings is only used for settings and
     //phonebook changes call the service patchTiers from contactService
     patchSettings({
       token: loggedIn.user.token,
@@ -230,36 +273,54 @@ const EditTiers = (props) => {
     return (
       <>
         <Link to="/">
-          <HeroButton text="Phonebook" icon={<PhonebookButtonIcon/>}/>
+          <HeroButton text="Phonebook" icon={<PhonebookButtonIcon />} />
         </Link>
-        <h3>Edit Tiers</h3>
-        <ul>
+        <h2>Edit Tiers</h2>
+        <MiniButton text="Add Tier" />
+        <MiniButton text="Delete Tier" />
+        <ul style={{paddingInlineStart: "0px"}}>
           {tiers.map((tier) => {
             return (
-              <ListFormTier
-                localTiers={localTiers}
-                handleChangeTier={handleChangeTier}
-                tierContent={localTiers[tier]}
-                key={tier}
-                settings={settingsStore}
-                tiers={tiers}
+              <div
+                style={{
+                  border: "1px solid black",
+                  margin: "1em",
+                  padding: "1em",
+                }}
               >
-                Tier {tier} <br />
-                Timeframe:
-                <select
-                  name="selectedTimeFrame"
-                  onChange={(event) => updateTierTimeFrameState(event, tier)}
-                  defaultValue={localSettings[tier]}
+                <ListFormTier
+                  localTiers={localTiers}
+                  handleChangeTier={handleChangeTier}
+                  tierContent={localTiers[tier]}
+                  key={tier}
+                  settings={settingsStore}
+                  tiers={tiers}
                 >
-                  {timeFrameOptions.map((option) => {
-                    return (
-                      <option value={option} key={option}>
-                        {option}
-                      </option>
-                    );
-                  })}
-                </select>
-              </ListFormTier>
+                  <div style={{ paddingBottom: ".1em" }}>
+                    <h3 style={{ margin: "0", display: "inline" }}>
+                      {" "}
+                      Tier {tier}{" "}
+                    </h3>{" "}
+                    <button>Change Name</button> Timeframe:
+                    <select
+                      name="selectedTimeFrame"
+                      onChange={(event) =>
+                        updateTierTimeFrameState(event, tier)
+                      }
+                      defaultValue={localSettings[tier]}
+                    >
+                      {timeFrameOptions.map((option) => {
+                        return (
+                          <option value={option} key={option}>
+                            {interpretOptionValue(option)}
+                          </option>
+                        );
+                      })}
+                    </select>
+                  </div>
+                  <br />
+                </ListFormTier>
+              </div>
             );
           })}
           <button onClick={handlePatchChanges}>Save</button>
