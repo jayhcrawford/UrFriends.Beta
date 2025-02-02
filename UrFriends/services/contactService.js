@@ -27,12 +27,27 @@ export const getUsersPhonebook = async (body) => {
 };
 
 export const postContact = async (body) => {
-  const result = await axios.post("http://localhost:3000/api/phonebook/", body);
+  try {
+    const result = await axios.post(
+      "http://localhost:3000/api/phonebook/",
+      body
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const deleteContact = async (body) => {
-  const result = await axios.delete(`http://localhost:3000/api/phonebook/${body}`);
-}
+  try {
+    const result = await axios.delete(
+      `http://localhost:3000/api/phonebook/${body}`
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
 
 export const patchConversation = async (body) => {
   const result = await axios.patch(
@@ -41,7 +56,6 @@ export const patchConversation = async (body) => {
   );
 };
 
-
 //change contact(s?) tier(s?)
 export const patchTiers = async (body) => {
   const result = await axios.patch(
@@ -49,5 +63,3 @@ export const patchTiers = async (body) => {
     body
   );
 };
-
-
