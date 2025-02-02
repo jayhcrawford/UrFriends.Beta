@@ -7,6 +7,7 @@ import Login from "./components/Login";
 import SideMenu from "./components/SideMenu";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
+import Calendar from "./components/Calendar";
 
 import {
   loginDispatch,
@@ -123,6 +124,7 @@ function App() {
 
         <Route path="/editTiers" element={<EditTiers />} />
         <Route path="/bulkAdd" element={<BulkAdd />} />
+        <Route path="/calendar" element={<Calendar />} />
         {/* TODO: Implement a route for bulk add people*/}
       </Routes>
       <Footer />

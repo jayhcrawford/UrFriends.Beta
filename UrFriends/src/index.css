@@ -106,6 +106,20 @@ body {
 }
 /* (Close)Standard Elements */
 
+/*Large Desktop specific*/
+@media (min-width: 1100px) {
+  .styled-grid-form {
+    /*change this for mobile/desktop*/
+    width: 300px;
+  }
+
+  /*change this for mobile/desktop*/
+  .styled-grid-form-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
 .link-bar-container {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -516,20 +530,6 @@ body {
   justify-content: center;
 }
 
-/*Large Desktop specific*/
-@media (min-width: 1100px) {
-  .styled-grid-form {
-    /*change this for mobile/desktop*/
-    width: 300px;
-  }
-
-  /*change this for mobile/desktop*/
-  .styled-grid-form-container {
-    display: flex;
-    justify-content: center;
-  }
-}
-
 .styled-grid-form-txt {
   grid-column: 1 / 2;
 }
@@ -537,6 +537,12 @@ body {
 .styled-grid-form-input {
   grid-column: 1 / 4;
   margin-bottom: 1.2em;
+}
+
+.calendar-row {
+  width: 100%;
+  height: 16%;
+  border: 1px solid black;
 }
 
 /* the following pertains to side-menu DESKTOP view */
@@ -706,14 +712,14 @@ body {
 /* MOBILE VIEW */
 @media (min-width: 0px) and (max-width: 500px) {
   .link-bar-container {
-  grid-template-columns: repeat(3, 1fr);
-}
-}/* MOBILE VIEW cont'd */
+    grid-template-columns: repeat(3, 1fr);
+  }
+} /* MOBILE VIEW cont'd */
 @media (min-width: 750px) {
   .link-bar-container {
     display: block;
   }
-}/* MOBILE VIEW cont'd */
+} /* MOBILE VIEW cont'd */
 @media (min-width: 0px) and (max-width: 750px) {
   /* Classes */
   .tier-container {

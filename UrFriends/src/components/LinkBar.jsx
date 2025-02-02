@@ -20,6 +20,14 @@ const BulkAddIcon = () => {
 const EditTiersIcon = () => {
   return <i className="fa-solid fa-users-gear fa-3x"></i>;
 };
+//static; passed to HeroButton as props
+const CalendarIcon = () => {
+  return  <i className="fa-regular fa-calendar-days fa-3x"></i>;
+};
+//static; passed to HeroButton as props
+const ConvoIcon = () => {
+  return <i className="fa-regular fa-comment fa-3x"></i>;
+};
 //static
 export const HeroButton = (props) => {
   if (props.current) {
@@ -73,13 +81,6 @@ const LinkBar = (props) => {
             current={props.page == "edit-tiers" ? true : false}
           />
         </Link>
-
-        <HeroButton
-          clickHandler={addContact}
-          icon={<AddUserIcon />}
-          text="Add Contact"
-        />
-
         <Link to="/bulkAdd">
           <HeroButton
             icon={<BulkAddIcon />}
@@ -87,6 +88,23 @@ const LinkBar = (props) => {
             current={props.page == "bulk-add" ? true : false}
           />
         </Link>
+        <Link to="/calendar">
+          <HeroButton
+            icon={<CalendarIcon />}
+            text="Calendar"
+            current={props.page == "calendar" ? true : false}
+          />
+        </Link>
+        <HeroButton
+          clickHandler={addContact}
+          icon={<AddUserIcon />}
+          text="Add Contact"
+        />
+        <HeroButton
+          clickHandler={addContact}
+          icon={<ConvoIcon />}
+          text="Add Convo"
+        />
       </div>
     </>
   );
