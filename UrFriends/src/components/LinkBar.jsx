@@ -56,11 +56,13 @@ const LinkBar = (props) => {
   };
   return (
     <>
-      <HeroButton
-        clickHandler={addContact}
-        icon={<AddUserIcon />}
-        text="Add Contact"
-      />
+      <Link to="/">
+        <HeroButton
+          text="Phonebook"
+          current={props.page == "phonebook" ? true : false}
+          icon={<PhonebookButtonIcon />}
+        />
+      </Link>
       <Link to="/editTiers">
         <HeroButton
           clickHandler={null}
@@ -70,19 +72,17 @@ const LinkBar = (props) => {
         />
       </Link>
 
+      <HeroButton
+        clickHandler={addContact}
+        icon={<AddUserIcon />}
+        text="Add Contact"
+      />
+
       <Link to="/bulkAdd">
         <HeroButton
           icon={<BulkAddIcon />}
           text="Bulk Add"
           current={props.page == "bulk-add" ? true : false}
-        />
-      </Link>
-
-      <Link to="/">
-        <HeroButton
-          text="Phonebook"
-          current={props.page == "phonebook" ? true : false}
-          icon={<PhonebookButtonIcon />}
         />
       </Link>
     </>

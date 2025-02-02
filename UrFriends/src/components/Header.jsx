@@ -1,6 +1,7 @@
 import react from "react";
 import { useDispatch } from "react-redux";
 import { showSideMenu } from "../features/sideMenuSlice";
+import { setVisibleModal } from "../features/modalSlice";
 
 function Header() {
   const dispatch = useDispatch();
@@ -9,12 +10,17 @@ function Header() {
     dispatch(showSideMenu());
   };
 
+  const handleRandom = () => {
+    dispatch(setVisibleModal({ modalContentType: "random" }));
+  };
+
   return (
     <>
       <header>
         <h1 id="header-logo-text">UrFriends</h1>
       </header>
       <button
+        onClick={handleRandom}
         id="random-interact-btn"
         alt="Random Interaction Button"
         aria-label="Random Interaction Button"

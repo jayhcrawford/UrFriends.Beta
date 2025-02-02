@@ -8,6 +8,7 @@ import ContactSettings from "./modal-components/ContactSettings";
 import TierSettings from "./modal-components/TierSettings";
 import ConversationDetails from "./modal-components/ConversationDetails";
 import NewPerson from "./modal-components/NewPerson";
+import RandomModalComponent from "./modal-components/RandomModalComponent";
 
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
@@ -30,6 +31,7 @@ const Modal = (props) => {
           <div className="modal-top-bar">
             <button className="modal-close-btn" onClick={handleClose}><i className="fa-solid fa-x fa-3x"></i></button>
           </div>
+          {modalType == "random" && <RandomModalComponent/>}
           {modalType == "add-contact" && <NewPerson />}
           {modalType == "we-spoke" && <ReachOut />}
           {modalType == "convo-starters" && <ConvoStarters />}
