@@ -25,6 +25,25 @@ const NewPerson = (props) => {
     }, 5000);
   };
 
+  //update the store when a new person is added
+  const updateThePhonebook = (person) => {
+    if (Object.hasOwn(phonebookStore, `${person.tier}`)) {
+      const newTier = phonebookStore[person.tier].concat(person);
+      const newPhonebook = {
+        ...phonebookStore,
+        [person.tier]: newTier,
+      };
+      dispatch(populatePhonebook(newPhonebook));
+    } else {
+      const newTier = [person]
+      const newPhonebook = {
+        ...phonebookStore,
+        [person.tier]: newTier
+      }
+      dispatch(populatePhonebook(newPhonebook))
+    }
+  };
+
   const handleAdd = async (event) => {
     event.preventDefault();
 
@@ -35,11 +54,13 @@ const NewPerson = (props) => {
           `There was an error saving ${event.target.contactFirstName.value} ${event.target.contactLastName.value} to the server`,
           "red"
         );
+        return false;
       } else {
         createNotification(
           `${response.data.name.first} ${response.data.name.last} was saved`,
           "green"
         );
+        return true;
       }
     };
 
@@ -80,7 +101,11 @@ const NewPerson = (props) => {
 
       const result = await postContact(newPerson);
       //checkResult to determine if a good/bad notification
-      checkResult(result);
+      const completed = checkResult(result);
+      if (completed) {
+        //udpate the store
+        updateThePhonebook(result.data);
+      }
 
       //if the contact being added is in a tier that doesn't yet exist
       if (!Object.hasOwn(phonebookStore, event.target.tier.value)) {
@@ -97,8 +122,13 @@ const NewPerson = (props) => {
       dispatch(populatePhonebook(createPhonebook));
 
       const result = await postContact(newPerson);
+
       //checkResult to determine if a good/bad notification
-      checkResult(result);
+      const completed = checkResult(result);
+      if (completed) {
+        //udpate the store
+        updateThePhonebook(result.data);
+      }
     }
 
     event.target.contactFirstName.value = "";
