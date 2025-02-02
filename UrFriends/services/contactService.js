@@ -50,10 +50,15 @@ export const deleteContact = async (body) => {
 };
 
 export const patchConversation = async (body) => {
-  const result = await axios.patch(
-    `http://localhost:3000/api/phonebook/patchConversation`,
-    body
-  );
+  try {
+    const result = await axios.patch(
+      `http://localhost:3000/api/phonebook/patchConversation`,
+      body
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
 };
 
 //change contact(s?) tier(s?)

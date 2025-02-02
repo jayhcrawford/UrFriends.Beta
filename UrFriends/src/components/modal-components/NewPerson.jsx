@@ -27,6 +27,7 @@ const NewPerson = (props) => {
 
   //update the store when a new person is added
   const updateThePhonebook = (person) => {
+    //if the tier is already populated in the phonebook
     if (Object.hasOwn(phonebookStore, `${person.tier}`)) {
       const newTier = phonebookStore[person.tier].concat(person);
       const newPhonebook = {
@@ -35,6 +36,7 @@ const NewPerson = (props) => {
       };
       dispatch(populatePhonebook(newPhonebook));
     } else {
+      //the tier is empty and therefore isn't a part of the store
       const newTier = [person]
       const newPhonebook = {
         ...phonebookStore,
@@ -97,7 +99,7 @@ const NewPerson = (props) => {
         };
       }
 
-      dispatch(populatePhonebook(newPhonebook));
+      //dispatch(populatePhonebook(newPhonebook));
 
       const result = await postContact(newPerson);
       //checkResult to determine if a good/bad notification

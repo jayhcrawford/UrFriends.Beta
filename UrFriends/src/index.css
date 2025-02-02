@@ -184,9 +184,9 @@ body {
 
 .contact-expanded-button-div {
   grid-area: 4 / 1 / 5 / 5;
-  background-color: purple;
   display: flex;
   justify-content: center;
+  margin-top: 0;
 }
 
 .contact-expanded-name-phone-email {
@@ -603,6 +603,7 @@ body {
 
   .contact-expanded-button-div {
     grid-area: 4 / 1 / 5 / 2;
+    margin-top: 2em;
   }
 
   .contact-expanded-name-phone-email {

@@ -18,9 +18,7 @@ phonebookRouter.post("/getContent", async (request, response) => {
 phonebookRouter.post("/", async (request, response) => {
   const newContact = new Contact(request.body);
   const result = await newContact.save();
-
-  console.log(result);
-  response.status(200).json(request.body);
+  response.status(200).json(result);
 });
 
 //delete a contact
