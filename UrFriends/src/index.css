@@ -2,6 +2,7 @@
   /*This sets the standard font color*/
   --base-high-cont-color: rgb(45, 4, 4);
   --base-high-cont-hover: rgb(72, 11, 11);
+  --base-high-cont-color-hover-xtra: rgba(45, 4, 4, 0.5);
   --light-base-color: bisque;
   --light-base-hover: rgb(244, 208, 165);
   font-family: Arial, Helvetica, sans-serif;
@@ -452,10 +453,11 @@ body {
 }
 
 .modal-box {
-  border: 1px solid black;
+  border: 6px solid var(--base-high-cont-color);
+  color: var(--base-high-cont-color);
   display: inline-block;
   padding: 2em;
-  background-color: white;
+  background-color: var(--light-base-color);
   height: 50%;
   width: 100%;
   margin: 10em;
@@ -464,6 +466,50 @@ body {
 .modal-top-bar {
   display: flex;
   justify-content: right;
+}
+
+.modal-close-btn {
+  border: none;
+  background-color: var(--light-base-color);
+  color: var(--base-high-cont-color);
+  cursor: pointer;
+}
+.modal-close-btn:hover {
+  color: var(--base-high-cont-color-hover-xtra);
+}
+
+.styled-grid-form {
+  width: 50%;
+  display: grid;
+  grid-template-columns: 1fr auto;
+}
+
+.styled-grid-form-container {
+  display: flex;
+  justify-content: center;
+}
+
+/*Large Desktop specific*/
+@media (min-width: 1100px) {
+  .styled-grid-form {
+    /*change this for mobile/desktop*/
+    width: 300px;
+  }
+
+  /*change this for mobile/desktop*/
+  .styled-grid-form-container {
+    display: flex;
+    justify-content: center;
+  }
+}
+
+.styled-grid-form-txt {
+  grid-column: 1 / 2;
+}
+
+.styled-grid-form-input {
+  grid-column: 1 / 4;
+  margin-bottom: 1.2em;
 }
 
 /* the following pertains to side-menu DESKTOP view */
@@ -743,6 +789,21 @@ body {
     margin-top: 4em;
     margin-left: 1em;
     margin-right: 1em;
+  }
+
+  .styled-grid-form {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr auto;
+  }
+
+  .styled-grid-form-container {
+    display: flex;
+    justify-content: center;
+  }
+
+  .styled-grid-form-input {
+    padding: 1em;
   }
 
   /* the following pertains to side-menu MOBILE view */

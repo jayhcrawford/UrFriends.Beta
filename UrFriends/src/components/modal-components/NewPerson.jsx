@@ -37,12 +37,12 @@ const NewPerson = (props) => {
       dispatch(populatePhonebook(newPhonebook));
     } else {
       //the tier is empty and therefore isn't a part of the store
-      const newTier = [person]
+      const newTier = [person];
       const newPhonebook = {
         ...phonebookStore,
-        [person.tier]: newTier
-      }
-      dispatch(populatePhonebook(newPhonebook))
+        [person.tier]: newTier,
+      };
+      dispatch(populatePhonebook(newPhonebook));
     }
   };
 
@@ -143,28 +143,42 @@ const NewPerson = (props) => {
   //render
   return (
     <>
-      <form onSubmit={(event) => handleAdd(event)}>
-        <h3>Add A New Person</h3>
-        First Name: <input name="contactFirstName"></input>
-        Last Name: <input name="contactLastName"></input>
-        <br />
-        Phone: <input name="contactPhone"></input>
-        <br />
-        Email: <input name="contactEmail"></input>
-        <br />
-        Tier:
-        <input type="radio" id="tier1" name="tier" value="1" required />
-        <label htmlFor="tier1">1</label>
-        <input type="radio" id="tier2" name="tier" value="2" />
-        <label htmlFor="tier2">2</label>
-        <input type="radio" id="tier3" name="tier" value="3" />
-        <label htmlFor="tier3">3</label>
-        <input type="radio" id="tier4" name="tier" value="4" />
-        <label htmlFor="tier4">4</label>
-        <input type="radio" id="tier5" name="tier" value="5" />
-        <label htmlFor="tier5">5</label>
-        <button type="submit">Add Person</button>
-      </form>
+      <div className="styled-grid-form-container">
+        <form
+          className="styled-grid-form"
+          onSubmit={(event) => handleAdd(event)}
+        >
+          <h3>Add A New Person</h3>
+          <span className="styled-grid-form-txt">First Name:</span>
+          <input
+            className="styled-grid-form-input"
+            name="contactFirstName"
+          ></input>
+          <span className="styled-grid-form-txt">Last Name:</span>{" "}
+          <input
+            className="styled-grid-form-input"
+            name="contactLastName"
+          ></input>
+          <span className="styled-grid-form-txt">Phone:</span>{" "}
+          <input className="styled-grid-form-input" name="contactPhone"></input>
+          <span className="styled-grid-form-txt">Email:</span>{" "}
+          <input className="styled-grid-form-input" name="contactEmail"></input>
+          <span className="styled-grid-form-txt">Tier:</span>
+          <span className="styled-grid-form-input">
+            <input type="radio" id="tier1" name="tier" value="1" required />
+            <label htmlFor="tier1">1</label>
+            <input type="radio" id="tier2" name="tier" value="2" />
+            <label htmlFor="tier2">2</label>
+            <input type="radio" id="tier3" name="tier" value="3" />
+            <label htmlFor="tier3">3</label>
+            <input type="radio" id="tier4" name="tier" value="4" />
+            <label htmlFor="tier4">4</label>
+            <input type="radio" id="tier5" name="tier" value="5" />
+            <label htmlFor="tier5">5</label>
+          </span>
+          <button type="submit">Add Person</button>
+        </form>
+      </div>
     </>
   );
 };

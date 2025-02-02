@@ -19,20 +19,6 @@ const Modal = (props) => {
     dispatch(hideModal());
   };
 
-  /*
-
-        All of this is passed as props to Modal,
-        Do I want to put it in the store? More than likely:
-
-        TODO: Pass this stuff thru the store if possible
-
-        people={phonebook}
-        setPhonebook={setPhonebook}
-        setTiers={setTiers}
-        tiers={tiers}
-
-  */
-
   //render
   if (!modalVisible) {
     return null;
@@ -42,7 +28,7 @@ const Modal = (props) => {
       <div className="modal-base-transparency">
         <div className="modal-box">
           <div className="modal-top-bar">
-            <button onClick={handleClose}>Close</button>
+            <button className="modal-close-btn" onClick={handleClose}><i className="fa-solid fa-x fa-3x"></i></button>
           </div>
           {modalType == "add-contact" && <NewPerson />}
           {modalType == "we-spoke" && <ReachOut />}
