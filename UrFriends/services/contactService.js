@@ -39,9 +39,14 @@ export const postContact = async (body) => {
 };
 
 export const deleteContact = async (body) => {
-  const result = await axios.delete(
-    `http://localhost:3000/api/phonebook/${body}`
-  );
+  try {
+    const result = await axios.delete(
+      `http://localhost:3000/api/phonebook/${body}`
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
 };
 
 export const patchConversation = async (body) => {
