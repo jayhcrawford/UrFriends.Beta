@@ -1,8 +1,7 @@
 import React from "react";
 import { Link } from "react-router";
-import { HeroButton } from "./Phonebook";
-import { PhonebookButtonIcon } from "./EditTiers";
 import { useSelector } from "react-redux";
+import LinkBar from "./LinkBar";
 
 const BulkAdd = () => {
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
@@ -10,9 +9,7 @@ const BulkAdd = () => {
 
   return (
     <>
-      <Link to="/">
-        <HeroButton text="Phonebook" icon={<PhonebookButtonIcon />} />
-      </Link>
+      <LinkBar page="bulk-add" />
       <div>{tiersStore}</div>
     </>
   );

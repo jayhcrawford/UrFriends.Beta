@@ -4,7 +4,7 @@ import { patchSettings } from "../../services/settingService";
 import { patchTiers } from "../../services/contactService";
 import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
 import { useSelector } from "react-redux";
-import { HeroButton } from "./Phonebook";
+import LinkBar from "./LinkBar";
 
 export const MiniButton = (props) => {
   return (
@@ -17,6 +17,7 @@ export const MiniButton = (props) => {
         borderRadius: "2em",
         marginLeft: "1em",
         marginTop: ".7em",
+        border: "none",
       }}
     >
       {props.text}
@@ -52,11 +53,6 @@ const interpretOptionValue = (option) => {
     default:
       return "No Date";
   }
-}
-
-//passed to HeroButton as props
-export const PhonebookButtonIcon = () => {
-  return <i className="fa-regular fa-face-smile fa-3x"></i>;
 };
 
 //static; renders radio button group, allowing tier adjustment; sets localTiers
@@ -126,19 +122,21 @@ const ListFormTier = (props) => {
   if (!isExpanded) {
     return (
       <>
-        <p>
-          {props.children}
-          <button onClick={() => setIsExpanded(!isExpanded)}>Show Contacts</button>
-        </p>
+        {props.children}
+        <button onClick={() => setIsExpanded(!isExpanded)}>
+          Show Contacts
+        </button>
       </>
     );
   }
   return (
     <>
-      <p>
+      <>
         {props.children}{" "}
-        <button onClick={() => setIsExpanded(!isExpanded)}>Hide Contacts</button>
-      </p>
+        <button onClick={() => setIsExpanded(!isExpanded)}>
+          Hide Contacts
+        </button>
+      </>
       <ul>
         {props.tierContent.map((person) => {
           return (
@@ -272,16 +270,15 @@ const EditTiers = (props) => {
   } else {
     return (
       <>
-        <Link to="/">
-          <HeroButton text="Phonebook" icon={<PhonebookButtonIcon />} />
-        </Link>
+        <LinkBar page="edit-tiers"/>
         <h2>Edit Tiers</h2>
         <MiniButton text="Add Tier" />
         <MiniButton text="Delete Tier" />
-        <ul style={{paddingInlineStart: "0px"}}>
+        <ul style={{ paddingInlineStart: "0px" }}>
           {tiers.map((tier) => {
             return (
               <div
+                key={tier}
                 style={{
                   border: "1px solid black",
                   margin: "1em",
@@ -292,7 +289,6 @@ const EditTiers = (props) => {
                   localTiers={localTiers}
                   handleChangeTier={handleChangeTier}
                   tierContent={localTiers[tier]}
-                  key={tier}
                   settings={settingsStore}
                   tiers={tiers}
                 >
