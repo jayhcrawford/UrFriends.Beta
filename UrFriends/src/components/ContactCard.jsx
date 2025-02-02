@@ -192,7 +192,7 @@ function ContactCard(props) {
                 message={`settings-${props.person.name.first}`}
                 person={props.person}
               >
-                {props.person.name.first}'s Settings
+                Contact's Settings
               </ActionButton>
             </div>
 
