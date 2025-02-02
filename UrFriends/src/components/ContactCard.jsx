@@ -169,7 +169,7 @@ function ContactCard(props) {
             <div className="contact-expanded-action-buttons">
               <div className="act-btn-1">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={"We Spoke"}
                   person={props.person}
                 >
@@ -179,7 +179,7 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-2">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={"Conversation Starters"}
                   person={props.person}
                 >
@@ -189,7 +189,7 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-3">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={`Schedule a Conversation with ${props.person.name.first}`}
                   person={props.person}
                 >
@@ -199,7 +199,7 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-4">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={`${props.person.name.first}'s Settings`}
                   person={props.person}
                 >
@@ -240,7 +240,7 @@ function ContactCard(props) {
             <div className="contact-expanded-action-buttons-zeroConv">
               <div className="act-btn-1-zeroConv">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={"We Spoke"}
                   person={props.person}
                 >
@@ -250,7 +250,7 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-2-zeroConv">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={"Conversation Starters"}
                   person={props.person}
                 >
@@ -260,7 +260,7 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-3-zeroConv">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                  handleModalOpen={handleModalOpen}
                   message={`Schedule a Conversation with ${props.person.name.first}`}
                   person={props.person}
                 >
@@ -270,7 +270,8 @@ function ContactCard(props) {
               <br />
               <div className="act-btn-4-zeroConv">
                 <ActionButton
-                  handleExpandedContactModal={handleExpandedContactModal}
+                
+                  handleModalOpen={handleModalOpen}
                   message={`${props.person.name.first}'s Settings`}
                   person={props.person}
                 >
