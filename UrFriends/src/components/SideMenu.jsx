@@ -18,8 +18,6 @@ const SideMenu = (props) => {
     dispatch(hideSideMenu());
   };
 
-
-
   //render
   if (!isVisible) {
     return null;
@@ -30,11 +28,16 @@ const SideMenu = (props) => {
         className="side-menu-transparency-base"
         onClick={(event) => handleClickAway(event)}
       ></div>
-      <div
-        className="side-menu"
-      >
-        <button onClick={(event) => handleClose(event)}>Close</button>
-        <button onClick={props.logout}>Log Out</button>
+      <div className="side-menu">
+        <div className="side-menu-content" >
+          <span className="side-menu-grid-elem1"><button className="side-menu-close-btn" onClick={(event) => handleClose(event)}><i className="fa-solid fa-x fa-3x"></i></button></span>
+          <span className="side-menu-grid-elem2"></span>
+          <span className="side-menu-grid-elem3"></span>
+          <span className="side-menu-grid-elem4"></span>
+          <span className="side-menu-grid-elem5"></span>
+          <span className="side-menu-grid-elem6"></span>
+          <span className="side-menu-elem side-menu-grid-elem6"><button className="side-menu-btn" onClick={props.logout}>Log Out</button></span>
+        </div>
       </div>
     </>
   );
@@ -51,7 +54,6 @@ style={{
   width: "100%",
   height: "100%",
 }} */
-
 
 /* 
 
