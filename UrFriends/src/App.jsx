@@ -23,6 +23,7 @@ import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
 import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
+import BulkAdd from "./components/BulkAdd";
 
 function App() {
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
@@ -121,6 +122,7 @@ function App() {
         <Route path="" element={<Phonebook />} />
 
         <Route path="/editTiers" element={<EditTiers />} />
+        <Route path="/bulkAdd" element={<BulkAdd />} />
         {/* TODO: Implement a route for bulk add people*/}
       </Routes>
       <Footer />

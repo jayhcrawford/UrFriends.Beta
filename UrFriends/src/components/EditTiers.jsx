@@ -6,8 +6,8 @@ import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
 import { useSelector } from "react-redux";
 import { HeroButton } from "./Phonebook";
 
-//static; passed to HeroButton as props
-const PhonebookButtonIcon = () => {
+//passed to HeroButton as props
+export const PhonebookButtonIcon = () => {
   return (
     <i className="fa-regular fa-face-smile fa-3x"></i>
   )
