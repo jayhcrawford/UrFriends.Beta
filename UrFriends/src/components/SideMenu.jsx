@@ -33,9 +33,8 @@ const SideMenu = (props) => {
           <span className="side-menu-grid-elem1"><button className="side-menu-close-btn" onClick={(event) => handleClose(event)}><i className="fa-solid fa-x fa-3x"></i></button></span>
           <span className="side-menu-grid-elem2"></span>
           <span className="side-menu-grid-elem3"></span>
-          <span className="side-menu-grid-elem4"></span>
-          <span className="side-menu-grid-elem5"></span>
-          <span className="side-menu-grid-elem6"></span>
+          <span className="side-menu-elem side-menu-grid-elem4"><button className="side-menu-btn" >Export My Entire Account to a PDF</button></span>
+          <span className="side-menu-elem side-menu-grid-elem5"><button className="side-menu-btn" >Login with Google/Apple</button></span>
           <span className="side-menu-elem side-menu-grid-elem6"><button className="side-menu-btn" onClick={props.logout}>Log Out</button></span>
         </div>
       </div>
