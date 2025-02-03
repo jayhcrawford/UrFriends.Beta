@@ -10,16 +10,20 @@ import ConversationDetails from "./modal-components/ConversationDetails";
 import NewPerson from "./modal-components/NewPerson";
 import RandomModalComponent from "./modal-components/RandomModalComponent";
 import AddConversationSelectContact from "./modal-components/AddConversationSelectContact";
+import useEscapeKey from "../functions/useEscapeKey";
 
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
   const modalType = useSelector((state) => state.modal.type);
   const conversationTopic = useSelector((state) => state.modal.topic);
   const dispatch = useDispatch();
+  
 
   const handleClose = () => {
     dispatch(hideModal());
   };
+
+  useEscapeKey(()=> dispatch(hideModal()))
 
   //render
   if (!modalVisible) {
@@ -30,10 +34,14 @@ const Modal = (props) => {
       <div className="modal-base-transparency">
         <div className="modal-box">
           <div className="modal-top-bar">
-            <button className="modal-close-btn" onClick={handleClose}><i className="fa-solid fa-x fa-3x"></i></button>
+            <button className="modal-close-btn" onClick={handleClose}>
+              <i className="fa-solid fa-x fa-3x"></i>
+            </button>
           </div>
-          {modalType == "add-convo-sans-contact" && <AddConversationSelectContact/>}
-          {modalType == "random" && <RandomModalComponent/>}
+          {modalType == "add-convo-sans-contact" && (
+            <AddConversationSelectContact />
+          )}
+          {modalType == "random" && <RandomModalComponent />}
           {modalType == "add-contact" && <NewPerson />}
           {modalType == "we-spoke" && <ReachOut />}
           {modalType == "convo-starters" && <ConvoStarters />}
