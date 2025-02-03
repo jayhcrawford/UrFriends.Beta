@@ -28,7 +28,6 @@ const AddPersonComponent = () => {
 
   //changes whether or not a field is being edited. If a field in editPerson is true, edit is enabled.
   const setEditMode = (keyToChange) => {
-    console.log(keyToChange);
     const newEditPersonObj = {
       ...editPerson,
       [keyToChange]: !editPerson[keyToChange],

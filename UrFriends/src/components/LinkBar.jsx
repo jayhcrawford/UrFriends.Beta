@@ -63,6 +63,12 @@ const LinkBar = (props) => {
     dispatch(setVisibleModal({ modalContentType: "add-contact" }));
   };
 
+  const addConvoSansPerson = () => {
+    dispatch(setVisibleModal({ modalContentType: "add-convo-sans-contact" }));
+  };
+
+  
+
   return (
     <>
       <div className="link-bar-container">
@@ -101,7 +107,7 @@ const LinkBar = (props) => {
           text="Add Contact"
         />
         <HeroButton
-          clickHandler={addContact}
+          clickHandler={addConvoSansPerson}
           icon={<ConvoIcon />}
           text="Add Convo"
         />
