@@ -60,11 +60,11 @@ const LinkBar = (props) => {
   const dispatch = useDispatch();
 
   const addContact = () => {
-    dispatch(setVisibleModal({ modalContentType: "add-contact" }));
+    dispatch(setVisibleModal({ modalContentType: "add-contact", title: "Add New Person"  }));
   };
 
   const addConvoSansPerson = () => {
-    dispatch(setVisibleModal({ modalContentType: "add-convo-sans-contact" }));
+    dispatch(setVisibleModal({ modalContentType: "add-convo-sans-contact", title: "Add Conversation" }));
   };
 
   

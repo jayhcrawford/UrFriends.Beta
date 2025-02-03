@@ -7,6 +7,7 @@ export const modalSlice = createSlice({
     type: "no content",
     person: null,
     topic: null,
+    title: null
   },
   reducers: {
     setVisibleModal: (state, action) => {
@@ -16,6 +17,9 @@ export const modalSlice = createSlice({
       if (Object.hasOwn(action.payload, "topic")) {
         state.topic = action.payload.topic;
       }
+      if (Object.hasOwn(action.payload, "title")) {
+        state.title = action.payload.title;
+      }
       state.type = action.payload.modalContentType;
       state.visible = true;
     },
@@ -24,6 +28,7 @@ export const modalSlice = createSlice({
       state.type = "no content";
       state.person = null;
       state.topic = null;
+      state.title = null;
     },
   },
 });

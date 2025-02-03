@@ -518,9 +518,10 @@ body {
 }
 
 .modal-top-bar {
-  display: flex;
-  justify-content: right;
+  display: grid;
+  grid-template-areas: "title title title title close";
 }
+
 
 .modal-close-btn {
   border: none;

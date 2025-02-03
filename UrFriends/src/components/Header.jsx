@@ -11,7 +11,12 @@ function Header() {
   };
 
   const handleRandom = () => {
-    dispatch(setVisibleModal({ modalContentType: "random" }));
+    dispatch(
+      setVisibleModal({
+        modalContentType: "random",
+        title: "Random Interaction Machine",
+      })
+    );
   };
 
   return (

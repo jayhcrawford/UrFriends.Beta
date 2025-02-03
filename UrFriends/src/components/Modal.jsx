@@ -15,15 +15,15 @@ import useEscapeKey from "../functions/useEscapeKey";
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
   const modalType = useSelector((state) => state.modal.type);
+  const modalTitle = useSelector((state) => state.modal.title);
   const conversationTopic = useSelector((state) => state.modal.topic);
   const dispatch = useDispatch();
-  
 
   const handleClose = () => {
     dispatch(hideModal());
   };
 
-  useEscapeKey(()=> dispatch(hideModal()))
+  useEscapeKey(() => dispatch(hideModal()));
 
   //render
   if (!modalVisible) {
@@ -34,7 +34,8 @@ const Modal = (props) => {
       <div className="modal-base-transparency">
         <div className="modal-box">
           <div className="modal-top-bar">
-            <button className="modal-close-btn" onClick={handleClose}>
+            <h2 style={{gridArea: "title"}}>{modalTitle}</h2>
+            <button style={{gridArea: "close"}} className="modal-close-btn" onClick={handleClose}>
               <i className="fa-solid fa-x fa-3x"></i>
             </button>
           </div>

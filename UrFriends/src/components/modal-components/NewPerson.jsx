@@ -151,7 +151,7 @@ const NewPerson = (props) => {
           className="styled-grid-form"
           onSubmit={(event) => handleAdd(event)}
         >
-          <h3>Add A New Person</h3>
+        
           <span className="styled-grid-form-txt">First Name:</span>
           <input
             className="styled-grid-form-input"
