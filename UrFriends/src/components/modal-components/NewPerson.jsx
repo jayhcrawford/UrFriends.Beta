@@ -108,7 +108,7 @@ const NewPerson = (props) => {
       if (completed) {
         //udpate the store
         updateThePhonebook(result.data);
-        dispatch(hideModal())
+        dispatch(hideModal());
       }
 
       //if the contact being added is in a tier that doesn't yet exist
@@ -132,7 +132,7 @@ const NewPerson = (props) => {
       if (completed) {
         //udpate the store
         updateThePhonebook(result.data);
-        dispatch(hideModal())
+        dispatch(hideModal());
       }
     }
 
@@ -179,7 +179,9 @@ const NewPerson = (props) => {
             <input type="radio" id="tier5" name="tier" value="5" />
             <label htmlFor="tier5">5</label>
           </span>
-          <button type="submit" style={{height: "4em"}}>Add Person</button>
+          <button type="submit" style={{ height: "4em" }}>
+            Add Person
+          </button>
         </form>
       </div>
     </>
