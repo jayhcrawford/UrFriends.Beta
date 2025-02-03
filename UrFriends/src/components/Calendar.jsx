@@ -96,13 +96,16 @@ const HeaderDay = (props) => {
 const Calendar = () => {
   const { width } = useWindowSize();
 
+  const { height } = useWindowSize();
+
+
   const [selectedMonth, setSelectedMonth] = useState({
     choiceIndex: monthIndex,
   });
 
   const [selectedYear, setSelectedYear] = useState(currentYear);
 
-  console.log(width);
+  console.log(width, height);
 
   const changeMonth = (incOrDec) => {
     if (incOrDec == "inc") {

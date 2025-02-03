@@ -25,8 +25,18 @@ import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
 import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
 import BulkAdd from "./components/BulkAdd";
+import useWindowSize from "./functions/WindowResize";
 
 function App() {
+
+  const { width } = useWindowSize();
+
+  const { height } = useWindowSize();
+
+
+
+
+
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
   const loggedIn = useSelector((state) => state.login.user);
@@ -114,6 +124,7 @@ function App() {
 
   return (
     <>
+    {  width + " " + height}
       <Notification />
       <Modal />
       <SideMenu logout={handleLogOut} />
