@@ -36,11 +36,23 @@ const Week = (props) => {
                   display: "inline-block",
                   border: "1px solid black",
                   borderWidth: "0px 1px 1px 1px",
-                  
                 }}
                 className="cal-day-block"
               >
-                <div style={{backgroundColor: "green", height: "2.5em", width: "2.5em", borderRadius: "50%", margin: ".2em"}}></div>
+                <div
+                  style={{
+                    backgroundColor: "green",
+                    height: "2.5em",
+                    width: "2.5em",
+                    borderRadius: "50%",
+                    margin: ".2em",
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                  }}
+                >
+                  1
+                </div>
               </div>
             );
           })}
