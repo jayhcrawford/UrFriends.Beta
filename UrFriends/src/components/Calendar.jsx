@@ -1,6 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import LinkBar from "./LinkBar";
 import useWindowSize from "../functions/WindowResize";
+
+const date = new Date();
+const monthIndex = date.getMonth(); // Returns a number from 0 (January) to 11 (December)
+const currentYear = date.getFullYear();
+
+const monthNames = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+const currentMonth = monthNames[monthIndex];
 
 const Week = (props) => {
   const numOfDays = [
@@ -75,11 +96,56 @@ const HeaderDay = (props) => {
 const Calendar = () => {
   const { width } = useWindowSize();
 
+  const [selectedMonth, setSelectedMonth] = useState({
+    choiceIndex: monthIndex,
+  });
+
+  const [selectedYear, setSelectedYear] = useState(currentYear);
+
   console.log(width);
+
+  const changeMonth = (incOrDec) => {
+    if (incOrDec == "inc") {
+      if (selectedMonth.choiceIndex != 11) {
+        const newSelectedMonth = {
+          choiceIndex: selectedMonth.choiceIndex + 1,
+        };
+        setSelectedMonth(newSelectedMonth);
+      } else {
+        setSelectedMonth({
+          choiceIndex: 0,
+        });
+        setSelectedYear(selectedYear + 1);
+      }
+    }
+    if (incOrDec == "dec") {
+      if (selectedMonth.choiceIndex != 0) {
+        const newSelectedMonth = {
+          choiceIndex: selectedMonth.choiceIndex - 1,
+        };
+        setSelectedMonth(newSelectedMonth);
+      } else {
+        setSelectedMonth({
+          choiceIndex: 11,
+        });
+        setSelectedYear(selectedYear - 1);
+      }
+    }
+  };
 
   return (
     <>
       <LinkBar page="calendar" />
+      <div
+        className="calendar-month"
+        style={{ display: "flex", justifyContent: "center" }}
+      >
+        <button onClick={() => changeMonth("dec")}>{"<-"}</button>
+        <h3 style={{ fontSize: "1.5em" }}>
+          {monthNames[selectedMonth.choiceIndex]} {selectedYear}
+        </h3>{" "}
+        <button onClick={() => changeMonth("inc")}>{"->"}</button>
+      </div>
       <div
         className="calendar-header"
         style={{
