@@ -1,5 +1,6 @@
 import React from "react";
 import LinkBar from "./LinkBar";
+import useWindowSize from "../functions/WindowResize";
 
 const Week = (props) => {
   const numOfDays = [
@@ -33,10 +34,13 @@ const Week = (props) => {
                   height: "100%",
                   backgroundColor: "red",
                   display: "inline-block",
+                  border: "1px solid black",
+                  borderWidth: "0px 1px 1px 1px",
+                  
                 }}
                 className="cal-day-block"
               >
-                J
+                <div style={{backgroundColor: "green", height: "2.5em", width: "2.5em", borderRadius: "50%", margin: ".2em"}}></div>
               </div>
             );
           })}
@@ -46,14 +50,41 @@ const Week = (props) => {
   );
 };
 
+const HeaderDay = (props) => {
+  const { width } = useWindowSize();
+
+  if (width < 600) {
+    return <div className="cal-header-day">{props.day.slice(0, 3)}</div>;
+  }
+
+  return <div className="cal-header-day">{props.day}</div>;
+};
+
 const Calendar = () => {
+  const { width } = useWindowSize();
+
+  console.log(width);
+
   return (
     <>
       <LinkBar page="calendar" />
       <div
         className="calendar-header"
-        style={{ width: "100%", height: "3em", backgroundColor: "yellow" }}
-      ></div>
+        style={{
+          width: "100%",
+          height: "3em",
+          backgroundColor: "yellow",
+          display: "flex",
+        }}
+      >
+        <HeaderDay day="Sunday" />
+        <HeaderDay day="Monday" />
+        <HeaderDay day="Tuesday" />
+        <HeaderDay day="Wednesday" />
+        <HeaderDay day="Thursday" />
+        <HeaderDay day="Friday" />
+        <HeaderDay day="Saturday" />
+      </div>
       <div
         style={{
           width: "100%",
