@@ -110,7 +110,7 @@ body {
 @media (min-width: 1100px) {
   .styled-grid-form {
     /*change this for mobile/desktop*/
-    width: 300px;
+    width: 500px;
   }
 
   /*change this for mobile/desktop*/
@@ -493,6 +493,19 @@ body {
   justify-content: center;
 }
 
+@media (min-width: 751px) and (max-width: 1025px) {
+  .modal-box {
+    padding: 2em !important;
+    height: 600px !important;
+    width: 600px !important;
+    margin: 10em !important;
+  }
+
+  .styled-grid-form-input {
+    padding: 1em;
+  }
+}
+
 .modal-box {
   border: 6px solid var(--base-high-cont-color);
   color: var(--base-high-cont-color);
@@ -500,7 +513,7 @@ body {
   padding: 2em;
   background-color: var(--light-base-color);
   height: 450px;
-
+  width: 350px;
   margin: 10em;
 }
 
@@ -520,7 +533,7 @@ body {
 }
 
 .styled-grid-form {
-  width: 50%;
+  width: 100%;
   display: grid;
   grid-template-columns: 1fr auto;
 }
