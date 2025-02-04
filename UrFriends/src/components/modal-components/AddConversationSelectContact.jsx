@@ -68,12 +68,12 @@ const AddConversationSelectContact = (props) => {
       Person: <br />
       <input></input>
       <br />
-      <div style={{ height: "12em", border: "1px solid blue", display: "flex", flexDirection: "column" }}>
-        <button>Search Results</button>
-        <button>Search Results</button>
-        <button>Search Results</button>
-        <button>Search Results</button>
-        <button>Search Results</button>
+      <div className="add-convo-search-results">
+        <button className="ac-sr-button">Search Results</button>
+        <button className="ac-sr-button">Search Results</button>
+        <button className="ac-sr-button">Search Results</button>
+        <button className="ac-sr-button">Search Results</button>
+        <button className="ac-sr-button">Search Results</button>
       </div>
       <>
         {" "}

@@ -493,12 +493,14 @@ body {
   justify-content: center;
 }
 
+
+
 @media (min-width: 751px) and (max-width: 1025px) {
   .modal-box {
     padding: 2em !important;
     height: 600px !important;
     width: 600px !important;
-    margin: 10em !important;
+
   }
 
   .styled-grid-form-input {
@@ -522,7 +524,6 @@ body {
   grid-template-areas: "title title title title close";
 }
 
-
 .modal-close-btn {
   border: none;
   background-color: var(--light-base-color);
@@ -531,6 +532,18 @@ body {
 }
 .modal-close-btn:hover {
   color: var(--base-high-cont-color-hover-xtra);
+}
+
+.add-convo-search-results {
+  height: 12em;
+  border: 1px solid blue;
+  display: flex;
+  flex-direction: column;
+}
+
+.ac-sr-button {
+  margin-bottom: 0.4em;
+  height: 2.3em;
 }
 
 .styled-grid-form {
