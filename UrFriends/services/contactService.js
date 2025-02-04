@@ -1,10 +1,14 @@
 import axios from "axios";
 
 export const getUsersPhonebook = async (body) => {
+  const bodyWithCredentials = {
+    ...body,
+    credentials: "include"
+  }
   try {
     const result = await axios.post(
       `http://localhost:3000/api/phonebook/getcontent`,
-      body
+      bodyWithCredentials
     );
     //organize the raw data into tieredPhonebook
     let tieredPhonebook = {};

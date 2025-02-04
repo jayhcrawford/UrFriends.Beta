@@ -6,6 +6,7 @@ const UserData = require("../models/userData.js");
 
 //Get users phonebook and settings
 phonebookRouter.post("/getContent", async (request, response) => {
+
   const verified = jwt.verify(request.body.user.token, process.env.SECRET);
   const id = verified.id;
 
@@ -22,14 +23,14 @@ phonebookRouter.post("/", async (request, response) => {
 });
 
 //delete a contact
-phonebookRouter.delete('/:id', async (request, response, next) => {
+phonebookRouter.delete("/:id", async (request, response, next) => {
   try {
-    await Contact.findByIdAndDelete(request.params.id)
-    response.status(204).end()
+    await Contact.findByIdAndDelete(request.params.id);
+    response.status(204).end();
   } catch (exception) {
-    next(exception)
+    next(exception);
   }
-})
+});
 
 //add a conversation
 phonebookRouter.patch("/patchConversation", async (request, response) => {
@@ -66,7 +67,5 @@ phonebookRouter.post("/updateMany", async (request, response) => {
 
   response.status(204).end();
 });
-
-
 
 module.exports = phonebookRouter;
