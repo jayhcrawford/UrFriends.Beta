@@ -483,7 +483,7 @@ body {
 }
 
 .modal-base-transparency {
-  background-color: rgba(0, 0, 0, 0);
+  background-color: rgba(255, 255, 255, 0.5);
   display: flex;
   position: fixed;
   width: 100%;
@@ -498,7 +498,6 @@ body {
 @media (min-width: 751px) and (max-width: 1025px) {
   .modal-box {
     padding: 2em !important;
-    height: 600px !important;
     width: 600px !important;
 
   }
@@ -513,10 +512,11 @@ body {
   color: var(--base-high-cont-color);
   display: inline-block;
   padding: 2em;
+  height: auto;
   background-color: var(--light-base-color);
-  height: 450px;
-  width: 350px;
-  margin: 10em;
+  margin-top: 1em;
+  margin-bottom: auto;
+  
 }
 
 .modal-top-bar {
