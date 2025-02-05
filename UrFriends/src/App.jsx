@@ -37,8 +37,6 @@ function App() {
   const loggedIn = useSelector((state) => state.login.user);
   const settingsStore = useSelector((state) => state.login.settings);
 
-  console.log(phonebookStore);
-
   const dispatch = useDispatch();
 
   //called in useEffect below
