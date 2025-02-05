@@ -28,19 +28,16 @@ import BulkAdd from "./components/BulkAdd";
 import useWindowSize from "./functions/WindowResize";
 
 function App() {
-
   const { width } = useWindowSize();
 
   const { height } = useWindowSize();
-
-
-
-
 
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
   const loggedIn = useSelector((state) => state.login.user);
   const settingsStore = useSelector((state) => state.login.settings);
+
+  console.log(phonebookStore);
 
   const dispatch = useDispatch();
 
@@ -59,6 +56,7 @@ function App() {
       dispatch(setSettings(result.settings.tierTime));
     } catch (error) {
       console.log(error);
+      return [];
     }
   };
 
@@ -124,7 +122,7 @@ function App() {
 
   return (
     <>
-    {  width + " " + height}
+      {width + " " + height}
       <Notification />
       <Modal />
       <SideMenu logout={handleLogOut} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { hideModal } from "../features/modalSlice";
+import { clearUnsavedChanges, hideModal } from "../features/modalSlice";
 import ReachOut from "./modal-components/ReachOut";
 import ConvoStarters from "./modal-components/ConvoStarters";
 import ScheduleConvo from "./modal-components/ScheduleConvo";
@@ -14,13 +14,28 @@ import useEscapeKey from "../functions/useEscapeKey";
 
 const Modal = (props) => {
   const modalVisible = useSelector((state) => state.modal.visible);
+  const unsavedChanges = useSelector((state) => state.modal.unsavedChanges);
+
   const modalType = useSelector((state) => state.modal.type);
   const modalTitle = useSelector((state) => state.modal.title);
-  const conversationTopic = useSelector((state) => state.modal.topic);
+  const conversation = useSelector((state) => state.modal.topic);
   const dispatch = useDispatch();
 
   const handleClose = () => {
-    dispatch(hideModal());
+    if (unsavedChanges) {
+      //alert about unsaved changes
+      confirm(
+        "you made changes that were not saved. Click OK to abandon changes."
+      );
+      if (confirm) {
+        dispatch(hideModal());
+        dispatch(clearUnsavedChanges());
+      } else {
+        //keep the window open
+      }
+    } else {
+      dispatch(hideModal());
+    }
   };
 
   useEscapeKey(() => dispatch(hideModal()));
@@ -34,8 +49,12 @@ const Modal = (props) => {
       <div className="modal-base-transparency">
         <div className="modal-box">
           <div className="modal-top-bar">
-            <h2 style={{gridArea: "title"}}>{modalTitle}</h2>
-            <button style={{gridArea: "close"}} className="modal-close-btn" onClick={handleClose}>
+            <h2 style={{ gridArea: "title" }}>{modalTitle}</h2>
+            <button
+              style={{ gridArea: "close" }}
+              className="modal-close-btn"
+              onClick={handleClose}
+            >
               <i className="fa-solid fa-x fa-3x"></i>
             </button>
           </div>
@@ -50,7 +69,7 @@ const Modal = (props) => {
           {modalType.slice(0, 8) == "settings" && <ContactSettings />}
           {modalType == "tier-settings" && <TierSettings />}
           {modalType == "conversation" && (
-            <ConversationDetails topic={conversationTopic} />
+            <ConversationDetails conversation={conversation} />
           )}
         </div>
       </div>

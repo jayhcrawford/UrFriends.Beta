@@ -7,7 +7,8 @@ export const modalSlice = createSlice({
     type: "no content",
     person: null,
     topic: null,
-    title: null
+    title: null,
+    unsavedChanges: false,
   },
   reducers: {
     setVisibleModal: (state, action) => {
@@ -30,10 +31,16 @@ export const modalSlice = createSlice({
       state.topic = null;
       state.title = null;
     },
+    setUnsavedChanges: (state, action) => {
+      state.unsavedChanges = true;
+    },
+    clearUnsavedChanges: (state, action) => {
+      state.unsavedChanges = false;
+    }
   },
 });
 
 // Action creators are generated for each case reducer function
-export const { setVisibleModal, hideModal } = modalSlice.actions;
+export const { setVisibleModal, hideModal, clearUnsavedChanges, setUnsavedChanges } = modalSlice.actions;
 
 export default modalSlice.reducer;

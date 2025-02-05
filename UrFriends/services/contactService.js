@@ -49,6 +49,7 @@ export const deleteContact = async (body) => {
   }
 };
 
+//this adds a new conversation to a contact
 export const patchConversation = async (body) => {
   try {
     const result = await axios.patch(
@@ -60,6 +61,20 @@ export const patchConversation = async (body) => {
     return error;
   }
 };
+
+//update an existing conversation (subdocument 'requires' MongoID)
+export const updateConversation = async (body) => {
+  try {
+    const result = await axios.patch(
+      `http://localhost:3000/api/phonebook/updateConversation`,
+      body
+    );
+    return result;
+  } catch (error) {
+    return error;
+  }
+};
+
 
 //change contact(s?) tier(s?)
 export const patchTiers = async (body) => {

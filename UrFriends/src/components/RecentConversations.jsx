@@ -26,7 +26,7 @@ const ConversationButton = (props) => {
         <button
           className="conv-btn"
           style={{}}
-          onClick={() => props.handleOpenExpandedContactModal("conversation", props.conversation.topic)}
+          onClick={() => props.handleOpenExpandedContactModal("conversation", props.conversation)}
         >
           <span className="conv-btn-date-span">
             {props.person.lastConvo[0].date === null
@@ -47,7 +47,7 @@ const ConversationButton = (props) => {
 const RecentConversations = (props) => {
   const dispatch = useDispatch();
   const handleOpenExpandedContactModal = (modalContentType, topic) => {
-    dispatch(setVisibleModal({ modalContentType, topic: topic }));
+    dispatch(setVisibleModal({ modalContentType, topic: topic, person: props.person }));
   };
 
   //If !props.conversationArray, then data is still being fetched, or there is no data.

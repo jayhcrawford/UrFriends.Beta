@@ -3,6 +3,7 @@ const phonebookRouter = require("express").Router();
 const jwt = require("jsonwebtoken");
 const Contact = require("../models/contact.js");
 const UserData = require("../models/userData.js");
+const ConvoTopic = require("../models/ConvoTopic.js");
 
 //Get users phonebook and settings
 phonebookRouter.post("/getContent", async (request, response) => {
@@ -22,18 +23,17 @@ phonebookRouter.post("/", async (request, response) => {
 });
 
 //delete a contact
-phonebookRouter.delete('/:id', async (request, response, next) => {
+phonebookRouter.delete("/:id", async (request, response, next) => {
   try {
-    await Contact.findByIdAndDelete(request.params.id)
-    response.status(204).end()
+    await Contact.findByIdAndDelete(request.params.id);
+    response.status(204).end();
   } catch (exception) {
-    next(exception)
+    next(exception);
   }
-})
+});
 
 //add a conversation
 phonebookRouter.patch("/patchConversation", async (request, response) => {
-  console.log(request.body);
   const update = await Contact.findOneAndUpdate(
     { _id: request.body.id },
     { lastConvo: request.body.lastConvo }
@@ -41,32 +41,23 @@ phonebookRouter.patch("/patchConversation", async (request, response) => {
   response.status(200).json(update);
 });
 
-phonebookRouter.post("/updateMany", async (request, response) => {
-  const everyoneToChange = await Contact.find({});
-  let listOfIDs = [];
-  everyoneToChange.forEach((person) => {
-    listOfIDs.push(person._id.toString());
-  });
+//change a conversation
+phonebookRouter.patch("/updateConversation", async (request, response) => {
+  try {
+    let person = await Contact.findOne({ _id: request.body.person });
+    const convoToUpdate = person.lastConvo.id(request.body._id);
+    convoToUpdate.topic = request.body.topic;
 
-  for (let i = 0; i < listOfIDs.length; i++) {
-    const personToChange = await Contact.findOne({ _id: listOfIDs[i] });
-
-    const change = {
-      name: {
-        first: personToChange.name,
-        last: "Jones",
-      },
-    };
-
-    const changeItNow = await Contact.findByIdAndUpdate(
-      { _id: listOfIDs[i] },
-      change
-    );
+    await person.save();
+    response.status(200).json({ convoToUpdate });
+  } catch (error) {
+    console.log(error);
+    return error;
   }
-
-  response.status(204).end();
 });
 
-
+phonebookRouter.post("/updateMany", async (request, response) => {
+  response.status(204).end();
+});
 
 module.exports = phonebookRouter;

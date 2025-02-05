@@ -1,4 +1,11 @@
 const mongoose = require("mongoose");
+const ConvoTopic = new mongoose.Schema({ 
+  topic: String,
+  date: String,
+  id: {
+    type: mongoose.Schema.Types.ObjectId,
+  }
+ });
 
 const url = process.env.MONGO_URI;
 
@@ -39,10 +46,7 @@ const contactSchema = new mongoose.Schema({
     type: String,
     default: null,
   },
-  lastConvo: {
-    type: Array,
-    default: null,
-  },
+  lastConvo: [ConvoTopic],
 });
 
 contactSchema.set("toJSON", {
