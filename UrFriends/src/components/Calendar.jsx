@@ -2,6 +2,16 @@ import React, { useState } from "react";
 import LinkBar from "./LinkBar";
 import useWindowSize from "../functions/WindowResize";
 
+const days = Array(42).fill(null);
+
+const RenderCalendarDays = () => {
+  return (
+    <>
+    {}
+    </>
+  )
+}
+
 const date = new Date();
 const monthIndex = date.getMonth(); // Returns a number from 0 (January) to 11 (December)
 const currentYear = date.getFullYear();
@@ -23,7 +33,6 @@ const monthNames = [
 
 const currentMonth = monthNames[monthIndex];
 
-
 const HeaderDay = (props) => {
   const { width } = useWindowSize();
 
@@ -38,7 +47,6 @@ const Calendar = () => {
   const { width } = useWindowSize();
 
   const { height } = useWindowSize();
-
 
   const [selectedMonth, setSelectedMonth] = useState({
     choiceIndex: monthIndex,
@@ -80,48 +88,60 @@ const Calendar = () => {
   return (
     <>
       <LinkBar page="calendar" />
-      <div className="calendar-base" style={{backgroundColor: "red", height: "45em", width: "100"}}>
       <div
-        className="calendar-month"
-        style={{ display: "flex", justifyContent: "center" }}
+        className="calendar-base"
+        style={{ backgroundColor: "red", height: "45em", width: "100" }}
       >
-        <button onClick={() => changeMonth("dec")}>{"<-"}</button>
-        <h3 style={{ fontSize: "1.5em" }}>
-          {monthNames[selectedMonth.choiceIndex]} {selectedYear}
-        </h3>{" "}
-        <button onClick={() => changeMonth("inc")}>{"->"}</button>
-      </div>
-      <div
-        className="calendar-header"
-        style={{
-          width: "100%",
-          height: "3em",
-          backgroundColor: "yellow",
-          display: "flex",
-        }}
-      >
-        <HeaderDay day="Sunday" />
-        <HeaderDay day="Monday" />
-        <HeaderDay day="Tuesday" />
-        <HeaderDay day="Wednesday" />
-        <HeaderDay day="Thursday" />
-        <HeaderDay day="Friday" />
-        <HeaderDay day="Saturday" />
-      </div>
-      <div style={{height: "100%", width: "100%", backgroundColor: "green"}}>
+        {/* Calendar header here*/}
+        <div
+          className="calendar-month"
+          style={{ display: "flex", justifyContent: "center" }}
+        >
+          <button onClick={() => changeMonth("dec")}>{"<-"}</button>
+          <h3 style={{ fontSize: "1.5em" }}>
+            {monthNames[selectedMonth.choiceIndex]} {selectedYear}
+          </h3>{" "}
+          <button onClick={() => changeMonth("inc")}>{"->"}</button>
+        </div>
+        <div
+          className="calendar-header"
+          style={{
+            width: "100%",
+            height: "3em",
+            backgroundColor: "yellow",
+            display: "flex",
+          }}
+        >
+          <HeaderDay day="Sunday" />
+          <HeaderDay day="Monday" />
+          <HeaderDay day="Tuesday" />
+          <HeaderDay day="Wednesday" />
+          <HeaderDay day="Thursday" />
+          <HeaderDay day="Friday" />
+          <HeaderDay day="Saturday" />
+        </div>
+        {/* (close) Calendar header here */}
+        {/* Calendar days starts here */}
+        <div
+          style={{
+            height: "100%",
+            width: "100%",
+            backgroundColor: "green",
+            display: "grid",
+            gridTemplateColumns: "repeat(7, 1fr)",
+            gridTemplateRows: "repeat(6, 1fr)",
+            gridColumnGap: "0px",
+            gridRowGap: "0px",
+          }}
+        >
 
-
+        </div>
       </div>
-   
-
-    </div>
     </>
-  )
-}
+  );
+};
 
 export default Calendar;
-
-
 
 /*
 
