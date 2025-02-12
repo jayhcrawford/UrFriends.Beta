@@ -1,14 +1,17 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
 import { useSelector } from "react-redux";
-import LinkBar from "./LinkBar";
+import LinkBar from "../LinkBar";
+import "./bulkAdd.css";
 
+//static
 const ModifyDataButton = (props) => {
   return (
     <button onClick={() => props.edit(props.keyToEdit)}>{props.text}</button>
   );
 };
 
+//static
 const AddPersonComponent = () => {
   const [person, setPerson] = useState({
     firstName: "Jay",
@@ -40,25 +43,8 @@ const AddPersonComponent = () => {
 
   return (
     <>
-      <div
-        style={{
-          width: "105%",
-          backgroundColor: "red",
-          height: "5em",
-          marginLeft: "-.5em",
-          marginRight: "-.5em",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            height: "4em",
-            backgroundColor: "white",
-            width: "70%",
-            border: "1px solid blue",
-          }}
-        >
+      <div className="bulk-add-edit-container">
+        <div className="bulk-add-editor-body">
           {editPerson.firstName && (
             <span>
               First Name:{" "}
@@ -118,68 +104,49 @@ const AddPersonComponent = () => {
   );
 };
 
+//static
 const Empty = (props) => {
   if (!props.visible) {
     return null;
   }
-
   if (props.visible) {
-    return (
-      <div
-        style={{
-          width: "105%",
-          backgroundColor: "red",
-          height: "5em",
-          marginLeft: "-.5em",
-          marginRight: "-.5em",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            height: "4em",
-            backgroundColor: "white",
-            width: "70%",
-            border: "1px solid blue",
-          }}
-        ></div>
-      </div>
-    );
+    return <AddPersonComponent />;
   }
+};
+
+//static
+const AddPersonButton = (props) => {
+  return (
+    <button
+      className="bulk-add__add-person"
+      onClick={props.handleOpenInputPerson}
+    >
+      +
+    </button>
+  );
 };
 
 const BulkAdd = () => {
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
 
-  const [addNewPerson, setAddNewPerson] = useState(false)
+  const [addNewPerson, setAddNewPerson] = useState(false);
 
   const handleOpenInputPerson = () => {
-    setAddNewPerson(!addNewPerson)
-  }
+    setAddNewPerson(!addNewPerson);
+  };
 
   return (
     <>
       <LinkBar page="bulk-add" />
       <div>{tiersStore}</div>
-      <div
-        style={{
-          display: "flex",
-
-          alignItems: "start",
-          height: "400px",
-          flexDirection: "column",
-          backgroundColor: "green",
-        }}
-      >
+      <AddPersonButton handleOpenInputPerson={handleOpenInputPerson} />
+      <div className="bulk-add-root-container">
         <AddPersonComponent />
-        <AddPersonComponent />
-
-        <AddPersonComponent />
-        <Empty visible={addNewPerson}/>
+        <Empty visible={addNewPerson} />
       </div>
-      <button onClick={handleOpenInputPerson}>+</button>
+      <AddPersonButton handleOpenInputPerson={handleOpenInputPerson} />
+      <br />
       <button>Save to Phonebook</button>
     </>
   );

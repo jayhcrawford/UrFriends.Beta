@@ -1,0 +1,30 @@
+.bulk-add-editor-body {
+  height: 4em;
+  background-color: white;
+  width: 70%;
+  border: 1px solid blue;
+}
+
+.bulk-add-root-container {
+  display: flex;
+  align-items: start;
+  height: 400px;
+  flex-direction: column;
+  background-color: green;
+}
+
+.bulk-add-edit-container {
+  width: 100%;
+  background-color: red;
+  height: 5em;
+  margin-left: -.5em;
+  margin-right: -.5em;
+  display: flex;
+  justify-content: center;
+}
+
+.bulk-add__add-person {
+  height: 3em;
+  width: 3em;
+  border-radius: 50%;
+}
