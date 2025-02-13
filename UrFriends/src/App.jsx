@@ -35,7 +35,8 @@ function App() {
   const phonebookStore = useSelector((state) => state.phonebook.phonebook);
   const tiersStore = useSelector((state) => state.phonebook.tiers);
   const loggedIn = useSelector((state) => state.login.user);
-  const settingsStore = useSelector((state) => state.login.settings);
+
+
 
   const dispatch = useDispatch();
 
@@ -47,6 +48,8 @@ function App() {
       //set state for phonebook data and tiers data
 
       dispatch(populatePhonebook(result.phonebook));
+
+
 
       let tiersArray = Object.keys(result.phonebook);
       dispatch(populateTiers(tiersArray));

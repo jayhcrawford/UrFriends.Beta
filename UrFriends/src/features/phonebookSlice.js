@@ -4,7 +4,7 @@ export const phonebookSlice = createSlice({
   name: "phonebook",
   initialState: {
     phonebook: null,
-    tiers: null
+    tiers: null,
   },
   reducers: {
     populatePhonebook: (state, action) => {
