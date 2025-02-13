@@ -75,7 +75,6 @@ export const updateConversation = async (body) => {
   }
 };
 
-
 //change contact(s?) tier(s?)
 export const patchTiers = async (body) => {
   const result = await axios.patch(
@@ -83,3 +82,13 @@ export const patchTiers = async (body) => {
     body
   );
 };
+
+
+
+//TODO: implement 
+//changes a tier name;
+//must update every object with tier of that name;
+//must change tier name in settings as well
+export const changeTierName = async (body) => {
+  console.log("request")
+}

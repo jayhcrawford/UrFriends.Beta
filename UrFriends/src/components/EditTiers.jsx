@@ -114,6 +114,29 @@ const TierSelector = (props) => {
   );
 };
 
+//static; renders header with tier name and a button, contains state to change
+//tier name
+const TierName = (props) => {
+  const [editTierName, setEditTierName] = useState(false);
+  const [localTierName, setLocalTierName] = useState("");
+
+  return (
+    <>
+      <h3 style={{ margin: "0", display: "inline" }}> Tier {props.tier} </h3>
+      {editTierName && <input></input>}
+      {!editTierName && (
+        <button onClick={() => setEditTierName(true)}>Edit</button>
+      )}
+      {editTierName && (
+        <>
+          <button onClick={() => console.log("save")}> Save</button>
+          <button onClick={() => setEditTierName(false)}> Cancel</button>
+        </>
+      )}
+    </>
+  );
+};
+
 //static; shows collapsed tier with option to expand
 const ListFormTier = (props) => {
   const [isExpanded, setIsExpanded] = useState(false);
@@ -122,7 +145,25 @@ const ListFormTier = (props) => {
   if (!isExpanded) {
     return (
       <>
-        {props.children}
+        <div style={{ paddingBottom: ".1em" }}>
+          <TierName tier={props.tier} />
+          Timeframe:
+          <select
+            name="selectedTimeFrame"
+            onChange={(event) =>
+              props.updateTierTimeFrameState(event, props.tier)
+            }
+            defaultValue={props.localSettings[props.tier]}
+          >
+            {timeFrameOptions.map((option) => {
+              return (
+                <option value={option} key={option}>
+                  {interpretOptionValue(option)}
+                </option>
+              );
+            })}
+          </select>
+        </div>
         <button onClick={() => setIsExpanded(!isExpanded)}>
           Show Contacts
         </button>
@@ -270,7 +311,7 @@ const EditTiers = (props) => {
   } else {
     return (
       <>
-        <LinkBar page="edit-tiers"/>
+        <LinkBar page="edit-tiers" />
         <h2>Edit Tiers</h2>
         <MiniButton text="Add Tier" />
         <MiniButton text="Delete Tier" />
@@ -291,31 +332,10 @@ const EditTiers = (props) => {
                   tierContent={localTiers[tier]}
                   settings={settingsStore}
                   tiers={tiers}
-                >
-                  <div style={{ paddingBottom: ".1em" }}>
-                    <h3 style={{ margin: "0", display: "inline" }}>
-                      {" "}
-                      Tier {tier}{" "}
-                    </h3>{" "}
-                    <button>Change Name</button> Timeframe:
-                    <select
-                      name="selectedTimeFrame"
-                      onChange={(event) =>
-                        updateTierTimeFrameState(event, tier)
-                      }
-                      defaultValue={localSettings[tier]}
-                    >
-                      {timeFrameOptions.map((option) => {
-                        return (
-                          <option value={option} key={option}>
-                            {interpretOptionValue(option)}
-                          </option>
-                        );
-                      })}
-                    </select>
-                  </div>
-                  <br />
-                </ListFormTier>
+                  tier={tier}
+                  localSettings={localSettings}
+                  updateTierTimeFrameState={updateTierTimeFrameState}
+                ></ListFormTier>
               </div>
             );
           })}

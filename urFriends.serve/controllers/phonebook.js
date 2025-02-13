@@ -56,6 +56,21 @@ phonebookRouter.patch("/updateConversation", async (request, response) => {
   }
 });
 
+//change a tier name
+phonebookRouter.post("/changeTierName", async (request, response) => {
+  console.log(request)
+  try {
+    response.status(200).json({ success: "success" });
+  } catch (error) {
+    console.log(error);
+    return error;
+  }
+});
+
+
+
+
+//generic, unused
 phonebookRouter.post("/updateMany", async (request, response) => {
   response.status(204).end();
 });
