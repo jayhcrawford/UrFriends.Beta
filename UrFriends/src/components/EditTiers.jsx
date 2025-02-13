@@ -119,17 +119,32 @@ const TierSelector = (props) => {
 const TierName = (props) => {
   const [editTierName, setEditTierName] = useState(false);
   const [localTierName, setLocalTierName] = useState("");
+  const [newNameInputVal, setNewNameInputVal] = useState("");
+
+  if (localTierName == "" && newNameInputVal == "") {
+    setLocalTierName(props.tier);
+  }
+
+  const saveLocalTier = () => {
+    setLocalTierName(newNameInputVal);
+    setEditTierName(false);
+  };
 
   return (
     <>
-      <h3 style={{ margin: "0", display: "inline" }}> Tier {props.tier} </h3>
-      {editTierName && <input></input>}
+      <h3 style={{ margin: "0", display: "inline" }}> Tier {localTierName}</h3>
+      {editTierName && (
+        <input
+          value={newNameInputVal}
+          onChange={(event) => setNewNameInputVal(event.target.value)}
+        ></input>
+      )}
       {!editTierName && (
-        <button onClick={() => setEditTierName(true)}>Edit</button>
+        <button onClick={() => setEditTierName(true)}>Change Tier Name</button>
       )}
       {editTierName && (
         <>
-          <button onClick={() => console.log("save")}> Save</button>
+          <button onClick={() => saveLocalTier()}> Save</button>
           <button onClick={() => setEditTierName(false)}> Cancel</button>
         </>
       )}
