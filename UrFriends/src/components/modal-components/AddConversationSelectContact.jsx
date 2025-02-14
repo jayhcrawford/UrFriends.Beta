@@ -6,6 +6,7 @@ import {
   hideNotification,
   setNotification,
 } from "../../features/notificationSlice";
+import { sendNotification } from "../../functions/sendNotification";
 
 const AddConversationSelectContact = (props) => {
   const person = useSelector((state) => state.modal.person);
@@ -22,10 +23,7 @@ const AddConversationSelectContact = (props) => {
     const date = new Date(event.target.date.value);
 
     if (isNaN(date)) {
-      dispatch(setNotification());
-      setTimeout(() => {
-        dispatch(hideNotification());
-      }, 5000);
+      sendNotification(dispatch, { message: "the date is invalid", type: "red" });
       return null;
     }
 

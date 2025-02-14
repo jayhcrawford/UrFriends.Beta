@@ -7,6 +7,7 @@ import {
   setNotification,
 } from "../../features/notificationSlice";
 import { populatePhonebook } from "../../features/phonebookSlice";
+import { sendNotification } from "../../functions/sendNotification";
 
 //static; renders delete and prompts message
 const DeleteThisContact = (props) => {
@@ -54,13 +55,6 @@ const ContactSettings = () => {
 
   const dispatch = useDispatch();
 
-  const createNotification = (message, type) => {
-    dispatch(setNotification({ message: message, type: type }));
-    setTimeout(() => {
-      dispatch(hideNotification());
-    }, 5000);
-  };
-
   //updates the store to disclude this person; called in handleDelete
   const removePerson = () => {
     let result = [];
@@ -87,10 +81,16 @@ const ContactSettings = () => {
   const handleDelete = async () => {
     const result = await deleteContact(person.id);
     if (result.status != 204) {
-      createNotification("There was an error deleting the person", "red");
+      sendNotification(dispatch, {
+        message: "There was an error deleting the person",
+        type: "red",
+      });
     } else {
       dispatch(hideModal());
-      createNotification("Success deleting", "green");
+      sendNotification(dispatch, {
+        message: "Success deleting",
+        type: "green",
+      });
       removePerson();
     }
   };
@@ -102,9 +102,7 @@ const ContactSettings = () => {
       {/* Entire form disappears if the delete button is clicked, and a warning is shown */}
       {!areYouSure && (
         <div>
-          <div>
-            
-          </div>
+          <div></div>
         </div>
       )}
 

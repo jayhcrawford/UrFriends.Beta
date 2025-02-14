@@ -24,7 +24,7 @@ import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
 import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
-import BulkAdd from "./components/BulkAdd";
+import BulkAdd from "./components/BulkAdd/BulkAdd";
 import useWindowSize from "./functions/WindowResize";
 
 function App() {

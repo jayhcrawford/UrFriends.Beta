@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router";
-import { useSelector } from "react-redux";
-import LinkBar from "./LinkBar";
+import LinkBar from "../LinkBar";
+import { useDispatch, useSelector } from "react-redux";
+import "./bulkAdd.css";
+import { sendNotification } from "../../functions/sendNotification";
 
 const ModifyDataButton = (props) => {
   return (
@@ -10,9 +12,54 @@ const ModifyDataButton = (props) => {
 };
 
 const AddPersonComponent = () => {
+  const dispatch = useDispatch();
+  const [names, setNames] = useState({
+    first: "",
+    last: "",
+  });
+
+
+
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const firstName = event.target.first.value;
+    const lastName = event.target.last.value;
+
+    if (firstName == "" || lastName == "") {
+      sendNotification(dispatch, {message: "every entry requires a first and last name", type: "red"})
+      return null;
+    }
+
+    const newState = {
+      first: firstName,
+      last: lastName,
+    };
+
+    setNames(newState);
+
+    if (firstName && lastName) {
+      //send the information up to the state object
+    }
+  };
+
+  return (
+    <form
+      onSubmit={(event) => handleSubmit(event)}
+      style={{ backgroundColor: "white" }}
+    >
+      First Name: <input name="first"></input>
+      Last Name: <input name="last"></input>
+      <button type="submit">Add Person</button>
+    </form>
+  );
+};
+
+//static
+const AddedPerson = () => {
   const [person, setPerson] = useState({
-    firstName: "Jay",
-    lastName: "Crawford",
+    firstName: "",
+    lastName: "",
   });
   const [editPerson, setEditPerson] = useState({
     firstName: false,
@@ -122,30 +169,8 @@ const Empty = (props) => {
   if (!props.visible) {
     return null;
   }
-
   if (props.visible) {
-    return (
-      <div
-        style={{
-          width: "105%",
-          backgroundColor: "red",
-          height: "5em",
-          marginLeft: "-.5em",
-          marginRight: "-.5em",
-          display: "flex",
-          justifyContent: "center",
-        }}
-      >
-        <div
-          style={{
-            height: "4em",
-            backgroundColor: "white",
-            width: "70%",
-            border: "1px solid blue",
-          }}
-        ></div>
-      </div>
-    );
+    return <AddedPerson />;
   }
 };
 
@@ -154,6 +179,10 @@ const BulkAdd = () => {
   const tiersStore = useSelector((state) => state.phonebook.tiers);
 
   const [addNewPerson, setAddNewPerson] = useState(false)
+  const [addedPeople, setAddedPeople] = useState([]);
+
+  console.log(addedPeople);
+
 
   const handleOpenInputPerson = () => {
     setAddNewPerson(!addNewPerson)

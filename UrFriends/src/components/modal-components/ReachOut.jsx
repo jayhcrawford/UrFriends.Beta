@@ -2,12 +2,9 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { patchConversation } from "../../../services/contactService";
-import {
-  hideNotification,
-  setNotification,
-} from "../../features/notificationSlice";
 import { populatePhonebook } from "../../features/phonebookSlice";
 import { hideModal } from "../../features/modalSlice";
+import { sendNotification } from "../../functions/sendNotification";
 
 const ReachOut = () => {
   const person = useSelector((state) => state.modal.person);
@@ -54,11 +51,8 @@ const ReachOut = () => {
     const date = new Date(event.target.date.value);
     //if this is an invalid date, then generate an error
     if (isNaN(date)) {
-      dispatch(setNotification());
-      setTimeout(() => {
-        dispatch(hideNotification());
-      }, 5000);
-      return null;
+      sendNotification(dispatch, {message: "the date is invalid", type: "red"})
+    return null;
     }
 
     //converts date to UTC String
