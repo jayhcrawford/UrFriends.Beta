@@ -1,0 +1,49 @@
+<mxfile host="65bd71144e">
+    <diagram id="NbcY6UnPDHQtDxYY22-d" name="Page-1">
+        <mxGraphModel dx="1040" dy="456" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="4" value="" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="110" y="120" width="530" height="330" as="geometry"/>
+                </mxCell>
+                <mxCell id="5" value="x" style="whiteSpace=wrap;html=1;aspect=fixed;" vertex="1" parent="1">
+                    <mxGeometry x="610" y="130" width="20" height="20" as="geometry"/>
+                </mxCell>
+                <mxCell id="6" value="&lt;span style=&quot;text-align: left;&quot;&gt;&lt;font style=&quot;color: light-dark(rgb(255, 255, 255), rgb(251, 255, 251));&quot;&gt;Contact Settings&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;strokeColor=none;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="130" width="420" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="7" value="First Name" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="170" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="8" value="Last&amp;nbsp;&lt;span style=&quot;background-color: transparent;&quot;&gt;Name&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="210" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="9" value="Email" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="210" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="10" value="Phone Number" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="170" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="11" value="Address" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="270" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="12" value="Company" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="380" y="310" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="13" value="Star Sign" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="310" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="Birthday" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="270" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="&lt;span&gt;&lt;font style=&quot;color: light-dark(rgb(255, 255, 255), rgb(255, 255, 255));&quot;&gt;Custom Field&lt;/font&gt;&lt;/span&gt;" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="400" width="210" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="16" value="Custom Field" style="rounded=0;whiteSpace=wrap;html=1;align=left;" vertex="1" parent="1">
+                    <mxGeometry x="130" y="360" width="210" height="30" as="geometry"/>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
