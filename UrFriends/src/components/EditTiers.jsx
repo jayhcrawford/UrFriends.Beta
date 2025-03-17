@@ -111,7 +111,7 @@ const ThisTierIsEmpty = () => {
   );
 };
 
-//static; when a user selects to "expand" the contacts in a given tier, if there are 
+//static; when a user selects to "expand" the contacts in a given tier, if there are
 // contacts in that tier, this componenet renders those contacts, as well as select
 // elements that modify the localTiers object in EditTiers
 const RenderContactsIntTier = (props) => {
@@ -125,6 +125,7 @@ const RenderContactsIntTier = (props) => {
               localTiers={props.localTiers}
               handleChangeTier={props.handleChangeTier}
               name={person.name}
+              person_id={person.id}
               tier={person.tier}
             />
           </li>
@@ -144,14 +145,12 @@ const ContactTierSelector = (props) => {
     allTiers = Object.keys(settingsStore);
   }
 
-  console.log(allTiers);
-
   if (!tiersStore) {
     return null;
   }
 
   const handleChange = (newTier, oldTier) => {
-    props.handleChangeTier(props.name.first, newTier, oldTier);
+    props.handleChangeTier(props.person_id, newTier, oldTier);
   };
 
   return (
@@ -275,12 +274,15 @@ const ListFormTier = (props) => {
         <button onClick={() => setIsExpanded(!isExpanded)}>
           Hide Contacts
         </button>
-        <RenderContactsIntTier handleChangeTier={props.handleChangeTier} tierContent={props.tierContent} localTiers={props.localTiers}/>
+        <RenderContactsIntTier
+          handleChangeTier={props.handleChangeTier}
+          tierContent={props.tierContent}
+          localTiers={props.localTiers}
+        />
       </>
     </>
   );
 };
-
 
 //export; stores phonebook passed as props into localTiers, radio buttons manipulate localTiers
 //calls PATCH to change tier settings and contact tiers
@@ -294,14 +296,14 @@ const EditTiers = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
   const settingsStore = useSelector((state) => state.login.settings);
 
-  for (let i = 0; i < 10; i++) {
-    console.log("******");
-  }
-  console.log("STORE", "settingsStore", settingsStore);
-  console.log("localSettings", localSettings);
-  console.log("STORE", "phonebookStore", phonebookStore);
-  console.log("localTiers", localTiers);
-  console.log("STORE", "loggedIn", loggedIn);
+  // for (let i = 0; i < 10; i++) {
+  //   console.log("******");
+  // }
+  // console.log("STORE", "settingsStore", settingsStore);
+  // console.log("localSettings", localSettings);
+  // console.log("STORE", "phonebookStore", phonebookStore);
+  // console.log("localTiers", localTiers);
+  // console.log("STORE", "loggedIn", loggedIn);
 
   if (phonebookStore && localTiers == null) {
     setLocalTiers(phonebookStore);
@@ -317,9 +319,10 @@ const EditTiers = (props) => {
   }
 
   //passed as props down to ContactTierSelector.jsx component
-  //Does not PATCH changes. Changes are stored locally. PATCH'd from handleSaveTiers
-  const handleChangeTier = (person, newTier, oldTier) => {
+  //Does not PATCH changes. Changes are stored locally. PATCH'd from handlePatchChanges
+  const handleChangeTier = (person_id, newTier, oldTier) => {
     //capture the tier that contains the contact to change
+
     let tierToUpdate = [...localTiers[oldTier]];
 
     //update the tier from local state to have the correct info for every contact
@@ -327,7 +330,7 @@ const EditTiers = (props) => {
     tierToUpdate.forEach((contact) => {
       let personToReturn;
 
-      if (contact.name.first == person) {
+      if (contact.id == person_id) {
         personToReturn = {
           ...contact,
           tier: Number(newTier),
@@ -359,28 +362,42 @@ const EditTiers = (props) => {
 
   //PATCH anything that was changed, settings or contacts
   const handlePatchChanges = () => {
+    //any settings that are changed are changed in state (localTiers and localSettings)
+    //anything coming from the store was fetched
+    const tier_keys_toAssess = Object.keys(settingsStore);
+    console.log(localTiers, "is the localTiers");
+
+    //CONTACTS
     //Find any contacts that need to be PATCH'd
     let contactsChanged = [];
-    const tiersToAssess = Object.keys(settingsStore);
-    //iterate through local phonebook (localTiers) object keys
-    console.log(localTiers, "is the localTiers");
-    console.log(tiersToAssess, "is the tiers to asses");
+    tier_keys_toAssess.forEach((key) => {
+      if (localTiers[key] && Object.hasOwn(localTiers[key], "length")) {
+        for (let i = 0; i < localTiers[key].length; i++) {
+          if (localTiers[key][i].tier != key) {
+            contactsChanged.push(localTiers[key][i]);
+          }
+        }
+      }
+    });
+    //(END) CONTACTS
 
-    //Determine if settings have changed, otherwise the patchSettings Object will send null for the settings key
-
+    //SETTINGS
+    //Find any changed settings, otherwise the patchSettings Object will send null for the "settings" key
     let changeSettings = false;
     let sendChangedSettings = null;
-    for (let i = 0; i < tiersToAssess.length; i++) {
-      if (localSettings[tiersToAssess[i]] != settingsStore[tiersToAssess[i]]) {
+    for (let i = 0; i < tier_keys_toAssess.length; i++) {
+      if (
+        localSettings[tier_keys_toAssess[i]] !=
+        settingsStore[tier_keys_toAssess[i]]
+      ) {
         changeSettings = true;
       }
     }
     if (changeSettings) {
       sendChangedSettings = localSettings;
     }
+    //(END) SETTINGS
 
-    //TODO: layout a condition where patchSettings is only used for settings and
-    //phonebook changes call the service patchTiers from contactService
     patchSettings({
       token: loggedIn.user.token,
       settings: sendChangedSettings,

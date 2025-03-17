@@ -8,6 +8,20 @@ import {
 } from "../../features/notificationSlice";
 import { populatePhonebook } from "../../features/phonebookSlice";
 
+const terms = {
+  name: {
+    first: "Jay",
+    last: "Crawford",
+  },
+  email: "jayhcrawford@gmail.com",
+  phonenumber: "310-709-4913",
+  workplace: "Barton G",
+  hometown: "Knoxville, TN",
+  currentAddress: "1325 S Hope St, Los Angeles, CA 90015",
+  birthday: "12-14-1993",
+  customFields: ["custom1", "custom2", "custom3"],
+};
+
 //static; renders delete and prompts message
 const DeleteThisContact = (props) => {
   return (
@@ -40,6 +54,82 @@ const DeleteThisContact = (props) => {
           </button>
         </div>
       )}
+    </>
+  );
+};
+
+const InputWithEdit = (props) => {
+  const [inputVal, setInputVal] = useState(props.initVal);
+  const [editInputVal, setEditInputVal] = useState(false);
+
+  const label = props.label;
+
+  return (
+    <>
+      <div
+        style={{
+          backgroundColor: "red",
+          display: "flex",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "white",
+          }}
+        >
+          {editInputVal && (
+            <span>
+              {label}:
+              <input
+                value={inputVal}
+                onChange={(event) => setInputVal(event.target.value)}
+              ></input>
+              <button onClick={() => setEditInputVal(!editInputVal)}>
+                Save
+              </button>
+            </span>
+          )}
+          {!editInputVal && (
+            <span>
+              {label}: {inputVal}
+              <button onClick={() => setEditInputVal(!editInputVal)}>
+                Edit
+              </button>
+            </span>
+          )}
+        </div>
+      </div>
+    </>
+  );
+};
+
+const ContactSettingsForm = () => {
+  return (
+    <>
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "repeat(2, 1fr)",
+          gridTemplateRows: "repeat(4, 1fr)",
+          gap: "5px",
+          width: "90%",
+          border: "1px solid black",
+        }}
+      >
+        <InputWithEdit label="First Name" initVal={terms.name.first} />
+        <InputWithEdit label="Last Name" initVal={terms.name.last} />
+        <InputWithEdit label="Email" initVal={terms.email} />
+        <InputWithEdit label="Phone Number" initVal={terms.phonenumber} />
+        <InputWithEdit label="Current Address" initVal={terms.currentAddress} />
+        <InputWithEdit label="Hometown" initVal={terms.hometown} />
+        <InputWithEdit label="Workplace" initVal={terms.workplace} />
+      </div>
+      <>
+      <h4>Custom Fields</h4>
+        {terms.customFields.map((field) => {
+          return <InputWithEdit label={field} initVal="something" />;
+        })}
+      </>
     </>
   );
 };
@@ -95,6 +185,10 @@ const ContactSettings = () => {
     }
   };
 
+  if (person) {
+    console.log(person);
+  }
+
   return (
     <div>
       <h2>Settings for {person.name.first}</h2>
@@ -103,7 +197,7 @@ const ContactSettings = () => {
       {!areYouSure && (
         <div>
           <div>
-            
+            <ContactSettingsForm />
           </div>
         </div>
       )}

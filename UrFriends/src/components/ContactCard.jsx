@@ -239,7 +239,7 @@ function ContactCard(props) {
           <span className="last-convo-topic">
             {props.person.lastConvo[0].date === null
               ? null
-              : "Topic: " + mostRecentConversation.topic}
+              : "Topic: " + mostRecentConversation.topic.slice(0,60) + "..."}
           </span>
           <div className="contact-action-btns">
             <button
