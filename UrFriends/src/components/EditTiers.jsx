@@ -3,8 +3,12 @@ import { Link } from "react-router";
 import { patchSettings } from "../../services/settingService";
 import { patchTiers } from "../../services/contactService";
 import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import LinkBar from "./LinkBar";
+import {
+  hideNotification,
+  setNotification,
+} from "../features/notificationSlice";
 
 //export; renders a basic button to use sitewide
 export const MiniButton = (props) => {
@@ -296,14 +300,14 @@ const EditTiers = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
   const settingsStore = useSelector((state) => state.login.settings);
 
-  // for (let i = 0; i < 10; i++) {
-  //   console.log("******");
-  // }
-  // console.log("STORE", "settingsStore", settingsStore);
-  // console.log("localSettings", localSettings);
-  // console.log("STORE", "phonebookStore", phonebookStore);
-  // console.log("localTiers", localTiers);
-  // console.log("STORE", "loggedIn", loggedIn);
+  const dispatch = useDispatch();
+
+  const createNotification = (message, type) => {
+    dispatch(setNotification({ message, type }));
+    setTimeout(() => {
+      dispatch(hideNotification());
+    }, 5000);
+  };
 
   if (phonebookStore && localTiers == null) {
     setLocalTiers(phonebookStore);
@@ -361,11 +365,10 @@ const EditTiers = (props) => {
   };
 
   //PATCH anything that was changed, settings or contacts
-  const handlePatchChanges = () => {
+  const handlePatchChanges = async () => {
     //any settings that are changed are changed in state (localTiers and localSettings)
     //anything coming from the store was fetched
     const tier_keys_toAssess = Object.keys(settingsStore);
-    console.log(localTiers, "is the localTiers");
 
     //CONTACTS
     //Find any contacts that need to be PATCH'd
@@ -398,11 +401,41 @@ const EditTiers = (props) => {
     }
     //(END) SETTINGS
 
-    patchSettings({
-      token: loggedIn.user.token,
-      settings: sendChangedSettings,
-      phonebook: contactsChanged,
-    });
+    //PATCH
+    //TODO; seperate the logic of patching the settings and the phonebook changes
+    if (contactsChanged.length == 0 && !sendChangedSettings) {
+      //no contacts or settings were changed; do not patch; notify
+      createNotification(`There were no changes made`, "red");
+    } else {
+      //settings were changed, or contacts were udpated;
+      //patch the changes
+      const result = await patchSettings({
+        token: loggedIn.user.token,
+        settings: sendChangedSettings,
+        phonebook: contactsChanged,
+      });
+      //then notify
+
+      //NOTIFICATION
+      //TODO; after seperating the phonebook and settings patching logic, implement a more specific notification process
+      if (
+        result &&
+        Object.hasOwn(result, "data") &&
+        Object.hasOwn(result.data, "success")
+      ) {
+        //dispatch a success notification
+        createNotification(`The changes were saved`, "green");
+      } else if (
+        result &&
+        Object.hasOwn(result, "data") &&
+        Object.hasOwn(result.data, "error")
+      ) {
+        //dispatch an error notification
+        createNotification(`There was an error saving the changes`, "red");
+      }
+      //(END) NOTIFICATION
+    }
+    //(END) PATCH
   };
 
   let tiers;
