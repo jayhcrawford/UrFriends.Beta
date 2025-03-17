@@ -42,7 +42,6 @@ const ConversationDetails = (props) => {
   //if changes are made to the coversation, they are saved locally;
   //if changes are made, a dispatch is made to set a bool in the store to indicate unsaved changes, preventing premature modal closure
   const changeConversation = (event) => {
-    
     //if unsaved changes exist
     if (event.target.value == props.conversation.topic) {
       //this condition is met if the changes to the conversation are the same as the original conversation; clear bool record of unsaved changes
@@ -134,6 +133,7 @@ const ConversationDetails = (props) => {
       <br />
       {editConvo && (
         <textarea
+          style={{ width: "100%", resize: "none", overflow: "hidden" }}
           onChange={(event) => {
             changeConversation(event);
           }}

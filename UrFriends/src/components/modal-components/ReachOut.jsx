@@ -9,6 +9,8 @@ import {
 import { populatePhonebook } from "../../features/phonebookSlice";
 import { hideModal } from "../../features/modalSlice";
 
+
+
 const ReachOut = () => {
   const person = useSelector((state) => state.modal.person);
   const loggedIn = useSelector((state) => state.login.user);
@@ -130,7 +132,6 @@ const ReachOut = () => {
       )}
       {spokeFormVisible && (
         <>
-          {" "}
           <form onSubmit={(event) => submitNewConversation(event)}>
             <input
               onChange={(event) => setConversationDate(event.target.value)}
@@ -141,7 +142,7 @@ const ReachOut = () => {
             <br />
             <textarea
               rows="15"
-              style={{ width: "100%", resize: "none", whiteSpace: "pre" }}
+              style={{width: "100%", resize: "none", overflow: "hidden"}}
               name="conversation"
             ></textarea>
             <button type="submit">Submit</button>
