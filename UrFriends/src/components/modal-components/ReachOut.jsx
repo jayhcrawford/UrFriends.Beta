@@ -102,6 +102,8 @@ const ReachOut = () => {
           result.data.lastConvo.push(newConv);
           updateThePhonebookStore(result.data);
         }
+        sendNotification(dispatch, {message: "The conversation was saved", type: "green"})
+
         //reset the state and visibility of the conversation form
         setSpokeFormVisible(false);
         setConversationDate("");
