@@ -208,7 +208,7 @@ const InputWithEdit = (props) => {
   );
 };
 
-const ContactSettingsForm = () => {
+const ContactSettingsForm_Sketch = () => {
   return (
     <>
       <div
