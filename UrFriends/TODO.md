@@ -4,5 +4,3 @@
 
 
 ## Main functionality
- - The "edit conversation" button is not working.
- - There is no notification feedback after a conversation has been submitted
