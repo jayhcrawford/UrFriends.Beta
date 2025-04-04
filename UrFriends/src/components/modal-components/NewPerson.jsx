@@ -11,6 +11,7 @@ import {
   setNotification,
 } from "../../features/notificationSlice.js";
 import { hideModal } from "../../features/modalSlice.js";
+import { sendNotification } from "../../functions/sendNotification.js";
 
 const NewPerson = (props) => {
   const loggedIn = useSelector((state) => state.login.user);
@@ -18,13 +19,6 @@ const NewPerson = (props) => {
   const tiersStore = useSelector((state) => state.phonebook.tiers);
 
   const dispatch = useDispatch();
-
-  const createNotification = (message, type) => {
-    dispatch(setNotification({ message, type }));
-    setTimeout(() => {
-      dispatch(hideNotification());
-    }, 5000);
-  };
 
   //update the store when a new person is added
   const updateThePhonebook = (person) => {
@@ -53,16 +47,16 @@ const NewPerson = (props) => {
     //the result of a call to the service postContact in contactServices.js is passed to this function to display notifications
     const checkResult = (response) => {
       if (response.status != 200 || !Object.hasOwn(response, "status")) {
-        createNotification(
-          `There was an error saving ${event.target.contactFirstName.value} ${event.target.contactLastName.value} to the server`,
-          "red"
-        );
+        sendNotification(dispatch, {
+          first: `There was an error saving ${event.target.contactFirstName.value} ${event.target.contactLastName.value} to the server`,
+          last: "red",
+        });
         return false;
       } else {
-        createNotification(
-          `${response.data.name.first} ${response.data.name.last} was saved`,
-          "green"
-        );
+        sendNotification(dispatch, {
+          first: `${response.data.name.first} ${response.data.name.last} was saved`,
+          last: "green",
+        });
         return true;
       }
     };
@@ -151,7 +145,6 @@ const NewPerson = (props) => {
           className="styled-grid-form"
           onSubmit={(event) => handleAdd(event)}
         >
-        
           <span className="styled-grid-form-txt">First Name:</span>
           <input
             className="styled-grid-form-input"

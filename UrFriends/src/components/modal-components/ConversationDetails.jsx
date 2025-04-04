@@ -11,6 +11,7 @@ import {
   setNotification,
 } from "../../features/notificationSlice";
 import { populatePhonebook } from "../../features/phonebookSlice";
+import { sendNotification } from "../../functions/sendNotification";
 
 const ConversationDetails = (props) => {
   const unsavedChanges = useSelector((state) => state.modal.unsavedChanges);
@@ -25,14 +26,6 @@ const ConversationDetails = (props) => {
   const [editDate, setEditDate] = useState(false);
 
   const dispatch = useDispatch();
-
-  //dispatch notification and reset
-  const createNotification = (message, type) => {
-    dispatch(setNotification({ message, type }));
-    setTimeout(() => {
-      dispatch(hideNotification());
-    }, 5000);
-  };
 
   //show edit box to change convo
   const handleToggleEditConvo = () => {
@@ -115,11 +108,17 @@ const ConversationDetails = (props) => {
     const result = await updateConversation(updatedConversation);
     //if not success, send error
     if (result.status != 200) {
-      createNotification("There was an error saving the conversation", "red");
+      sendNotification(dispatch, {
+        message: "There was an error saving the conversation",
+        type: "red",
+      });
     } else {
       //send success notification
       //clear unsaved changes bool in state;
-      createNotification("The conversation was successfully updated", "green");
+      sendNotification(dispatch, {
+        message: "The conversation was successfully updated",
+        type: "green",
+      });
       dispatch(clearUnsavedChanges());
       dispatch(hideModal());
       updateThePhonebookStore(updatedConversation);
