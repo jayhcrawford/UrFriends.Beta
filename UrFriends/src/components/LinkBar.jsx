@@ -87,30 +87,13 @@ const LinkBar = (props) => {
             current={props.page == "edit-tiers" ? true : false}
           />
         </Link>
-        <Link to="/bulkAdd">
-          <HeroButton
-            icon={<BulkAddIcon />}
-            text="Bulk Add"
-            current={props.page == "bulk-add" ? true : false}
-          />
-        </Link>
-        <Link to="/calendar">
-          <HeroButton
-            icon={<CalendarIcon />}
-            text="Calendar"
-            current={props.page == "calendar" ? true : false}
-          />
-        </Link>
+       
         <HeroButton
           clickHandler={addContact}
           icon={<AddUserIcon />}
           text="Add Contact"
         />
-        <HeroButton
-          clickHandler={addConvoSansPerson}
-          icon={<ConvoIcon />}
-          text="Add Convo"
-        />
+
       </div>
     </>
   );

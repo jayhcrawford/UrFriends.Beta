@@ -133,8 +133,6 @@ function App() {
         <Route path="" element={<Phonebook />} />
 
         <Route path="/editTiers" element={<EditTiers />} />
-        <Route path="/bulkAdd" element={<BulkAdd />} />
-        <Route path="/calendar" element={<Calendar />} />
         {/* TODO: Implement a route for bulk add people*/}
       </Routes>
       <Footer />
