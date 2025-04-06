@@ -6,6 +6,7 @@ const phonebookRouter = require('./controllers/phonebook')
 const usersRouter = require('./controllers/users')
 const loginRouter = require('./controllers/login')
 const settingsRouter = require('./controllers/settings')
+const authReciever = require('./controllers/authReciever')
 
 const requestLogger = require('./utils/logger')
 
@@ -13,6 +14,7 @@ app.use(requestLogger)
 
 app.use(cors())
 app.use(express.json())
+app.use('/', authReciever)
 app.use('/api/settings', settingsRouter)
 app.use('/api/phonebook', phonebookRouter)
 app.use('/api/users', usersRouter)

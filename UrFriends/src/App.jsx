@@ -1,9 +1,12 @@
 import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useAuth } from "react-oidc-context";
+
+
 import Header from "./components/Header";
 import Phonebook from "./components/Phonebook";
-import Login from "./components/Login";
+import LoginWithAWS from "./components/LoginWithAWS";
 import SideMenu from "./components/SideMenu";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
@@ -121,23 +124,61 @@ function App() {
     return <Login handleLogin={handleLogin} />;
   }
 
-  return (
-    <>
-      {width + " " + height}
-      <Notification />
-      <Modal />
-      <SideMenu logout={handleLogOut} />
-      <Header />
-      <p></p>
-      <Routes>
-        <Route path="" element={<Phonebook />} />
+  const auth = useAuth();
 
-        <Route path="/editTiers" element={<EditTiers />} />
-        {/* TODO: Implement a route for bulk add people*/}
-      </Routes>
-      <Footer />
-    </>
+  const signOutRedirect = () => {
+    const clientId = "5c76hq5c4logshir8gvjksfdtk";
+    const logoutUri = "<logout uri>";
+    const cognitoDomain = "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+  };
+
+  if (auth.isLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (auth.error) {
+    return <div>Encountering error... {auth.error.message}</div>;
+  }
+
+  if (auth.isAuthenticated) {
+    return (
+      <div>
+        <pre> Hello: {auth.user?.profile.email} </pre>
+        <pre> ID Token: {auth.user?.id_token} </pre>
+        <pre> Access Token: {auth.user?.access_token} </pre>
+        <pre> Refresh Token: {auth.user?.refresh_token} </pre>
+
+        <button onClick={() => auth.removeUser()}>Sign out</button>
+      </div>
+    );
+  }
+
+  console.log(auth)
+
+  return (
+    <div>
+    <button onClick={() => auth.signinRedirect()}>Sign in</button>
+    <button onClick={() => signOutRedirect()}>Sign out</button>
+  </div>
   );
 }
 
 export default App;
+
+
+// <>
+// {width + " " + height}
+// <Notification />
+// <Modal />
+// <SideMenu logout={handleLogOut} />
+// <Header />
+// <p></p>
+// <Routes>
+//   <Route path="" element={<Phonebook />} />
+
+//   <Route path="/editTiers" element={<EditTiers />} />
+//   {/* TODO: Implement a route for bulk add people*/}
+// </Routes>
+// <Footer />
+// </>
