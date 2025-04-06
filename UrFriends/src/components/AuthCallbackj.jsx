@@ -9,16 +9,15 @@ const AuthCallback = () => {
     const code = urlParams.get("code"); // Extract the 'code' parameter from URL
 
     if (code) {
-      console.log("code")
       // Send the code to backend to exchange for tokens
       fetch("http://localhost:3000/auth_reciever", {
         method: "POST",
-        credentials: "include", // Include cookies in the request
+        credentials: "omit", // Include cookies in the request
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ code }), // Send the code in request body
       })
         .then((res) => {
-          if (res.ok) navigate("/dashboard"); // Navigate to dashboard on success
+          if (res.ok) navigate("/main"); // Navigate to dashboard on success
           else throw new Error("Login failed"); // Handle login error
         })
         .catch((err) => console.error(err)); // Log any errors

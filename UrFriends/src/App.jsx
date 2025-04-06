@@ -124,11 +124,13 @@ function App() {
 
   const signOutRedirect = () => {
     const clientId = "5c76hq5c4logshir8gvjksfdtk";
-    const logoutUri = "<logout uri>";
-    const cognitoDomain = "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
+    const logoutUri = "https//localhost:5173/main";
+    const cognitoDomain =
+      "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
+      logoutUri
+    )}`;
   };
-
 
   if (auth.isLoading) {
     return <div>Loading...</div>;
@@ -138,27 +140,11 @@ function App() {
     return <div>Encountering error... {auth.error.message}</div>;
   }
 
-  // if (auth.isAuthenticated) {
-  //   return (
-  //     <div>
-  //       <pre> Hello: {auth.user?.profile.email} </pre>
-  //       <pre> ID Token: {auth.user?.id_token} </pre>
-  //       <pre> Access Token: {auth.user?.access_token} </pre>
-  //       <pre> Refresh Token: {auth.user?.refresh_token} </pre>
-
-  //       <button onClick={() => auth.removeUser()}>Sign out</button>
-  //     </div>
-  //   );
-  // }
-
-  console.log(auth);
-
-  return (
-    <div>
-      <button onClick={() => auth.signinRedirect()}>Sign in</button>
-      <button onClick={() => auth.signoutRedirect()}>Sign out</button>
-
+  if (auth.isAuthenticated) {
+    return (
       <>
+        <button onClick={() => signOutRedirect()}>Sign out</button>
+
         {width + " " + height}
         <Notification />
         <Modal />
@@ -173,6 +159,14 @@ function App() {
         </Routes>
         <Footer />
       </>
+    );
+  }
+
+  console.log(auth);
+
+  return (
+    <div>
+      <button onClick={() => auth.signinRedirect()}>Sign in</button>
     </div>
   );
 }

@@ -2,6 +2,7 @@ const { URLSearchParams } = require("node:url");
 
 const authRouter = require("express").Router();
 
+const cors = require("cors");
 
 authRouter.post("/auth_reciever", async (request, response) => {
   console.log("auth recieved")
