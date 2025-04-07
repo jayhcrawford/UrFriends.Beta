@@ -10,6 +10,8 @@ import { BrowserRouter as Router } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
 
+
+
 const cognitoAuthConfig = {
   authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_k5tcpvEj8",
   client_id: "5c76hq5c4logshir8gvjksfdtk",

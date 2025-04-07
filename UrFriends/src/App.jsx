@@ -29,6 +29,7 @@ import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
 import BulkAdd from "./components/BulkAdd/BulkAdd";
 import useWindowSize from "./functions/WindowResize";
 import AuthCallback from "./components/AuthCallbackj";
+import Logout from "./components/Logout";
 
 function App() {
   const { width } = useWindowSize();
@@ -111,20 +112,29 @@ function App() {
     event.target.username.value = "";
   };
 
-  const handleLogOut = () => {
-    dispatch(hideSideMenu());
-    dispatch(logoutDispatch());
-    localStorage.removeItem("loggedIn");
-    location.reload();
+  const handleLogOut = async () => {
+    // dispatch(hideSideMenu());
+    // dispatch(logoutDispatch());
+    // localStorage.removeItem("loggedIn");
+    // location.reload();
+    try {
+
+
+      await auth.signoutRedirect();
+    } catch {
+      //error redirecting
+    }
+
   };
 
   if (!loggedIn) {
     // return <Login handleLogin={handleLogin} />;
   }
 
+  //TODO: the logout domain is not working. Some sources say that it must be https. Which calls for me to configure a private local server. mkcert was the recommendation
   const signOutRedirect = () => {
     const clientId = "5c76hq5c4logshir8gvjksfdtk";
-    const logoutUri = "https//localhost:5173/main";
+    const logoutUri = "http://localhost:5173/logout";
     const cognitoDomain =
       "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
@@ -143,7 +153,7 @@ function App() {
   if (auth.isAuthenticated) {
     return (
       <>
-        <button onClick={() => signOutRedirect()}>Sign out</button>
+        <button onClick={() => handleLogOut()}>Sign out</button>
 
         {width + " " + height}
         <Notification />
@@ -154,6 +164,7 @@ function App() {
         <Routes>
           <Route path="/main" element={<Phonebook />} />
           <Route path="/auth_reciever" element={<AuthCallback />} />
+          <Route path="/logout" element={<Logout />} />
           <Route path="/editTiers" element={<EditTiers />} />
           {/* TODO: Implement a route for bulk add people*/}
         </Routes>
