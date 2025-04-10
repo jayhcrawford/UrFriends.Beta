@@ -10,7 +10,7 @@ const AuthCallback = () => {
 
     if (code) {
       // Send the code to backend to exchange for tokens
-      fetch("http://localhost:3000/auth_reciever", {
+      fetch("https://localhost:3000/auth_reciever", {
         method: "POST",
         credentials: "omit", // Include cookies in the request
         headers: { "Content-Type": "application/json" },

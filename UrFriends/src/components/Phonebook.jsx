@@ -14,7 +14,7 @@ function Phonebook() {
 
   //render
   if (!tiersStore || !phonebookStore) {
-    return null;
+    return <div>There is no content being fetched</div>;
   }
   return (
     <>

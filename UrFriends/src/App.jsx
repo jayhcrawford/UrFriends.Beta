@@ -134,12 +134,9 @@ function App() {
   //TODO: the logout domain is not working. Some sources say that it must be https. Which calls for me to configure a private local server. mkcert was the recommendation
   const signOutRedirect = () => {
     const clientId = "5c76hq5c4logshir8gvjksfdtk";
-    const logoutUri = "http://localhost:5173/logout";
-    const cognitoDomain =
-      "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
-    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(
-      logoutUri
-    )}`;
+    const logoutUri = "https://localhost:5173/main";
+    const cognitoDomain = "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
+    window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
 
   if (auth.isLoading) {

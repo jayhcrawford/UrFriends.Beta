@@ -10,7 +10,7 @@ authRouter.post("/auth_reciever", async (request, response) => {
 
   console.log(params)
   console.log(request.body)
-  response.redirect("http://localhost:5173/")
+  response.redirect("https://localhost:5173/")
 
 });
 
