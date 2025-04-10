@@ -4,7 +4,7 @@ const cors = require('cors')
 
 const corsOptions = {
   origin: 'http://localhost:5173', // Or '*' for all origins (not recommended for production)
-  methods: ['POST'], // Or a list of allowed methods
+  methods: ['POST', 'PATCH', 'GET'], // Or a list of allowed methods
   allowedHeaders: ['Content-Type', 'Authorization'], // Or a list of allowed headers 
   credentials: true, // Required if you're sending cookies
 };
