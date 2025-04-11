@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { patchConversation } from "../../../services/contactService";
-import {
-  hideNotification,
-  setNotification,
-} from "../../features/notificationSlice";
 import { sendNotification } from "../../functions/sendNotification";
 
 const AddConversationSelectContact = (props) => {

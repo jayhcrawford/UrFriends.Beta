@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { Link } from "react-router";
 import { patchSettings } from "../../services/settingService";
-import { patchTiers } from "../../services/contactService";
 import { timeFrameOptions } from "../functions/timeFrameSupportFunctions";
 import { useDispatch, useSelector } from "react-redux";
 import LinkBar from "./LinkBar";
-import {
-  hideNotification,
-  setNotification,
-} from "../features/notificationSlice";
+import sendNotification from "../functions/sendNotification"
 
 //export; renders a basic button to use sitewide
 export const MiniButton = (props) => {
@@ -302,13 +297,6 @@ const EditTiers = (props) => {
 
   const dispatch = useDispatch();
 
-  const createNotification = (message, type) => {
-    dispatch(setNotification({ message, type }));
-    setTimeout(() => {
-      dispatch(hideNotification());
-    }, 5000);
-  };
-
   if (phonebookStore && localTiers == null) {
     setLocalTiers(phonebookStore);
   }
@@ -405,7 +393,8 @@ const EditTiers = (props) => {
     //TODO; seperate the logic of patching the settings and the phonebook changes
     if (contactsChanged.length == 0 && !sendChangedSettings) {
       //no contacts or settings were changed; do not patch; notify
-      createNotification(`There were no changes made`, "red");
+      sendNotification(dispatch, { message: "There were no changes made", type: "red" });
+
     } else {
       //settings were changed, or contacts were udpated;
       //patch the changes
@@ -424,14 +413,15 @@ const EditTiers = (props) => {
         Object.hasOwn(result.data, "success")
       ) {
         //dispatch a success notification
-        createNotification(`The changes were saved`, "green");
+        sendNotification(dispatch, { message: "The changes were saved", type: "green" });
+
       } else if (
         result &&
         Object.hasOwn(result, "data") &&
         Object.hasOwn(result.data, "error")
       ) {
         //dispatch an error notification
-        createNotification(`There was an error saving the changes`, "red");
+        sendNotification(dispatch, { message: "There was an error saving the changes", type: "red" });
       }
       //(END) NOTIFICATION
     }

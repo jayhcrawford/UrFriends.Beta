@@ -1,30 +1,30 @@
-import { useEffect } from "react"; // React hook for side effects
-import { useNavigate } from "react-router-dom"; // React Router hook for navigation
+import { useEffect } from "react"; 
+import { useNavigate } from "react-router-dom"; 
+
+//Catches the auth info from cognito and posts it to the backend
 
 const AuthCallback = () => {
-  const navigate = useNavigate(); // Get navigation function
+  const navigate = useNavigate(); 
 
   useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search); // Parse query string
-    const code = urlParams.get("code"); // Extract the 'code' parameter from URL
-
+    const urlParams = new URLSearchParams(window.location.search); 
+    const code = urlParams.get("code"); 
     if (code) {
-      // Send the code to backend to exchange for tokens
       fetch("https://localhost:3000/auth_reciever", {
         method: "POST",
-        credentials: "omit", // Include cookies in the request
+        credentials: "omit",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }), // Send the code in request body
+        body: JSON.stringify({ code }), 
       })
         .then((res) => {
-          if (res.ok) navigate("/main"); // Navigate to dashboard on success
-          else throw new Error("Login failed"); // Handle login error
+          if (res.ok) navigate("/main"); 
+          else throw new Error("Login failed"); 
         })
-        .catch((err) => console.error(err)); // Log any errors
+        .catch((err) => console.error(err)); 
     }
   }, [navigate]);
 
-  return <div>Processing login...</div>; // Show loading message while logging in
+  return <div>Processing login...</div>; 
 };
 
 export default AuthCallback;

@@ -12,22 +12,12 @@ const PhonebookButtonIcon = () => {
 const AddUserIcon = () => {
   return <i className="fa-solid fa-user-plus fa-3x"></i>;
 };
-//static; passed to HeroButton as props
-const BulkAddIcon = () => {
-  return <i className="fa-regular fa-address-book fa-3x"></i>;
-};
+
 //static; passed to HeroButton as props
 const EditTiersIcon = () => {
   return <i className="fa-solid fa-users-gear fa-3x"></i>;
 };
-//static; passed to HeroButton as props
-const CalendarIcon = () => {
-  return  <i className="fa-regular fa-calendar-days fa-3x"></i>;
-};
-//static; passed to HeroButton as props
-const ConvoIcon = () => {
-  return <i className="fa-regular fa-comment fa-3x"></i>;
-};
+
 //static
 export const HeroButton = (props) => {
   if (props.current) {

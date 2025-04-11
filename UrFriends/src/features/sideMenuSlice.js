@@ -15,7 +15,6 @@ export const sideMenuSlice = createSlice({
   },
 })
 
-// Action creators are generated for each case reducer function
 export const { hideSideMenu, showSideMenu } = sideMenuSlice.actions
 
 export default sideMenuSlice.reducer

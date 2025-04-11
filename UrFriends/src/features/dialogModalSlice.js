@@ -26,7 +26,6 @@ export const dialogModalSlice = createSlice({
   },
 });
 
-// Action creators are generated for each case reducer function
 export const { showDialog, hideDialog, confirmDialog, deconfirmDialog } =
   dialogModalSlice.actions;
 

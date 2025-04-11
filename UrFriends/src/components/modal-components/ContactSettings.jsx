@@ -2,10 +2,6 @@ import React, { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { deleteContact } from "../../../services/contactService";
 import { hideModal } from "../../features/modalSlice";
-import {
-  hideNotification,
-  setNotification,
-} from "../../features/notificationSlice";
 import { populatePhonebook } from "../../features/phonebookSlice";
 import { sendNotification } from "../../functions/sendNotification";
 

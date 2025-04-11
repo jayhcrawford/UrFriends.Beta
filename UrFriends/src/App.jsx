@@ -5,15 +5,11 @@ import { useAuth } from "react-oidc-context";
 
 import Header from "./components/Header";
 import Phonebook from "./components/Phonebook";
-import LoginWithAWS from "./components/LoginWithAWS";
 import SideMenu from "./components/SideMenu";
 import Footer from "./components/Footer";
 import EditTiers from "./components/EditTiers";
-import Calendar from "./components/Calendar";
 
 import {
-  loginDispatch,
-  logoutDispatch,
   setSettings,
 } from "./features/loginSlice";
 import { hideSideMenu } from "./features/sideMenuSlice";
@@ -22,11 +18,9 @@ import { Route, Routes } from "react-router";
 
 import Modal from "./components/Modal";
 
-import { login } from "../services/loginService";
 import { getUsersPhonebook } from "../services/contactService";
 import Notification from "./components/Notification";
 import { populatePhonebook, populateTiers } from "./features/phonebookSlice";
-import BulkAdd from "./components/BulkAdd/BulkAdd";
 import useWindowSize from "./functions/WindowResize";
 import AuthCallback from "./components/AuthCallbackj";
 import Logout from "./components/Logout";
@@ -44,13 +38,12 @@ function App() {
 
   const dispatch = useDispatch();
 
-  //called in useEffect below
   const fetchUserData = async () => {
     try {
       //get user's phonebook and settings
       const result = await getUsersPhonebook(loggedIn);
+      
       //set state for phonebook data and tiers data
-
       dispatch(populatePhonebook(result.phonebook));
 
       let tiersArray = Object.keys(result.phonebook);
@@ -63,62 +56,6 @@ function App() {
     }
   };
 
-  //if the login is not in the Redux store, check localStorage for token
-  if (!loggedIn) {
-    //TODO: verify that the user's credentials are valid and return the user ID
-    if (localStorage.getItem("loggedIn")) {
-      const localToken = JSON.parse(localStorage.getItem("loggedIn"));
-      dispatch(loginDispatch({ user: localToken }));
-    }
-  }
-
-  //fetch user's data
-  useEffect(() => {
-    if (loggedIn) {
-      //fetch phonebook and settings
-      fetchUserData();
-    }
-  }, [loggedIn]);
-
-  const handleLogin = async (event) => {
-    event.preventDefault();
-    const password = event.target.password.value;
-    const username = event.target.username.value;
-
-    //try to login
-    try {
-      const result = await login({
-        username: username,
-        password: password,
-      });
-
-      //Store the logged in user in store/localStorage
-      dispatch(loginDispatch({ user: result.data.user }));
-      localStorage.setItem(
-        "loggedIn",
-        JSON.stringify({
-          ...result.data.user,
-        })
-      );
-
-      //dispatch phonebook and settings data to store
-      dispatch(setSettings(result.data.settings));
-      dispatch(populatePhonebook(result.data.phonebook));
-    } catch (error) {
-      console.log(error);
-    }
-
-    event.target.password.value = "";
-    event.target.username.value = "";
-  };
-
-
-
-  if (!loggedIn) {
-    // return <Login handleLogin={handleLogin} />;
-  }
-
-  //TODO: the logout domain is not working. Some sources say that it must be https. Which calls for me to configure a private local server. mkcert was the recommendation
   const signOutRedirect = () => {
     const clientId = "5c76hq5c4logshir8gvjksfdtk";
     const logoutUri = "https://localhost:5173/logout";
@@ -129,10 +66,7 @@ function App() {
   const handleLogOut = async () => {
     // dispatch(hideSideMenu());
     // dispatch(logoutDispatch());
-    // localStorage.removeItem("loggedIn");
-    // location.reload();
     signOutRedirect();
-
   };
 
   if (auth.isLoading) {
@@ -159,7 +93,6 @@ function App() {
           <Route path="/auth_reciever" element={<AuthCallback />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/editTiers" element={<EditTiers />} />
-          {/* TODO: Implement a route for bulk add people*/}
         </Routes>
         <Footer />
       </>

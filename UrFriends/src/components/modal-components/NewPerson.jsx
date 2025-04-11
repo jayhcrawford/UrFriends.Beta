@@ -6,10 +6,6 @@ import {
   populatePhonebook,
   populateTiers,
 } from "../../features/phonebookSlice.js";
-import {
-  hideNotification,
-  setNotification,
-} from "../../features/notificationSlice.js";
 import { hideModal } from "../../features/modalSlice.js";
 import { sendNotification } from "../../functions/sendNotification.js";
 
