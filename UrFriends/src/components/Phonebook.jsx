@@ -14,6 +14,9 @@ function Phonebook() {
 
   //render
   if (!tiersStore || !phonebookStore) {
+    console.log("tiersStore is: ", tiersStore)
+    console.log("phonebookStore is: ", phonebookStore)
+
     return <div>There is no content being fetched</div>;
   }
   return (
