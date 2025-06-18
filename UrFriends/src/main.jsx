@@ -6,11 +6,9 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./app/store.js";
 
-import { BrowserRouter as Router } from "react-router";
+import { Route, BrowserRouter as Router } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
-
-
 
 const cognitoAuthConfig = {
   authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_k5tcpvEj8",
@@ -20,15 +18,17 @@ const cognitoAuthConfig = {
   scope: "email openid phone",
 };
 
-
 ReactDOM.createRoot(document.getElementById("root")).render(
   <Router>
-  <Provider store={store}>
-    <React.StrictMode>
-    <AuthProvider {...cognitoAuthConfig}>
-      <App />
-    </AuthProvider>
-    </React.StrictMode>
-  </Provider>
+    <Provider store={store}>
+      <React.StrictMode>
+        <AuthProvider {...cognitoAuthConfig}>
+          <Route path="/" element={<App />} />
+          <Route path="/logout" element={<div>
+            Hello, User
+          </div>} />
+        </AuthProvider>
+      </React.StrictMode>
+    </Provider>
   </Router>
 );
