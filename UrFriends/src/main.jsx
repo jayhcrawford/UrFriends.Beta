@@ -9,6 +9,7 @@ import store from "./app/store.js";
 import { Route, BrowserRouter as Router, Routes } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
+import AuthCallback from "./components/AuthCallbackj.jsx";
 
 const cognitoAuthConfig = {
   authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_k5tcpvEj8",
@@ -26,6 +27,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/logout" element={<div>Hello, User</div>} />
+            <Route path="/auth_reciever" element={<AuthCallback />} />
           </Routes>
         </AuthProvider>
       </React.StrictMode>
