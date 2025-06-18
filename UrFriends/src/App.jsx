@@ -76,30 +76,21 @@ function App() {
   if (auth.error) {
     return <div>Encountering error... {auth.error.message}</div>;
   }
+  console.log(auth);
 
   if (auth.isAuthenticated) {
     return (
       <>
         <button onClick={() => handleLogOut()}>Sign out</button>
-
-        {width + " " + height}
-        <Notification />
-        <Modal />
-        <SideMenu logout={handleLogOut} />
-        <Header />
-        <p></p>
-        <Routes>
-          <Route path="/main" element={<Phonebook />} />
-          <Route path="/auth_reciever" element={<AuthCallback />} />
-          <Route path="/logout" element={<Logout />} />
-          <Route path="/editTiers" element={<EditTiers />} />
-        </Routes>
-        <Footer />
+        <div>
+          {auth.user.profile["cognito:username"]}
+        </div>
+        
       </>
     );
   }
 
-  console.log(auth);
+  
 
   return (
     <div>
