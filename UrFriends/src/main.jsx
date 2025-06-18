@@ -6,7 +6,7 @@ import "./index.css";
 import { Provider } from "react-redux";
 import store from "./app/store.js";
 
-import { Route, BrowserRouter as Router } from "react-router";
+import { Route, BrowserRouter as Router, Routes } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
 
@@ -23,10 +23,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <Provider store={store}>
       <React.StrictMode>
         <AuthProvider {...cognitoAuthConfig}>
-          <Route path="/" element={<App />} />
-          <Route path="/logout" element={<div>
-            Hello, User
-          </div>} />
+          <Routes>
+            <Route path="/" element={<App />} />
+            <Route path="/logout" element={<div>Hello, User</div>} />
+          </Routes>
         </AuthProvider>
       </React.StrictMode>
     </Provider>
