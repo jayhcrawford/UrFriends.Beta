@@ -9,12 +9,14 @@ import store from "./app/store.js";
 import { Route, BrowserRouter as Router, Routes } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
-import AuthCallback from "./components/AuthCallbackj.jsx";
+import AuthCallback from "./components/AuthCallback.jsx";
+
+export const app_route = "https://staging.d3q7upo85md648.amplifyapp.com"
 
 const cognitoAuthConfig = {
   authority: "https://cognito-idp.us-east-2.amazonaws.com/us-east-2_k5tcpvEj8",
   client_id: "5c76hq5c4logshir8gvjksfdtk",
-  redirect_uri: "https://staging.d3q7upo85md648.amplifyapp.com/auth_reciever/",
+  redirect_uri: app_route + "/auth_reciever/",
   response_type: "code",
   scope: "email openid phone",
 };
