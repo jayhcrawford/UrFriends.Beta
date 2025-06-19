@@ -24,7 +24,7 @@ const AuthCallback = () => {
       })
         .then((res) => {
           console.log(res, "is the auth response");
-          if (res.ok) navigate("/main");
+          if (res.ok) navigate("/");
           else throw new Error("Login failed");
         })
         .catch((err) => console.error(err));
