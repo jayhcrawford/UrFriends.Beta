@@ -12,7 +12,7 @@ const Logout = () => {
     const removeUser = async() => {
       try {
         await auth.removeUser();
-        navigate(app_route)
+        window.location.href = app_route;
       } catch (error) {
         console.log(error)
       }
