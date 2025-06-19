@@ -10,7 +10,7 @@ const AuthCallback = () => {
     const urlParams = new URLSearchParams(window.location.search); 
     const code = urlParams.get("code"); 
     if (code) {
-      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main", {
+      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
         method: "POST",
         credentials: "include",
         // headers: { "Content-Type": "application/json" },
@@ -18,7 +18,7 @@ const AuthCallback = () => {
       })
         .then((res) => {
           console.log(res, "is the auth response")
-          if (res.ok) navigate("/main"); 
+          if (res.ok) navigate("/"); 
           else throw new Error("Login failed"); 
         })
         .catch((err) => console.error(err)); 
