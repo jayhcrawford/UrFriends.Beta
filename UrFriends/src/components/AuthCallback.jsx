@@ -14,12 +14,15 @@ const AuthCallback = () => {
     console.log(state, "is state");
     // navigate("/");
 
-
     if (code) {
       fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
         method: "POST",
-        credentials: "omit",
+        credentials: "include",
         headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${code}`,
+        },
         body: JSON.stringify({ code, state }),
       })
         .then((res) => {

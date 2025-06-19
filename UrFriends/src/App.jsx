@@ -40,17 +40,22 @@ function App() {
   const dispatch = useDispatch();
 
   const fetchUserData = async () => {
+
     try {
+
+      
+
+
       //get user's phonebook and settings
-      const result = await getUsersPhonebook(loggedIn);
+      // const result = await getUsersPhonebook(loggedIn);
       
       //set state for phonebook data and tiers data
-      dispatch(populatePhonebook(result.phonebook));
+      // dispatch(populatePhonebook(result.phonebook));
 
-      let tiersArray = Object.keys(result.phonebook);
-      dispatch(populateTiers(tiersArray));
+      // let tiersArray = Object.keys(result.phonebook);
+      // dispatch(populateTiers(tiersArray));
 
-      dispatch(setSettings(result.settings.tierTime));
+      // dispatch(setSettings(result.settings.tierTime));
     } catch (error) {
       console.log(error);
       return [];
@@ -81,6 +86,7 @@ function App() {
   console.log("this is main:", auth, "that was the auth data")
 
   if (auth.isAuthenticated) {
+    fetchUserData();
     return (
       <>
         <button onClick={() => handleLogOut()}>Sign out</button>
