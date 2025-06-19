@@ -12,7 +12,7 @@ const AuthCallback = () => {
   useEffect(() => {
     console.log(code, "is code");
     console.log(state, "is state");
-    navigate("/");
+    // navigate("/");
 
 
     if (code) {
