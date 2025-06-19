@@ -9,8 +9,9 @@ const AuthCallback = () => {
 
   useEffect(() => {
       const [searchParams] = useSearchParams();
-      const code = searchParams.get("code"); 
+      // const code = searchParams.get("code"); 
 
+      console.log(searchParams)
 
 
     if (code) {
