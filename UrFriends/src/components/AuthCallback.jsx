@@ -5,41 +5,15 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 //Catches the auth info from cognito and posts it to the backend
 
 const AuthCallback = () => {
-  const navigate = useNavigate(); 
+  // const navigate = useNavigate(); 
 
   useEffect(() => {
       const [searchParams] = useSearchParams();
       // const code = searchParams.get("code"); 
 
       console.log(searchParams)
+  })
 
-
-    if (code) {
-
-      navigate("/")
-
-      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
-        method: "POST",
-        credentials: "include",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }), 
-      })
-
-      // fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
-        // method: "POST",
-        // credentials: "include",
-        // headers: { "Content-Type": "application/json" },
-        // body: JSON.stringify({ code }), 
-      // })
-        // .then((res) => {
-
-          // console.log(res, "is the auth response")
-          // if (res.ok) navigate("/"); 
-          // else throw new Error("Login failed"); 
-        // })
-        // .catch((err) => console.error(err)); 
-    }
-  }, [navigate]);
 
   return <div>Processing login...</div>; 
 };
