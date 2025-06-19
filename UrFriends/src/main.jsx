@@ -31,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/logout" element={<Logout/>} />
-            <Route path="/auth_reciever/:authInfo" element={<AuthCallback />} />
+            <Route path="/auth_reciever" element={<AuthCallback />} />
           </Routes>
         </AuthProvider>
       </React.StrictMode>
