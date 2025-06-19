@@ -8,6 +8,7 @@ import store from "./app/store.js";
 
 import { Route, BrowserRouter as Router, Routes } from "react-router";
 
+
 import { AuthProvider } from "react-oidc-context";
 import AuthCallback from "./components/AuthCallback.jsx";
 import Logout from "./components/Logout.jsx";
@@ -30,7 +31,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
           <Routes>
             <Route path="/" element={<App />} />
             <Route path="/logout" element={<Logout/>} />
-            <Route path="/auth_reciever" element={<AuthCallback />} />
+            <Route path="/auth_reciever/:authInfo" element={<AuthCallback />} />
           </Routes>
         </AuthProvider>
       </React.StrictMode>
