@@ -8,10 +8,10 @@ const AuthCallback = () => {
   // const navigate = useNavigate(); 
 
   useEffect(() => {
-      const [searchParams] = useSearchParams();
+      // const [searchParams] = useSearchParams();
       // const code = searchParams.get("code"); 
 
-      console.log(searchParams)
+      // console.log(searchParams)
   })
 
 
