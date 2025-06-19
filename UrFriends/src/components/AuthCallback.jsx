@@ -16,7 +16,12 @@ const AuthCallback = () => {
 
       navigate("/")
 
-
+      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
+        method: "POST",
+        credentials: "include",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ code }), 
+      })
 
       // fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
         // method: "POST",
