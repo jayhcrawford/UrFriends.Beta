@@ -10,6 +10,7 @@ import { Route, BrowserRouter as Router, Routes } from "react-router";
 
 import { AuthProvider } from "react-oidc-context";
 import AuthCallback from "./components/AuthCallback.jsx";
+import Logout from "./components/Logout.jsx";
 
 export const app_route = "https://staging.d3q7upo85md648.amplifyapp.com"
 
@@ -28,7 +29,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         <AuthProvider {...cognitoAuthConfig}>
           <Routes>
             <Route path="/" element={<App />} />
-            <Route path="/logout" element={<div>Hello, User</div>} />
+            <Route path="/logout" element={<Logout/>} />
             <Route path="/auth_reciever" element={<AuthCallback />} />
           </Routes>
         </AuthProvider>

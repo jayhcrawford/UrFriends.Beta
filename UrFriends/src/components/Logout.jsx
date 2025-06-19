@@ -11,7 +11,7 @@ const Logout = () => {
     const removeUser = async() => {
       try {
         await auth.removeUser();
-        navigate("/main")
+        navigate("/")
       } catch (error) {
         console.log(error)
       }
