@@ -59,10 +59,11 @@ function App() {
 
   const signOutRedirect = () => {
     const clientId = "5c76hq5c4logshir8gvjksfdtk";
-    const logoutUri = app_route + "/logout";
+    const logoutUri = "https://staging.d3q7upo85md648.amplifyapp.com/logout";
     const cognitoDomain = "https://us-east-2k5tcpvej8.auth.us-east-2.amazoncognito.com";
     window.location.href = `${cognitoDomain}/logout?client_id=${clientId}&logout_uri=${encodeURIComponent(logoutUri)}`;
   };
+
 
   const handleLogOut = async () => {
     // dispatch(hideSideMenu());
