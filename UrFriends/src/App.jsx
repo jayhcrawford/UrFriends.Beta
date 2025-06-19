@@ -77,7 +77,8 @@ function App() {
   if (auth.error) {
     return <div>Encountering error... {auth.error.message}</div>;
   }
-  console.log(auth);
+
+  console.log("this is main:", auth, "that was the auth data")
 
   if (auth.isAuthenticated) {
     return (
