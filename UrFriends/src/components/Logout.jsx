@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useAuth } from "react-oidc-context";
 import { useNavigate } from "react-router";
+import { app_route } from "../main";
 
 const Logout = () => {
   const auth = useAuth();
@@ -11,7 +12,7 @@ const Logout = () => {
     const removeUser = async() => {
       try {
         await auth.removeUser();
-        navigate("/")
+        navigate(app_route)
       } catch (error) {
         console.log(error)
       }

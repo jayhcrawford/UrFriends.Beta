@@ -91,8 +91,6 @@ function App() {
     );
   }
 
-  
-
   return (
     <div>
       <button onClick={() => auth.signinRedirect()}>Sign in</button>
