@@ -10,11 +10,11 @@ const AuthCallback = () => {
     const urlParams = new URLSearchParams(window.location.search); 
     const code = urlParams.get("code"); 
     if (code) {
-      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main/api", {
+      fetch("https://td236amhd1.execute-api.us-east-2.amazonaws.com/main", {
         method: "POST",
-        credentials: "omit",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code }), 
+        // credentials: "omit",
+        // headers: { "Content-Type": "application/json" },
+        // body: JSON.stringify({ code }), 
       })
         .then((res) => {
           console.log(res, "is the auth response")
