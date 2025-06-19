@@ -6,13 +6,14 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 
 const AuthCallback = () => {
   // const navigate = useNavigate(); 
+  const [searchParams] = useSearchParams();
+  const code = searchParams.get("code"); 
 
   useEffect(() => {
-      // const [searchParams] = useSearchParams();
-      // const code = searchParams.get("code"); 
+      
 
-      // console.log(searchParams)
-  })
+      console.log(searchParams)
+  }, [searchParams])
 
 
   return <div>Processing login...</div>; 
